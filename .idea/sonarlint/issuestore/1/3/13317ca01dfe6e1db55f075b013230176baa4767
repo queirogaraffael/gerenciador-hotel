@@ -1,3 +1,8 @@
 
-…
-java:S2094"BRemove this empty class, write its code or make it an "interface".(×ä²ƒ8¸‹Õ–2J$c1b2f77a-b17a-4108-b650-32c7b7f84f0a
+›	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ü¶‚F8Ûƒ¶ˆ—2J$f98beb8b-8218-4fab-87b3-a5f905d51de0
+¡	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(öáì²üÿÿÿÿ8Ûƒ¶ˆ—2J$eec43a13-9c0a-477b-808a-f161f81f1a2c
+}
+java:S1118":Add a private constructor to hide the implicit public one.(×ä²ƒ8àƒ¶ˆ—2J$cd0333ec-b747-4782-b41c-25df072ccac7
+‰
+java:S1126
+"AReplace this if-then-else statement by a single return statement.(Ìƒ»Ìøÿÿÿÿ8áƒ¶ˆ—2J$93bd11c1-2aad-4d4d-be80-2ac45868ad78

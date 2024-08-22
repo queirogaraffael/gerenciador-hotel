@@ -6,7 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.unifacisa.enums.Turno;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,5 +25,16 @@ public class Funcionario extends Pessoa {
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ExtratoFuncionario> extratoFuncionario = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Funcionario: \n\n" +
+                "Nome: " + getNome() + "\n" +
+                "CPF: " + getCpf() + "\n" +
+                "Data nascimento: " + getDataNascimento().toString() + "\n" +
+                "Turno : " + getTurno() + "\n" +
+                "Telefone: " + getNumeroTelefone() + "\n\n" +
+                "Endereco : \n\n" + getEndereco().toString();
+    }
 
 }

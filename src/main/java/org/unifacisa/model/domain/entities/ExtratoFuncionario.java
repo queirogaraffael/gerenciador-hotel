@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 @Entity
@@ -17,15 +17,17 @@ import java.time.format.DateTimeFormatter;
 public class ExtratoFuncionario {
 
     public static final String FORMATO_DATA = "MM/yyyy";
+    public static final DateTimeFormatter formato = DateTimeFormatter.ofPattern(FORMATO_DATA);
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @EqualsAndHashCode.Include
-    private LocalDate mesReferente;
+    private YearMonth mesReferente;
 
-    private int horasTrabalhadas;
+    private double horasTrabalhadas;
     private double valorHora;
     private double salario;
 
@@ -36,10 +38,10 @@ public class ExtratoFuncionario {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMATO_DATA);
-        return "Pagamento: \n" +
-                "Mes referente: \n" + mesReferente.format(formatter) +
-                "Horas trabalhadas: \n" + horasTrabalhadas +
-                "Valor hora: \n" + valorHora +
+        return "Pagamento: \n\n" +
+                "Mes referente: " + mesReferente.format(formatter) + "\n" +
+                "Horas trabalhadas: " + horasTrabalhadas + "\n" +
+                "Valor hora: " + valorHora + "\n" +
                 "Salario: " + salario;
     }
 

@@ -2,7 +2,15 @@ package org.unifacisa.commons.utils;
 
 public class VerificaCPF {
 
-    // recebe uma string
-    // regex
-    // numero fixo ?
+    private static final String cpfPadraoRegex = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
+    public static final String padraoCPF = "XXX.XXX.XXX-XX";
+
+    public static boolean isCpfValido(String cpf) {
+
+        if (cpf.matches(cpfPadraoRegex)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

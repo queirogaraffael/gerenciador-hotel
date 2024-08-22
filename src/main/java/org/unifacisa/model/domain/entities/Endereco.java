@@ -31,4 +31,13 @@ public class Endereco {
     @OneToOne(mappedBy = "endereco", fetch = FetchType.LAZY)
     private Pessoa pessoa;
 
+
+    @Override
+    public String toString() {
+        return  "Rua: " + getRua() + " \n" +
+                "Numero: " + getNumero() + "\n" +
+                "Cidade: " + getCidade() + " \n" +
+                "Bairro: " + getBairro() + " \n" +
+                "Estado: " + getEstado();
+    }
 }

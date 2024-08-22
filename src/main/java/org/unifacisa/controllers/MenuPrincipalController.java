@@ -1,6 +1,6 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.commons.constantes.ConstantesMenuPrincipalController;
+import org.unifacisa.constantes.ConstantesMenuPrincipalController;
 import org.unifacisa.hibernate_connection.EntityManagerFactoryService;
 import org.unifacisa.views.MenuPrincipalControllerView;
 
@@ -13,7 +13,7 @@ public class MenuPrincipalController {
         this.entityManagerFactoryService = new EntityManagerFactoryService();
         entityManagerFactoryService.inicializarEntityManagerFactory();
 
-        this.menuFuncionarioController = new MenuFuncionarioController();
+        this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactoryService.entityManagerFactory());
     }
 
 
@@ -40,6 +40,7 @@ public class MenuPrincipalController {
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_FUNCIONARIOS:
+                        menuFuncionarioController.menuGerenciadorFuncionario();
                         break;
 
                     default:
