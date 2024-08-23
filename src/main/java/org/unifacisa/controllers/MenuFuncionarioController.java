@@ -1,9 +1,9 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.commons.utils.ManipulaData;
-import org.unifacisa.commons.utils.SelecionaExtratoFuncionarioDTO;
-import org.unifacisa.commons.utils.SelecionaFuncionarioDTO;
-import org.unifacisa.commons.utils.VerificaCPF;
+import org.unifacisa.utils.ManipulaData;
+import org.unifacisa.utils.SelecionaExtratoFuncionarioDTO;
+import org.unifacisa.utils.SelecionaFuncionarioDTO;
+import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.constantes.ConstantesMenuFuncionarioController;
 import org.unifacisa.constantes.ConstantesMenuModificacaoDadosFuncionario;
 import org.unifacisa.dtos.ExtratoFuncionarioDTO;
@@ -13,7 +13,8 @@ import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.ExtratoFuncionario;
 import org.unifacisa.model.domain.entities.Funcionario;
 import org.unifacisa.services.FuncionarioService;
-import org.unifacisa.views.common.EnderecoViews;
+import org.unifacisa.views.commons.DataViews;
+import org.unifacisa.views.commons.EnderecoViews;
 import org.unifacisa.views.funcionarios.*;
 
 import javax.persistence.EntityManagerFactory;
@@ -105,7 +106,7 @@ public class MenuFuncionarioController {
         String dataNascimento = LeDadosBasicosFuncionarioViews.leDataNascimentoFuncionario();
 
         if (!ManipulaData.verificaFormatoDataEstaCorreto(dataNascimento)) {
-            AlertasFuncionarioViews.exibirAlertaDataFormatoErrado();
+            DataViews.exibirAlertaDataFormatoErrado();
             return;
         }
 

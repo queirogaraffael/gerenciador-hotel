@@ -1,6 +1,6 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.commons.utils.SelecionaQuartoDTO;
+import org.unifacisa.utils.SelecionaQuartoDTO;
 import org.unifacisa.constantes.ConstantesMenuModificacaoQuarto;
 import org.unifacisa.constantes.ConstantesMenuQuartoController;
 import org.unifacisa.dtos.QuartoDTO;

@@ -1,4 +1,4 @@
-package org.unifacisa.views.common;
+package org.unifacisa.views.commons;
 
 import javax.swing.*;
 

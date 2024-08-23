@@ -32,6 +32,7 @@ public class Funcionario extends Pessoa {
                 "Nome: " + getNome() + "\n" +
                 "CPF: " + getCpf() + "\n" +
                 "Data nascimento: " + getDataNascimento().toString() + "\n" +
+                "Cargo : " + getCargo() + "\n" +
                 "Turno : " + getTurno() + "\n" +
                 "Telefone: " + getNumeroTelefone() + "\n\n" +
                 "Endereco : \n\n" + getEndereco().toString();

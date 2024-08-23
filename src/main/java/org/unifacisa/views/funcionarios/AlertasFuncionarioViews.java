@@ -1,6 +1,6 @@
 package org.unifacisa.views.funcionarios;
 
-import org.unifacisa.commons.utils.VerificaCPF;
+import org.unifacisa.utils.VerificaCPF;
 
 import javax.swing.*;
 
@@ -70,11 +70,6 @@ public class AlertasFuncionarioViews {
                 , JOptionPane.ERROR_MESSAGE);
     }
 
-
-    public static void exibirAlertaDataFormatoErrado() {
-        JOptionPane.showMessageDialog(null, "Data no formato errado.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-    }
 
     public static void exibirAlertaDdosFuncionarioModificadoComSucesso() {
         JOptionPane.showMessageDialog(null, "Dados do funcionario modificado com sucesso.");

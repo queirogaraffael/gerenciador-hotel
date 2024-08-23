@@ -1,7 +1,7 @@
 package org.unifacisa.views.funcionarios;
 
-import org.unifacisa.commons.utils.ManipulaData;
-import org.unifacisa.commons.utils.VerificaCPF;
+import org.unifacisa.utils.ManipulaData;
+import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.model.domain.entities.ExtratoFuncionario;
 
 import javax.swing.*;

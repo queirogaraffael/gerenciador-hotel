@@ -36,7 +36,7 @@ public class MenuFuncionarioControllerView {
             return opcaoSelecionada.toString();
         }
 
-        return menuOptions[5].toString();
+        return menuOptions[menuOptions.length-1].toString();
     }
 
 }

@@ -1,18 +1,44 @@
 package org.unifacisa.views.hospedes;
 
+import javax.swing.*;
+
 public class MenuHospedesControllerView {
 
-    public MenuHospedesControllerView() {
+    private static final String MENU_TITLE = "Gerenciador de Hospedes";
+    private static final String MENU_PROMPT = "Escolha uma opcao: ";
+
+    private MenuHospedesControllerView() {
     }
 
-    public final Object[] menuOptions = {
+    private static final Object[] menuOptions = {
             "Cadastrar", //
             "Visualizar Hospede Pelo CPF", // dados basicos da entidade
-            "Buscar e Visualizar Hospde Por Nome", //
             "Atualizar Dados Hospede", // dados basicos
-            "Buscar Reserva de Hospede", // reserva ou reservas ? // dados basicos da entidade reserva
-            "Buscar Historico de Hospede" // dto // HISTORICO ENTIDADE
-            // check in ou
+
+            "Buscar e Visualizar Reserva de Hospede", // reservas // dados basicos da entidade reserva
+            "Buscar e Visualizar Historico de Hospede", // dto // HISTORICO ENTIDADE
+
+            "Check-in/out", //
+            "Voltar"
 
     };
+
+
+    public static String exibirMenuTarefasView() {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                MENU_PROMPT,
+                MENU_TITLE,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                menuOptions,
+                menuOptions[0]
+        );
+
+        if (opcaoSelecionada != null) {
+            return opcaoSelecionada.toString();
+        }
+
+        return menuOptions[menuOptions.length-1].toString();
+    }
 }

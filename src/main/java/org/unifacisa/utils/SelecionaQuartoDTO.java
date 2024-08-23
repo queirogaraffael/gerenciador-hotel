@@ -1,8 +1,8 @@
-package org.unifacisa.commons.utils;
+package org.unifacisa.utils;
 
 import org.unifacisa.dtos.QuartoDTO;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
-import org.unifacisa.views.common.ExibirDTOsViews;
+import org.unifacisa.views.commons.ExibirDTOsViews;
 
 import java.util.List;
 

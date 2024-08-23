@@ -7,15 +7,19 @@ import org.unifacisa.views.menuPrincipal.MenuPrincipalControllerView;
 public class MenuPrincipalController {
 
     private final EntityManagerFactoryService entityManagerFactoryService;
-    private final MenuFuncionarioController menuFuncionarioController;
     private final MenuQuartosController menuQuartosController;
+    private final MenuHospedesController menuHospedesController;
+    private final MenuFuncionarioController menuFuncionarioController;
 
     public MenuPrincipalController() {
         this.entityManagerFactoryService = new EntityManagerFactoryService();
         entityManagerFactoryService.inicializarEntityManagerFactory();
 
-        this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactoryService.entityManagerFactory());
         this.menuQuartosController = new MenuQuartosController((entityManagerFactoryService.entityManagerFactory()));
+        this.menuHospedesController = new MenuHospedesController(entityManagerFactoryService.entityManagerFactory())
+        ;
+        this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactoryService.entityManagerFactory());
+
     }
 
 
@@ -34,6 +38,7 @@ public class MenuPrincipalController {
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_HOSPEDES:
+                        menuHospedesController.menuGerenciadorHospedes();
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_RESERVAS:

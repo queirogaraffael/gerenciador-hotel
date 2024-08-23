@@ -1,4 +1,4 @@
-package org.unifacisa.commons.utils;
+package org.unifacisa.utils;
 
 public class VerificaCPF {
 

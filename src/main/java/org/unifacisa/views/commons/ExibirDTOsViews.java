@@ -1,4 +1,4 @@
-package org.unifacisa.views.common;
+package org.unifacisa.views.commons;
 
 import javax.swing.*;
 
@@ -40,6 +40,21 @@ public class ExibirDTOsViews {
                 null,
                 "Escolha um extrato: ",
                 "Extratos",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
+
+
+    public static String exibeESelecionaHospedeDTOView(Object[] options) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha um hospede: ",
+                "Hospedess",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 options,

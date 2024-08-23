@@ -24,4 +24,15 @@ public class Hospede extends Pessoa {
     private Set<HistoricoHospede> historicos = new HashSet<>();
 
 
+    @Override
+    public String toString() {
+        return "Hospede: \n\n" +
+                "Nome: " + getNome() + "\n" +
+                "CPF: " + getCpf() + "\n" +
+                "Data nascimento: " + getDataNascimento().toString() + "\n" +
+                "Telefone: " + getNumeroTelefone() + "\n\n" +
+                "Endereco : \n\n" + getEndereco().toString();
+    }
+
+
 }

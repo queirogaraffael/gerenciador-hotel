@@ -34,7 +34,7 @@ public class MenuQuartosControllerView {
             return opcao.toString();
         }
 
-        return menuOptions[4].toString();
+        return menuOptions[menuOptions.length-1].toString();
 
     }
 }
