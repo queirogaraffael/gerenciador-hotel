@@ -1,0 +1,52 @@
+package org.unifacisa.views.common;
+
+import javax.swing.*;
+
+public class ExibirDTOsViews {
+
+    private ExibirDTOsViews() {
+    }
+
+    public static String exibirQuartosDTOsView(Object[] opcoes) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha um quarto: ",
+                "Menu escolha",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
+
+    public static String exibirFuncionariosDTOsView(Object[] opcoes) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha um funcionario: ",
+                "Menu escolha",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
+
+    public static String exibeESelecionaExtratoDTOView(Object[] options) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha um extrato: ",
+                "Extratos",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
+
+}

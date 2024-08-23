@@ -1,11 +1,0 @@
-
-
-java:S1192"GDefine a constant instead of duplicating this literal "Voltar" 3 times.(µ¦°»ùÿÿÿÿ8¬°ìÔ—2J$b2f327e5-fe82-4396-aedb-5f115fe2fac5
-
-java:S1192^"HDefine a constant instead of duplicating this literal "Alerta" 12 times.(êòõàıÿÿÿÿ8¬°ìÔ—2J$687782a0-a46a-429b-a15c-14c686aa99c2
-•
-java:S1192¸"QUse already-defined constant 'MENU_PROMPT' instead of duplicating its value here.(©»8¬°ìÔ—2J$6e90eb1f-607d-46a3-a671-38dcb5b7e511
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(÷Ïê‘ıÿÿÿÿ8¬°ìÔ—2J$ca93dc37-b6b9-41f9-a5d4-b2dfd9bc6556
-}
-java:S1117H":Rename "opcoes" which hides the field declared at line 47.(ŞôÔÑ8¯°ìÔ—2J$ad961bd5-3ee3-40a9-96dc-c64f890ffeea

@@ -2,7 +2,7 @@ package org.unifacisa.commons.utils;
 
 import org.unifacisa.dtos.ExtratoFuncionarioDTO;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
-import org.unifacisa.views.ComumView;
+import org.unifacisa.views.common.ExibirDTOsViews;
 
 import java.util.List;
 
@@ -13,12 +13,11 @@ public class SelecionaExtratoFuncionarioDTO {
 
     public static Long selecionaExtratoFuncionario(List<ExtratoFuncionarioDTO> extratoFuncionarioDTOList) {
 
-
         Object[] opcoes = converterExtratosParaArray(extratoFuncionarioDTOList);
-        String extratoSelecionado = ComumView.exibeESelecionaExtratoDTOView(opcoes);
+        String extratoSelecionado = ExibirDTOsViews.exibeESelecionaExtratoDTOView(opcoes);
 
 
-        ExtratoFuncionarioDTO extratoFuncionarioDTO =  buscaExtratoById(extratoFuncionarioDTOList, extratoSelecionado);
+        ExtratoFuncionarioDTO extratoFuncionarioDTO = buscaExtratoById(extratoFuncionarioDTOList, extratoSelecionado);
 
         if (extratoFuncionarioDTO != null) {
             return extratoFuncionarioDTO.getId();
@@ -30,9 +29,7 @@ public class SelecionaExtratoFuncionarioDTO {
 
 
     private static Object[] converterExtratosParaArray(List<ExtratoFuncionarioDTO> extratoFuncionarioDTOList) {
-        return extratoFuncionarioDTOList.stream()
-                .map(ExtratoFuncionarioDTO::toString)
-                .toArray(Object[]::new);
+        return extratoFuncionarioDTOList.stream().map(ExtratoFuncionarioDTO::toString).toArray(Object[]::new);
     }
 
 

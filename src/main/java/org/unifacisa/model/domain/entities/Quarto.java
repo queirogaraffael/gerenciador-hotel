@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.unifacisa.enums.TipoQuarto;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +22,13 @@ public class Quarto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
+    @Column(unique = true)
+    private String numeroQuarto;
+
     private TipoQuarto tipoQuarto;
     private int capacidade;
-    private BigDecimal preco;
+    private double preco;
 
 
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -35,4 +38,12 @@ public class Quarto {
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<HistoricoHospede> historicos = new HashSet<>();
 
+
+    @Override
+    public String toString() {
+        return "Quarto " + numeroQuarto + "\n" +
+                "Tipo Quarto: " + tipoQuarto + "\n" +
+                "Capacidade: " + capacidade + "\n" +
+                "Preco: " + preco;
+    }
 }

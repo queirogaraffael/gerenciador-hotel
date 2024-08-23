@@ -13,8 +13,8 @@ import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.ExtratoFuncionario;
 import org.unifacisa.model.domain.entities.Funcionario;
 import org.unifacisa.services.FuncionarioService;
-import org.unifacisa.views.EnderecoView;
-import org.unifacisa.views.MenuFuncionarioControllerView;
+import org.unifacisa.views.common.EnderecoViews;
+import org.unifacisa.views.funcionarios.*;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.*;
@@ -23,11 +23,9 @@ import java.util.List;
 
 public class MenuFuncionarioController {
 
-    private final MenuFuncionarioControllerView menuFuncionarioControllerView;
     private final FuncionarioService funcionarioService;
 
     public MenuFuncionarioController(EntityManagerFactory entityManagerFactory) {
-        this.menuFuncionarioControllerView = new MenuFuncionarioControllerView();
         this.funcionarioService = new FuncionarioService(entityManagerFactory);
     }
 
@@ -36,7 +34,7 @@ public class MenuFuncionarioController {
         String opcaoMenuGerenciadoFuncionario;
 
         do {
-            opcaoMenuGerenciadoFuncionario = menuFuncionarioControllerView.exibirMenuTarefasView();
+            opcaoMenuGerenciadoFuncionario = MenuFuncionarioControllerView.exibirMenuTarefasView();
 
             switch (opcaoMenuGerenciadoFuncionario) {
 
@@ -74,69 +72,69 @@ public class MenuFuncionarioController {
 
         Funcionario funcionario = new Funcionario();
 
-        String cpf = menuFuncionarioControllerView.leCPFFuncionario();
+        String cpf = LeDadosBasicosFuncionarioViews.leCPFFuncionario();
 
         if (cpf == null || cpf.trim().isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaCPFNaoPodeSerVazio();
+            AlertasFuncionarioViews.exibirAlertaCPFNaoPodeSerVazio();
             return;
         }
 
 
         if (!VerificaCPF.isCpfValido(cpf)) {
-            menuFuncionarioControllerView.exibirAlertaCPFNaoSeguePadrao();
+            AlertasFuncionarioViews.exibirAlertaCPFNaoSeguePadrao();
             return;
         }
 
 
         if (funcionarioService.verificaSeHaFuncionarioComMesmoCPF(cpf)) {
-            menuFuncionarioControllerView.exibirAlertaCPFJaExiste();
+            AlertasFuncionarioViews.exibirAlertaCPFJaExiste();
             return;
         }
 
         funcionario.setCpf(cpf);
 
-        String nome = menuFuncionarioControllerView.leNomeFuncionario();
+        String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
 
         if (nome == null || nome.trim().isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaNomeNaoPodeSerVazio();
+            AlertasFuncionarioViews.exibirAlertaNomeNaoPodeSerVazio();
             return;
         }
 
         funcionario.setNome(nome);
 
-        String dataNascimento = menuFuncionarioControllerView.leDataNascimentoFuncionario();
+        String dataNascimento = LeDadosBasicosFuncionarioViews.leDataNascimentoFuncionario();
 
         if (!ManipulaData.verificaFormatoDataEstaCorreto(dataNascimento)) {
-            menuFuncionarioControllerView.exibirAlertaDataFormatoErrado();
+            AlertasFuncionarioViews.exibirAlertaDataFormatoErrado();
             return;
         }
 
         funcionario.setDataNascimento(ManipulaData.retornaLocalDate(dataNascimento));
 
-        String numeroTelefone = menuFuncionarioControllerView.leNumeroTelefoneFuncionario();
+        String numeroTelefone = LeDadosBasicosFuncionarioViews.leNumeroTelefoneFuncionario();
 
         if (numeroTelefone == null || numeroTelefone.trim().isEmpty()) {
-            menuFuncionarioControllerView.alertaNumeroTelefoneVazio();
+            AlertasFuncionarioViews.exibirAlertaNumeroTelefoneVazio();
             return;
         }
 
         funcionario.setNumeroTelefone(numeroTelefone);
 
 
-        String cargo = menuFuncionarioControllerView.leCargoFuncionario();
+        String cargo = LeDadosBasicosFuncionarioViews.leCargoFuncionario();
 
         if (cargo == null || cargo.trim().isEmpty()) {
-            menuFuncionarioControllerView.alertaCargoVazio();
+            AlertasFuncionarioViews.exibirAlertaCargoVazio();
             return;
         }
 
         funcionario.setCargo(cargo);
 
-        Turno turno = menuFuncionarioControllerView.exibeEEscolheTurnoView();
+        Turno turno = EscolheTurnoTrabalhoView.exibeEEscolheTurnoView();
         funcionario.setTurno(turno);
 
 
-        int desejaAdicionarEndereco = menuFuncionarioControllerView.desejaAdicionarEndereco();
+        int desejaAdicionarEndereco = EnderecoViews.desejaAdicionarEndereco();
 
         Endereco endereco = new Endereco();
 
@@ -151,7 +149,7 @@ public class MenuFuncionarioController {
 
         funcionarioService.adicionarFuncionario(funcionario);
 
-        menuFuncionarioControllerView.alertaFuncionarioAdicionadoComSucesso();
+        AlertasFuncionarioViews.exibirAlertaFuncionarioAdicionadoComSucesso();
 
 
     }
@@ -177,16 +175,16 @@ public class MenuFuncionarioController {
         if (funcionario != null) {
 
 
-            menuFuncionarioControllerView.exibeFuncionario(funcionario);
+            PrintaFuncionarioView.exibeFuncionario(funcionario);
         }
 
     }
 
     private void buscaFuncionarioPorNome() {
-        String nome = menuFuncionarioControllerView.leNomeFuncionario();
+        String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
 
         if (nome == null || nome.trim().isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaNomeNaoPodeSerVazio();
+            AlertasFuncionarioViews.exibirAlertaNomeNaoPodeSerVazio();
             return;
         }
 
@@ -194,7 +192,7 @@ public class MenuFuncionarioController {
 
 
         if (funcionarioDTOList.isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaSemFuncionariosCorrespondentes();
+            AlertasFuncionarioViews.exibirAlertaSemFuncionariosCorrespondentes();
             return;
         }
 
@@ -213,7 +211,7 @@ public class MenuFuncionarioController {
         }
 
 
-        int opcao = menuFuncionarioControllerView.exibeEEscolheOpcaoExtratoView();
+        int opcao = ExtratoViews.exibeEEscolheOpcaoExtratoView();
 
 
         if (opcao == 0) {
@@ -228,18 +226,18 @@ public class MenuFuncionarioController {
         String cpf = SelecionaFuncionarioDTO.selecionaCPFFuncionario(funcionarios);
 
         Funcionario funcionario = funcionarioService.getFuncionarioByCPF(cpf);
-        menuFuncionarioControllerView.exibeFuncionario(funcionario);
+        PrintaFuncionarioView.exibeFuncionario(funcionario);
 
     }
 
 
     public Endereco adicionarEndereco(Endereco endereco) {
 
-        String rua = EnderecoView.leRua();
-        String numeroCasa = EnderecoView.leNumeroCasa();
-        String cidade = EnderecoView.leCidade();
-        String bairro = EnderecoView.leBairro();
-        String estado = EnderecoView.leEstado();
+        String rua = EnderecoViews.leRua();
+        String numeroCasa = EnderecoViews.leNumeroCasa();
+        String cidade = EnderecoViews.leCidade();
+        String bairro = EnderecoViews.leBairro();
+        String estado = EnderecoViews.leEstado();
 
         endereco.setRua(rua);
         endereco.setNumero(numeroCasa);
@@ -256,24 +254,24 @@ public class MenuFuncionarioController {
         int opcao;
 
         do {
-            opcao = menuFuncionarioControllerView.exibeOpcoesModificarDadosView();
+            opcao = MenuModificacaoDadosFuncionarioView.exibeOpcoesModificarDadosView();
 
             switch (opcao) {
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_NOME):
-                    String nome = menuFuncionarioControllerView.leNomeFuncionario();
+                    String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
                     funcionario.setNome(nome);
                     break;
 
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_NUMERO_TELEFONE):
-                    String numeroTelefone = menuFuncionarioControllerView.leNumeroTelefoneFuncionario();
+                    String numeroTelefone = LeDadosBasicosFuncionarioViews.leNumeroTelefoneFuncionario();
                     funcionario.setNumeroTelefone(numeroTelefone);
                     break;
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_TURNO):
-                    Turno turno = menuFuncionarioControllerView.exibeEEscolheTurnoView();
+                    Turno turno = EscolheTurnoTrabalhoView.exibeEEscolheTurnoView();
                     funcionario.setTurno(turno);
                     break;
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_CARGO):
-                    String cargo = menuFuncionarioControllerView.leCargoFuncionario();
+                    String cargo = LeDadosBasicosFuncionarioViews.leCargoFuncionario();
                     funcionario.setCargo(cargo);
                     break;
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_ENDERECO):
@@ -288,7 +286,7 @@ public class MenuFuncionarioController {
 
             if (opcao != ConstantesMenuModificacaoDadosFuncionario.VOLTAR) {
                 funcionarioService.atualizaFuncionario(funcionario);
-                menuFuncionarioControllerView.exibirAlertaDdosFuncionarioModificadoComSucesso();
+                AlertasFuncionarioViews.exibirAlertaDdosFuncionarioModificadoComSucesso();
             }
 
 
@@ -298,11 +296,17 @@ public class MenuFuncionarioController {
 
     private void adicionarExtrato(Funcionario funcionario) {
 
-        YearMonth data = menuFuncionarioControllerView.leData();
+        YearMonth data = LeDadosBasicosFuncionarioViews.leData();
 
-        double horasTrabalhadas = menuFuncionarioControllerView.leHorasTrabalhadas();
 
-        double valorHora = menuFuncionarioControllerView.leValorHora();
+        if (funcionarioService.existeExtratoFuncionarioPorMesAno(funcionario.getCpf(), data)) {
+            AlertasFuncionarioViews.exibirAlertaJaExisteExtratoParaMesReferente();
+            return;
+        }
+
+        double horasTrabalhadas = LeDadosBasicosFuncionarioViews.leHorasTrabalhadas();
+
+        double valorHora = LeDadosBasicosFuncionarioViews.leValorHora();
 
         double salario = horasTrabalhadas * valorHora;
 
@@ -314,7 +318,7 @@ public class MenuFuncionarioController {
 
         funcionarioService.criaExtratoFuncionario(funcionario, extratoFuncionario);
 
-        menuFuncionarioControllerView.exibirAlertaExtratoCriadoComSucesso();
+        AlertasFuncionarioViews.exibirAlertaExtratoCriadoComSucesso();
 
 
     }
@@ -325,7 +329,7 @@ public class MenuFuncionarioController {
 
 
         if (extratoFuncionarioDTOS == null || extratoFuncionarioDTOS.isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaSemExtratoParaFuncionario();
+            AlertasFuncionarioViews.exibirAlertaSemExtratoParaFuncionario();
             return;
         }
 
@@ -333,28 +337,28 @@ public class MenuFuncionarioController {
 
         ExtratoFuncionario extrato = funcionarioService.getExtratoFuncionarioById(idExtrato);
 
-        menuFuncionarioControllerView.exibeExtratoFuncionario(extrato);
+        ExtratoViews.exibeExtratoFuncionario(extrato);
 
 
     }
 
     public Funcionario validaCPFDoFuncionarioERetornaFuncionario() {
-        String cpf = menuFuncionarioControllerView.leCPFFuncionario();
+        String cpf = LeDadosBasicosFuncionarioViews.leCPFFuncionario();
 
         if (cpf == null || cpf.trim().isEmpty()) {
-            menuFuncionarioControllerView.exibirAlertaCPFNaoPodeSerVazio();
+            AlertasFuncionarioViews.exibirAlertaCPFNaoPodeSerVazio();
             return null;
         }
 
         if (!VerificaCPF.isCpfValido(cpf)) {
-            menuFuncionarioControllerView.exibirAlertaCPFNaoSeguePadrao();
+            AlertasFuncionarioViews.exibirAlertaCPFNaoSeguePadrao();
             return null;
         }
 
         Funcionario funcionario = funcionarioService.getFuncionarioByCPF(cpf);
 
         if (funcionario == null) {
-            menuFuncionarioControllerView.exibirAlertaCPFNaoExiste();
+            AlertasFuncionarioViews.exibirAlertaCPFNaoExiste();
             return null;
         }
 

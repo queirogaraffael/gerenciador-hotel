@@ -8,13 +8,12 @@ import org.unifacisa.model.domain.entities.ExtratoFuncionario;
 import org.unifacisa.model.domain.entities.Funcionario;
 
 import javax.persistence.EntityManagerFactory;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
 public class FuncionarioService {
 
-    private FuncionarioDao funcionarioDao;
+    private final FuncionarioDao funcionarioDao;
 
     public FuncionarioService(EntityManagerFactory entityManagerFactory) {
         this.funcionarioDao = new FuncionarioDaoHibernate(entityManagerFactory);

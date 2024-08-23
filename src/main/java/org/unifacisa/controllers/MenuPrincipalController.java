@@ -2,18 +2,20 @@ package org.unifacisa.controllers;
 
 import org.unifacisa.constantes.ConstantesMenuPrincipalController;
 import org.unifacisa.hibernate_connection.EntityManagerFactoryService;
-import org.unifacisa.views.MenuPrincipalControllerView;
+import org.unifacisa.views.menuPrincipal.MenuPrincipalControllerView;
 
 public class MenuPrincipalController {
 
     private final EntityManagerFactoryService entityManagerFactoryService;
     private final MenuFuncionarioController menuFuncionarioController;
+    private final MenuQuartosController menuQuartosController;
 
     public MenuPrincipalController() {
         this.entityManagerFactoryService = new EntityManagerFactoryService();
         entityManagerFactoryService.inicializarEntityManagerFactory();
 
         this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactoryService.entityManagerFactory());
+        this.menuQuartosController = new MenuQuartosController((entityManagerFactoryService.entityManagerFactory()));
     }
 
 
@@ -28,6 +30,7 @@ public class MenuPrincipalController {
                 switch (opcaoMenuPrincipal) {
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_QUARTOS:
+                        menuQuartosController.menuGerenciadorQuartos();
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_HOSPEDES:

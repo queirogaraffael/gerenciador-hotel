@@ -2,7 +2,7 @@ package org.unifacisa.commons.utils;
 
 import org.unifacisa.dtos.FuncionarioDTO;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
-import org.unifacisa.views.ComumView;
+import org.unifacisa.views.common.ExibirDTOsViews;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class SelecionaFuncionarioDTO {
 
     public static String selecionaCPFFuncionario(List<FuncionarioDTO> funcionarios) {
         Object[] opcoes = converterFuncionarioParaArray(funcionarios);
-        String funcionarioSelecionado = ComumView.exibirFuncionariosDTOsView(opcoes);
+        String funcionarioSelecionado = ExibirDTOsViews.exibirFuncionariosDTOsView(opcoes);
 
 
         FuncionarioDTO funcionario = buscaFuncionarioByCPF(funcionarios, funcionarioSelecionado);
