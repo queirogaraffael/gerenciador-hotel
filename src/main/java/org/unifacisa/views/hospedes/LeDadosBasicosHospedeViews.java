@@ -28,4 +28,9 @@ public class LeDadosBasicosHospedeViews {
     }
 
 
+    public static int leNumeroHospedesQuarto() {
+        return  Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de hospedes: "));
+
+
+    }
 }

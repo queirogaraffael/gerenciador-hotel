@@ -110,11 +110,11 @@ public class HospedeDaoHibernate implements HospedeDao {
         try {
             return entityManager.createQuery("SELECT hospede FROM Hospede hospede WHERE hospede.cpf =: cpf", Hospede.class).setParameter("cpf", cpf).getSingleResult();
 
-        } catch (NoResultException error) {
-            GlobalExceptionHandler.handleNoResultException(error);
+        } catch (NoResultException e) {
+            GlobalExceptionHandler.handleNoResultException(e);
             return null;
-        } catch (Exception error) {
-            GlobalExceptionHandler.handleGeneralException(error);
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e);
             return null;
         } finally {
             entityManager.close();
@@ -134,7 +134,7 @@ public class HospedeDaoHibernate implements HospedeDao {
 
             return true;
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             return false;
         } finally {
             entityManager.close();
@@ -145,13 +145,4 @@ public class HospedeDaoHibernate implements HospedeDao {
 
     }
 
-    @Override
-    public Reserva getReservaHospedeByCPF(String cpf) {
-        return null;
-    }
-
-    @Override
-    public List<ReservaDTO> getReservasDeHospedeByCPF(String cpf) {
-        return List.of();
-    }
 }

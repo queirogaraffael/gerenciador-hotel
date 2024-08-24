@@ -1,11 +1,11 @@
 package org.unifacisa.controllers;
 
 import org.unifacisa.constantes.ConstantesMenuHospedesController;
-import org.unifacisa.constantes.ConstantesMenuModificacaoDadosFuncionario;
 import org.unifacisa.constantes.ConstantesMenuModificacaoHospede;
 import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.Hospede;
 import org.unifacisa.services.HospedeService;
+import org.unifacisa.services.ReservaService;
 import org.unifacisa.utils.ManipulaData;
 import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.views.commons.DataViews;
@@ -18,9 +18,11 @@ import javax.swing.*;
 public class MenuHospedesController {
 
     private final HospedeService hospedeService;
+    private final ReservaService reservaService;
 
     public MenuHospedesController(EntityManagerFactory entityManagerFactory) {
         this.hospedeService = new HospedeService(entityManagerFactory);
+        this.reservaService = new ReservaService(entityManagerFactory);
     }
 
 

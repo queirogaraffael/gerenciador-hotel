@@ -56,8 +56,8 @@ public class QuartoDaoHibernate implements QuartoDao {
         } catch (NoResultException error) {
             GlobalExceptionHandler.handleNoResultException(error);
             return null;
-        } catch (Exception error) {
-            GlobalExceptionHandler.handleGeneralException(error);
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e);
             return null;
         } finally {
             entityManager.close();
@@ -74,7 +74,7 @@ public class QuartoDaoHibernate implements QuartoDao {
         try {
             return entityManager.createQuery("SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) FROM Quarto quarto WHERE quarto.tipoQuarto = :tipoQuarto ", QuartoDTO.class).setParameter("tipoQuarto", tipoQuarto).getResultList();
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Sem Quarto(s) desse tipo.");
             return Collections.emptyList();
         } finally {
@@ -102,8 +102,8 @@ public class QuartoDaoHibernate implements QuartoDao {
 
             return query.getResultList();
 
-        } catch (Exception error) {
-            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + error.getMessage());
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + e.getMessage());
             return Collections.emptyList();
         } finally {
             if (entityManager.isOpen()) {

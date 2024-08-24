@@ -16,8 +16,4 @@ public interface HospedeDao {
 
     boolean verificaSeHaHospedeComMesmoCPF(String cpf);
 
-    Reserva getReservaHospedeByCPF(String cpf);
-
-    List<ReservaDTO> getReservasDeHospedeByCPF(String cpf);
-
 }

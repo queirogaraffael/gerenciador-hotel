@@ -54,7 +54,7 @@ public class ExibirDTOsViews {
         Object opcaoSelecionada = JOptionPane.showInputDialog(
                 null,
                 "Escolha um hospede: ",
-                "Hospedess",
+                "Hospedes",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 options,
@@ -64,4 +64,17 @@ public class ExibirDTOsViews {
         return opcaoSelecionada.toString();
     }
 
+    public static String exibeESelecionaReservaDTOView(Object[] options) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha uma reserva: ",
+                "Reservas",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
 }

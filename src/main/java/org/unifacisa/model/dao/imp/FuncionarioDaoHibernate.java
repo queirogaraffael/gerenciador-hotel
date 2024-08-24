@@ -32,17 +32,17 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
             entityManager.persist(funcionario);
             transaction.commit();
 
-        } catch (PersistenceException error) {
+        } catch (PersistenceException e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            GlobalExceptionHandler.handlePersistenceException(error);
+            GlobalExceptionHandler.handlePersistenceException(e);
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            GlobalExceptionHandler.handleGeneralException(error);
+            GlobalExceptionHandler.handleGeneralException(e);
 
         } finally {
             entityManager.close();
@@ -113,11 +113,11 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         try {
             return entityManager.createQuery("SELECT funcionario FROM Funcionario funcionario WHERE funcionario.cpf =: cpf", Funcionario.class).setParameter("cpf", cpf).getSingleResult();
 
-        } catch (NoResultException error) {
-            GlobalExceptionHandler.handleNoResultException(error);
+        } catch (NoResultException e) {
+            GlobalExceptionHandler.handleNoResultException(e);
             return null;
-        } catch (Exception error) {
-            GlobalExceptionHandler.handleGeneralException(error);
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e);
             return null;
         } finally {
             entityManager.close();
@@ -133,7 +133,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         try {
             return entityManager.createQuery("SELECT new org.unifacisa.dtos.FuncionarioDTO(funcionario.id, funcionario.cpf, funcionario.nome) FROM Funcionario funcionario WHERE LOWER(funcionario.nome) LIKE LOWER(CONCAT('%', :nome, '%'))", FuncionarioDTO.class).setParameter("nome", nome).getResultList();
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Sem Funcionario(s) com esse nome.");
             return Collections.emptyList();
         } finally {
@@ -153,7 +153,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
             return true;
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             return false;
         } finally {
             entityManager.close();
@@ -169,7 +169,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
         try {
             return entityManager.createQuery("SELECT new org.unifacisa.dtos.ExtratoFuncionarioDTO(e.id, e.mesReferente) " + "FROM ExtratoFuncionario e " + "JOIN e.funcionario f " + "WHERE f.cpf = :cpf " + "ORDER BY e.mesReferente DESC", ExtratoFuncionarioDTO.class).setParameter("cpf", cpf).getResultList();
-        } catch (Exception error) {
+        } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Sem Extrato(s) para esse funcionario.");
             return Collections.emptyList();
         } finally {
@@ -197,7 +197,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
             return numeroExtratos > 0;
 
-        } catch (Exception error) {
+        } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Erro ao verificar existencia do extrato.");
             return false;
         } finally {
