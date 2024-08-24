@@ -7,6 +7,7 @@ import org.unifacisa.model.dao.imp.QuartoDaoHibernate;
 import org.unifacisa.model.domain.entities.Quarto;
 
 import javax.persistence.EntityManagerFactory;
+import java.time.LocalDate;
 import java.util.List;
 
 public class QuartoService {
@@ -37,7 +38,27 @@ public class QuartoService {
     }
 
 
-    public boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto){
+    public boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto) {
         return quartoDao.verificaSeHaQuartoComMesmoNumero(numeroQuarto);
+    }
+
+
+    public List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipo, LocalDate dataInicial, LocalDate dataFinal) {
+        return quartoDao.getQuartosOcupadosPorTipo(tipo, dataInicial, dataFinal);
+    }
+
+
+    public List<QuartoDTO> getQuartosDisponiveisPorTipo(TipoQuarto tipoQuarto, LocalDate dataEntrada, LocalDate dataSaida) {
+
+        List<QuartoDTO> quartosOcupados = getQuartosOcupadosPorTipo(tipoQuarto, dataEntrada, dataSaida);
+
+
+        List<QuartoDTO> quartosDisponiveis = getQuartosDTOByTipo(tipoQuarto);
+
+
+        return quartosDisponiveis.stream()
+                .filter(quarto -> !quartosOcupados.contains(quarto))
+                .toList();
+
     }
 }

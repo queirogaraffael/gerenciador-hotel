@@ -1,15 +1,13 @@
 package org.unifacisa.model.dao.imp;
 
-import org.unifacisa.dtos.FuncionarioDTO;
 import org.unifacisa.dtos.QuartoDTO;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.QuartoDao;
-import org.unifacisa.model.domain.entities.Endereco;
-import org.unifacisa.model.domain.entities.Funcionario;
 import org.unifacisa.model.domain.entities.Quarto;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,6 +85,37 @@ public class QuartoDaoHibernate implements QuartoDao {
     }
 
     @Override
+    public List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipoQuarto, LocalDate dataInicial, LocalDate dataFinal) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) " +
+                    "FROM Reserva reserva JOIN reserva.quarto quarto " +
+                    "WHERE quarto.tipoQuarto = :tipoQuarto " +
+                    "AND reserva.dataEntrada <= :dataFinal " +
+                    "AND reserva.dataSaida >= :dataInicial";
+
+            TypedQuery<QuartoDTO> query = entityManager.createQuery(jpql, QuartoDTO.class)
+                    .setParameter("tipoQuarto", tipoQuarto)
+                    .setParameter("dataInicial", dataInicial)
+                    .setParameter("dataFinal", dataFinal);
+
+            return query.getResultList();
+
+        } catch (Exception error) {
+            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + error.getMessage());
+            return Collections.emptyList();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+
+
+    }
+
+
+    @Override
     public void atualizaDadosQuarto(Quarto quartoModificado) {
 
         if (quartoModificado == null || quartoModificado.getId() == null) {
@@ -106,7 +135,7 @@ public class QuartoDaoHibernate implements QuartoDao {
             if (quartoExistente != null) {
 
                 quartoExistente.setTipoQuarto(quartoModificado.getTipoQuarto());
-                quartoExistente.setPreco(quartoModificado.getPreco());
+                quartoExistente.setPrecoDiaria(quartoModificado.getPrecoDiaria());
                 quartoExistente.setCapacidade(quartoModificado.getCapacidade());
 
 

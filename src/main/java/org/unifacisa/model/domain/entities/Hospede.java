@@ -20,6 +20,7 @@ public class Hospede extends Pessoa {
     @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reserva> reservas = new HashSet<>();
 
+
     @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<HistoricoHospede> historicos = new HashSet<>();
 

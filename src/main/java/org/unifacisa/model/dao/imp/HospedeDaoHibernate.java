@@ -1,10 +1,12 @@
 package org.unifacisa.model.dao.imp;
 
 import org.unifacisa.dtos.HospedeDTO;
+import org.unifacisa.dtos.ReservaDTO;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.HospedeDao;
 import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.Hospede;
+import org.unifacisa.model.domain.entities.Reserva;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -141,5 +143,15 @@ public class HospedeDaoHibernate implements HospedeDao {
 
 
 
+    }
+
+    @Override
+    public Reserva getReservaHospedeByCPF(String cpf) {
+        return null;
+    }
+
+    @Override
+    public List<ReservaDTO> getReservasDeHospedeByCPF(String cpf) {
+        return List.of();
     }
 }

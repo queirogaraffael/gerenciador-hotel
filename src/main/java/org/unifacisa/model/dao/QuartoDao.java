@@ -4,13 +4,14 @@ import org.unifacisa.dtos.QuartoDTO;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.model.domain.entities.Quarto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface QuartoDao {
     void cadastrarQuarto(Quarto quarto);
     Quarto getQuartoByNumero(String numeroQuarto);
     List<QuartoDTO> getQuartosDTOByTipo(TipoQuarto tipoQuarto);
-    // buscar por tipo disponiveis para uma data
+    List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipo, LocalDate dataInicial, LocalDate dataFinal);
     void atualizaDadosQuarto(Quarto quartoModificado);
     boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto);
 

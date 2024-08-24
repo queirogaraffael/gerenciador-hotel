@@ -23,4 +23,9 @@ public class AlertasQuartoViews {
     public static void exibirAlertaQuartoModificadoComSucesso(){
         JOptionPane.showMessageDialog(null, "Quarto modificado com sucesso.");
     }
+
+    public static void exibirAlertaSemQuartoDesseTipoDisponiveisParaEssaData() {
+        JOptionPane.showMessageDialog(null, "Sem quartos desse tipo disponiveis para essa data.");
+
+    }
 }

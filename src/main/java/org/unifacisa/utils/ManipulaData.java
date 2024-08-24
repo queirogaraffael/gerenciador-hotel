@@ -8,7 +8,7 @@ public class ManipulaData {
 
     public static final String FORMATO_DATA = "dd/MM/yyyy";
 
-    private static final DateTimeFormatter formato = DateTimeFormatter.ofPattern(FORMATO_DATA);
+    public static final DateTimeFormatter formato = DateTimeFormatter.ofPattern(FORMATO_DATA);
 
     public static boolean verificaFormatoDataEstaCorreto(String stringData) {
         try {
@@ -22,4 +22,14 @@ public class ManipulaData {
     public static LocalDate retornaLocalDate(String data) {
         return LocalDate.parse(data, formato);
     }
+
+
+    public static boolean dataInicialEPosteriorDataFinal(LocalDate dataInicial, LocalDate dataFinal) {
+        return dataInicial.isAfter(dataFinal);
+    }
+
+
+
+
+
 }

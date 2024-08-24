@@ -28,7 +28,7 @@ public class Quarto {
 
     private TipoQuarto tipoQuarto;
     private int capacidade;
-    private double preco;
+    private double precoDiaria;
 
 
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -41,9 +41,9 @@ public class Quarto {
 
     @Override
     public String toString() {
-        return "Quarto " + numeroQuarto + "\n" +
-                "Tipo Quarto: " + tipoQuarto + "\n" +
-                "Capacidade: " + capacidade + "\n" +
-                "Preco: " + preco;
+        return "Quarto " + getNumeroQuarto() + "\n" +
+                "Tipo Quarto: " + getTipoQuarto() + "\n" +
+                "Capacidade: " + getCapacidade() + "\n" +
+                "Diaria : " + getPrecoDiaria();
     }
 }

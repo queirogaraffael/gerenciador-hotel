@@ -9,6 +9,7 @@ public class MenuPrincipalController {
     private final EntityManagerFactoryService entityManagerFactoryService;
     private final MenuQuartosController menuQuartosController;
     private final MenuHospedesController menuHospedesController;
+    private final MenuReservasController menuReservasController;
     private final MenuFuncionarioController menuFuncionarioController;
 
     public MenuPrincipalController() {
@@ -16,8 +17,8 @@ public class MenuPrincipalController {
         entityManagerFactoryService.inicializarEntityManagerFactory();
 
         this.menuQuartosController = new MenuQuartosController((entityManagerFactoryService.entityManagerFactory()));
-        this.menuHospedesController = new MenuHospedesController(entityManagerFactoryService.entityManagerFactory())
-        ;
+        this.menuHospedesController = new MenuHospedesController(entityManagerFactoryService.entityManagerFactory());
+        this.menuReservasController = new MenuReservasController(entityManagerFactoryService.entityManagerFactory());
         this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactoryService.entityManagerFactory());
 
     }
@@ -42,6 +43,7 @@ public class MenuPrincipalController {
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_RESERVAS:
+                        menuReservasController.menuGerenciadorReservas();
                         break;
 
                     case ConstantesMenuPrincipalController.CHECK_IN_OUT:

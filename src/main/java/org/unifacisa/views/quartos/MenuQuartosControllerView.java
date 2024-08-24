@@ -13,7 +13,7 @@ public class MenuQuartosControllerView {
     private static final Object[] menuOptions = {
             "Cadastrar",
             "Visualizar Quarto(s) Por Tipo",
-            "Visualizar Quarto(s) Por Tipo Disponiveis Por Data",  //
+            "Visualizar Quarto(s) Por Tipo Disponiveis Por Data",
             "Atualizar Dados do Quarto",
             "Voltar"
     };

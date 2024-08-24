@@ -11,12 +11,14 @@ public class MenuHospedesControllerView {
     }
 
     private static final Object[] menuOptions = {
-            "Cadastrar", //
-            "Visualizar Hospede Pelo CPF", // dados basicos da entidade
-            "Atualizar Dados Hospede", // dados basicos
+            "Cadastrar",
+            "Visualizar Hospede Pelo CPF",
+            "Atualizar Dados Hospede",
 
             "Buscar e Visualizar Reserva de Hospede", // reservas // dados basicos da entidade reserva
-            "Buscar e Visualizar Historico de Hospede", // dto // HISTORICO ENTIDADE
+
+
+            "Buscar e Visualizar Historico de Hospede", // dto // check in/ouHISTORICO ENTIDADE
 
             "Check-in/out", //
             "Voltar"
