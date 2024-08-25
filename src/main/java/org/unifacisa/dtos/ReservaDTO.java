@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservaDTO {
+public class ReservaDTO implements Comparable<ReservaDTO> {
 
     private Long id;
     private LocalDate dataEntrada;
@@ -22,5 +22,10 @@ public class ReservaDTO {
     @Override
     public String toString() {
         return id + " - " + dataEntrada + " - " + dataSaida + " - " + tipoQuarto;
+    }
+
+    @Override
+    public int compareTo(ReservaDTO other) {
+        return other.getDataEntrada().compareTo(this.dataEntrada);
     }
 }

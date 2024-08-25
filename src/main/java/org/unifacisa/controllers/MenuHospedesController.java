@@ -1,9 +1,13 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.constantes.ConstantesMenuHospedesController;
-import org.unifacisa.constantes.ConstantesMenuModificacaoHospede;
+import org.unifacisa.constantes.controllers.ConstantesMenuHospedesController;
+import org.unifacisa.constantes.modificacoes.ConstantesMenuModificacaoHospede;
+import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.dtos.utils.SelecionaReservaDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.Hospede;
+import org.unifacisa.model.domain.entities.Reserva;
 import org.unifacisa.services.HospedeService;
 import org.unifacisa.services.ReservaService;
 import org.unifacisa.utils.ManipulaData;
@@ -11,9 +15,14 @@ import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.views.commons.DataViews;
 import org.unifacisa.views.commons.EnderecoViews;
 import org.unifacisa.views.hospedes.*;
+import org.unifacisa.views.reservas.AlertasReservasViews;
+import org.unifacisa.views.reservas.PrintaReserva;
 
 import javax.persistence.EntityManagerFactory;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MenuHospedesController {
 
@@ -46,13 +55,12 @@ public class MenuHospedesController {
                     atualizarHospede();
                     break;
 
-                case (ConstantesMenuHospedesController.BUSCA_VISUALIZA_RESERVAS_HOSPEDE):
+                case (ConstantesMenuHospedesController.BUSCA_VISUALIZA_RESERVAS_ATIVAS_E_EM_USO_HOSPEDE):
+                    visualizaReservasHospede();
                     break;
 
-                case (ConstantesMenuHospedesController.BUSCA_VISUALIZA_HISTORICO_HOSPEDE):
-                    break;
-
-                case (ConstantesMenuHospedesController.CHECK_IN_OUT):
+                case (ConstantesMenuHospedesController.BUSCA_VISUALIZA_RESERVAS_FINALIZADAS_CANCELADAS_HOSPEDE):
+                    visualizaReservasFinalizadasHospede();
                     break;
 
                 default:
@@ -107,11 +115,12 @@ public class MenuHospedesController {
 
 
         if (!ManipulaData.verificaFormatoDataEstaCorreto(dataNascimento)) {
-
-
             DataViews.exibirAlertaDataFormatoErrado();
+            return;
+        }
 
-
+        if(!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))){
+            AlertasHospedesViews.exibirAlertaNaoPodeMenorDeIdade();
             return;
         }
 
@@ -171,6 +180,69 @@ public class MenuHospedesController {
         }
 
     }
+
+    private void visualizaReservasHospede() {
+        Hospede hospede =  validaCPFDoHospedeERetornaHospede();
+
+        if(hospede == null){
+            return;
+        }
+
+        List<ReservaDTO> reservasMarcadas = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.ATIVO, hospede.getCpf());
+
+        List<ReservaDTO> reservasEmUso = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.EM_USO, hospede.getCpf());
+
+        List<ReservaDTO> listasUnida = new ArrayList<>();
+
+        listasUnida.addAll(reservasMarcadas);
+        listasUnida.addAll(reservasEmUso);
+
+        Collections.sort(listasUnida);
+
+        if(listasUnida.isEmpty()){
+            AlertasReservasViews.exibirAlertaSemReservasCadastradasOuEmUso();
+            return;
+        }
+
+        Long idReserva = SelecionaReservaDTO.selecionaReserva(listasUnida);
+
+        Reserva reserva = reservaService.getReservaById(idReserva);
+
+        PrintaReserva.exibeReserva(reserva);
+
+    }
+
+    private void visualizaReservasFinalizadasHospede() {
+        Hospede hospede =  validaCPFDoHospedeERetornaHospede();
+
+        if(hospede == null){
+            return;
+        }
+
+        List<ReservaDTO> reservasCanceladas = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.CANCELADO, hospede.getCpf());
+
+        List<ReservaDTO> reservasFinalizadas = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.FINALIZADO, hospede.getCpf());
+
+        List<ReservaDTO> listasUnida = new ArrayList<>();
+
+        listasUnida.addAll(reservasCanceladas);
+        listasUnida.addAll(reservasFinalizadas);
+
+        Collections.sort(listasUnida);
+
+        if(listasUnida.isEmpty()){
+            AlertasReservasViews.exibirAlertaSemReservasCanceladasOuFinalizadas();
+            return;
+        }
+
+        Long idReserva = SelecionaReservaDTO.selecionaReserva(listasUnida);
+
+        Reserva reserva = reservaService.getReservaById(idReserva);
+
+        PrintaReserva.exibeReserva(reserva);
+
+    }
+
 
 
 

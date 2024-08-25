@@ -14,13 +14,8 @@ public class MenuHospedesControllerView {
             "Cadastrar",
             "Visualizar Hospede Pelo CPF",
             "Atualizar Dados Hospede",
-
-            "Buscar e Visualizar Reserva de Hospede", // reservas // dados basicos da entidade reserva
-
-
-            "Buscar e Visualizar Historico de Hospede", // dto // check in/ouHISTORICO ENTIDADE
-
-            "Check-in/out", //
+            "Buscar e Visualizar Reserva de Hospede",
+            "Buscar e Visualizar Historico de Hospede",
             "Voltar"
 
     };

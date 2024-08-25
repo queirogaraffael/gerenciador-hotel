@@ -83,4 +83,10 @@ public class AlertasFuncionarioViews {
         JOptionPane.showMessageDialog(null, "Funcionario adicionado com sucesso.");
     }
 
+    public static void exibirAlertaNaoPodeMenorDeIdade() {
+
+
+        JOptionPane.showMessageDialog(null, "Nao pode cadastrar funcionario menor de idade.", ALERTA
+                , JOptionPane.ERROR_MESSAGE);
+    }
 }

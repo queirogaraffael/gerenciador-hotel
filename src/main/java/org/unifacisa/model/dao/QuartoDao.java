@@ -9,10 +9,15 @@ import java.util.List;
 
 public interface QuartoDao {
     void cadastrarQuarto(Quarto quarto);
+
     Quarto getQuartoByNumero(String numeroQuarto);
+
     List<QuartoDTO> getQuartosDTOByTipo(TipoQuarto tipoQuarto);
+
     List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipo, LocalDate dataInicial, LocalDate dataFinal);
+
     void atualizaDadosQuarto(Quarto quartoModificado);
+
     boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto);
 
 }

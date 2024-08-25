@@ -16,4 +16,13 @@ public class AlertasReservasViews {
         JOptionPane.showMessageDialog(null, "Reserva cancelada com sucesso.");
     }
 
+    public static void exibirAlertaSemReservasCadastradasOuEmUso() {
+        JOptionPane.showMessageDialog(null, "No momento o hospede nao tem nanhum agendamento ou reserva em utilizacao.");
+
+    }
+
+    public static void exibirAlertaSemReservasCanceladasOuFinalizadas() {
+        JOptionPane.showMessageDialog(null, "No momento o hospede nao tem dados no sistemas.");
+
+    }
 }

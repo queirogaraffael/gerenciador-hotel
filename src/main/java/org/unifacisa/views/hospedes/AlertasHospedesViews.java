@@ -57,4 +57,9 @@ public class AlertasHospedesViews {
     public static void exibirAlertaHospedeAdicionadoComSucesso() {
         JOptionPane.showMessageDialog(null, "Hospede adicionado com sucesso.");
     }
+
+    public static void exibirAlertaNaoPodeMenorDeIdade() {
+            JOptionPane.showMessageDialog(null, "Nao pode cadastrar hospede responsavel menor de idade.", ALERTA
+                    , JOptionPane.ERROR_MESSAGE);
+    }
 }

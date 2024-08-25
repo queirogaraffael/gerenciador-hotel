@@ -1,6 +1,7 @@
 package org.unifacisa.utils;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -29,7 +30,16 @@ public class ManipulaData {
     }
 
 
+    public static boolean eMaiorDeIdade(LocalDate dataNascimento) {
+        LocalDate dataHoje = LocalDate.now();
 
+        Period periodo = Period.between(dataNascimento, dataHoje);
+
+        int idade = periodo.getYears();
+
+        return idade >=18;
+
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package org.unifacisa.model.dao.imp;
 
 import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.ReservaDao;
 import org.unifacisa.model.domain.entities.Reserva;
@@ -58,12 +59,21 @@ public class ReservaDaoHibernate implements ReservaDao {
     }
 
     @Override
-    public Reserva getReservaById(Long id) {
-        return null;
+    public Reserva getReservaById(Long idReserva) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            return entityManager.find(Reserva.class, idReserva);
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e);
+            return null;
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public List<ReservaDTO> getReservasDTOHospedeByCPF(String cpf) {
+    public List<ReservaDTO> getReservasDTOByStatusReservaEByCPFHospede(StatusReserva statusReserva, String cpf) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -72,8 +82,9 @@ public class ReservaDaoHibernate implements ReservaDao {
             return entityManager.createQuery("SELECT new org.unifacisa.dtos.ReservaDTO(reserva.id, reserva.dataEntrada, reserva.dataSaida, reserva.quarto.tipoQuarto) " +
                             "FROM Reserva reserva " +
                             "JOIN reserva.hospede hospede " +
-                            "WHERE hospede.cpf = :cpf", ReservaDTO.class)
+                            "WHERE hospede.cpf = :cpf AND reserva.statusReserva = :statusReserva", ReservaDTO.class)
                     .setParameter("cpf", cpf)
+                    .setParameter("statusReserva", statusReserva)
                     .getResultList();
 
         } catch (Exception e) {
@@ -86,9 +97,8 @@ public class ReservaDaoHibernate implements ReservaDao {
 
     }
 
-
     @Override
-    public void deleataReservaHospedeById(Long idReserva) {
+    public void mudaStatusReservaById(StatusReserva statusReserva, Long idReserva) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -97,10 +107,12 @@ public class ReservaDaoHibernate implements ReservaDao {
 
             Reserva reserva = entityManager.find(Reserva.class, idReserva);
 
-            if (reserva != null) {
-                entityManager.remove(reserva);
-                transaction.commit();
-            }
+            reserva.setStatusReserva(statusReserva);
+
+            entityManager.merge(reserva);
+
+            transaction.commit();
+
 
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -113,6 +125,4 @@ public class ReservaDaoHibernate implements ReservaDao {
 
 
     }
-
-
 }

@@ -1,8 +1,9 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.constantes.ConstantesMenuReservasController;
+import org.unifacisa.constantes.controllers.ConstantesMenuReservasController;
 import org.unifacisa.dtos.QuartoDTO;
 import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.model.domain.entities.Hospede;
 import org.unifacisa.model.domain.entities.Quarto;
@@ -10,8 +11,8 @@ import org.unifacisa.model.domain.entities.Reserva;
 import org.unifacisa.services.HospedeService;
 import org.unifacisa.services.QuartoService;
 import org.unifacisa.services.ReservaService;
-import org.unifacisa.utils.SelecionaQuartoDTO;
-import org.unifacisa.utils.SelecionaReservaDTO;
+import org.unifacisa.dtos.utils.SelecionaQuartoDTO;
+import org.unifacisa.dtos.utils.SelecionaReservaDTO;
 import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.views.commons.DataViews;
 import org.unifacisa.views.hospedes.AlertasHospedesViews;
@@ -76,8 +77,6 @@ public class MenuReservasController {
 
         TipoQuarto tipoQuarto = EscolheTipoQuartoView.exibeEEscolheTipoQuartoView();
 
-        int numeroHospedes = LeDadosBasicosHospedeViews.leNumeroHospedesQuarto();
-
 
         LocalDate dataEntrada = DataViews.leDataEntrada();
 
@@ -121,6 +120,7 @@ public class MenuReservasController {
 
         String numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
 
+        int numeroHospedes = LeDadosBasicosHospedeViews.leNumeroHospedesQuarto();
 
         Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
         Reserva reserva = new Reserva();
@@ -130,6 +130,7 @@ public class MenuReservasController {
         reserva.setNumeroHospedes(numeroHospedes);
         reserva.setHospede(hospede);
         reserva.setQuarto(quarto);
+        reserva.setStatusReserva(StatusReserva.ATIVO);
 
         reservaService.criaReserva(reserva);
 
@@ -147,7 +148,7 @@ public class MenuReservasController {
         }
 
 
-        List<ReservaDTO> reservasDoHospede = reservaService.getReservasDTOHospedeByCPF(hospede.getCpf());
+        List<ReservaDTO> reservasDoHospede = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.ATIVO, hospede.getCpf());
 
         if (reservasDoHospede == null || reservasDoHospede.isEmpty()) {
             AlertasReservasViews.exibirAlertaSemReservaAssociadaAHospede();
@@ -156,8 +157,7 @@ public class MenuReservasController {
 
         Long idReserva = SelecionaReservaDTO.selecionaReserva(reservasDoHospede);
 
-
-        reservaService.deleataReservaHospedeById(idReserva);
+        reservaService.mudaStatusReservaById(StatusReserva.CANCELADO, idReserva);
 
         AlertasReservasViews.exibirAlertaReservaCanceladaComSucesso();
 

@@ -35,10 +35,6 @@ public class Quarto {
     private Set<Reserva> reservas = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<HistoricoHospede> historicos = new HashSet<>();
-
-
     @Override
     public String toString() {
         return "Quarto " + getNumeroQuarto() + "\n" +

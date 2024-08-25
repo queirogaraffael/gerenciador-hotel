@@ -1,6 +1,7 @@
 package org.unifacisa.services;
 
 import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.model.dao.ReservaDao;
 import org.unifacisa.model.dao.imp.ReservaDaoHibernate;
 import org.unifacisa.model.domain.entities.Reserva;
@@ -21,12 +22,19 @@ public class ReservaService {
         reservaDao.criaReserva(reserva);
     }
 
-    public List<ReservaDTO> getReservasDTOHospedeByCPF(String cpf) {
-        return reservaDao.getReservasDTOHospedeByCPF(cpf);
+
+    public Reserva getReservaById(Long idReserva) {
+        return reservaDao.getReservaById(idReserva);
     }
 
-    public void deleataReservaHospedeById(Long idReserva) {
-        reservaDao.deleataReservaHospedeById(idReserva);
+    public List<ReservaDTO> getReservasDTOByStatusReservaEByCPFHospede(StatusReserva statusReserva, String cpf) {
+        return reservaDao.getReservasDTOByStatusReservaEByCPFHospede(statusReserva, cpf);
     }
+
+    public void mudaStatusReservaById(StatusReserva statusReserva, Long idReserva) {
+        reservaDao.mudaStatusReservaById(statusReserva, idReserva);
+
+    }
+
 
 }

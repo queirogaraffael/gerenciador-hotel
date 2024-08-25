@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.unifacisa.enums.StatusReserva;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Data
@@ -27,6 +26,7 @@ public class Reserva {
 
     private int numeroHospedes;
 
+    private StatusReserva statusReserva;
 
     @ManyToOne
     @JoinColumn(name = "quarto_id")

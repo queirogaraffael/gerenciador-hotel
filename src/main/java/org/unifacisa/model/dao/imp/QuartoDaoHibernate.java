@@ -1,6 +1,7 @@
 package org.unifacisa.model.dao.imp;
 
 import org.unifacisa.dtos.QuartoDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.QuartoDao;
@@ -84,25 +85,34 @@ public class QuartoDaoHibernate implements QuartoDao {
 
     }
 
+
     @Override
     public List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipoQuarto, LocalDate dataInicial, LocalDate dataFinal) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
+
+            StatusReserva statusAtivo = StatusReserva.ATIVO;
+            StatusReserva statusEmUso = StatusReserva.EM_USO;
+
             String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) " +
                     "FROM Reserva reserva JOIN reserva.quarto quarto " +
                     "WHERE quarto.tipoQuarto = :tipoQuarto " +
                     "AND reserva.dataEntrada <= :dataFinal " +
-                    "AND reserva.dataSaida >= :dataInicial";
+                    "AND reserva.dataSaida >= :dataInicial " +
+                    "AND (reserva.statusReserva = :statusAtivo OR reserva.statusReserva = :statusEmUso)";
 
             TypedQuery<QuartoDTO> query = entityManager.createQuery(jpql, QuartoDTO.class)
                     .setParameter("tipoQuarto", tipoQuarto)
                     .setParameter("dataInicial", dataInicial)
-                    .setParameter("dataFinal", dataFinal);
+                    .setParameter("dataFinal", dataFinal)
+                    .setParameter("statusAtivo", statusAtivo)
+                    .setParameter("statusEmUso", statusEmUso);
 
             return query.getResultList();
 
         } catch (Exception e) {
+            System.out.println(e);
             GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + e.getMessage());
             return Collections.emptyList();
         } finally {

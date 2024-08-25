@@ -1,11 +1,11 @@
 package org.unifacisa.controllers;
 
 import org.unifacisa.utils.ManipulaData;
-import org.unifacisa.utils.SelecionaExtratoFuncionarioDTO;
-import org.unifacisa.utils.SelecionaFuncionarioDTO;
+import org.unifacisa.dtos.utils.SelecionaExtratoFuncionarioDTO;
+import org.unifacisa.dtos.utils.SelecionaFuncionarioDTO;
 import org.unifacisa.utils.VerificaCPF;
-import org.unifacisa.constantes.ConstantesMenuFuncionarioController;
-import org.unifacisa.constantes.ConstantesMenuModificacaoDadosFuncionario;
+import org.unifacisa.constantes.controllers.ConstantesMenuFuncionarioController;
+import org.unifacisa.constantes.modificacoes.ConstantesMenuModificacaoDadosFuncionario;
 import org.unifacisa.dtos.ExtratoFuncionarioDTO;
 import org.unifacisa.dtos.FuncionarioDTO;
 import org.unifacisa.enums.Turno;
@@ -109,6 +109,13 @@ public class MenuFuncionarioController {
             DataViews.exibirAlertaDataFormatoErrado();
             return;
         }
+
+
+        if(!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))){
+            AlertasFuncionarioViews.exibirAlertaNaoPodeMenorDeIdade();
+            return;
+        }
+
 
         funcionario.setDataNascimento(ManipulaData.retornaLocalDate(dataNascimento));
 

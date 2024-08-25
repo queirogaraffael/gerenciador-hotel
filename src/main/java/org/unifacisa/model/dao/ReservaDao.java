@@ -1,6 +1,7 @@
 package org.unifacisa.model.dao;
 
 import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.model.domain.entities.Reserva;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public interface ReservaDao {
 
     Reserva getReservaById(Long id);
 
-    List<ReservaDTO> getReservasDTOHospedeByCPF(String cpf);
+    List<ReservaDTO> getReservasDTOByStatusReservaEByCPFHospede(StatusReserva statusReserva, String cpf);
 
-    void deleataReservaHospedeById(Long idReserva);
+    void mudaStatusReservaById(StatusReserva statusReserva, Long idReserva);
+
 }
