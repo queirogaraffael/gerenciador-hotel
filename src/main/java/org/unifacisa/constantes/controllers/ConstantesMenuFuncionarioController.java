@@ -2,11 +2,10 @@ package org.unifacisa.constantes.controllers;
 
 public class ConstantesMenuFuncionarioController {
 
-    public static final String CADASTRAR_FUNCIONARIO = "Cadastrar Funcionario";
-    public static final String EDITAR_DADOS_FUNCIONARIO = "Editar Dados do Funcionario";
-    public static final String VISUALIZAR_FUNCIONARIO_CPF = "Visualizar Funcionario pelo CPF";
-    public static final String BUSCA_VISUALIZA_FUNCIONARIO_POR_NOME = "Buscar e Visualizar Funcionario por Nome";
-    public static final String EXTRATOS = "Extrato(s)";
-    public static final String VOLTAR = "Voltar";
-
+    public static final int CADASTRAR_FUNCIONARIO = 0;
+    public static final int EDITAR_DADOS_FUNCIONARIO = 1;
+    public static final int VISUALIZAR_FUNCIONARIO_CPF = 2;
+    public static final int BUSCA_VISUALIZA_FUNCIONARIO_POR_NOME = 3;
+    public static final int EXTRATOS = 4;
+    public static final int VOLTAR = 5;
 }

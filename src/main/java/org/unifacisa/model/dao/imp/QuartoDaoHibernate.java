@@ -92,7 +92,7 @@ public class QuartoDaoHibernate implements QuartoDao {
 
         try {
 
-            StatusReserva statusAtivo = StatusReserva.ATIVO;
+            StatusReserva statusAgendado = StatusReserva.AGENDADO;
             StatusReserva statusEmUso = StatusReserva.EM_USO;
 
             String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) " +
@@ -100,19 +100,18 @@ public class QuartoDaoHibernate implements QuartoDao {
                     "WHERE quarto.tipoQuarto = :tipoQuarto " +
                     "AND reserva.dataEntrada <= :dataFinal " +
                     "AND reserva.dataSaida >= :dataInicial " +
-                    "AND (reserva.statusReserva = :statusAtivo OR reserva.statusReserva = :statusEmUso)";
+                    "AND (reserva.statusReserva = :statusAgendado OR reserva.statusReserva = :statusEmUso)";
 
             TypedQuery<QuartoDTO> query = entityManager.createQuery(jpql, QuartoDTO.class)
                     .setParameter("tipoQuarto", tipoQuarto)
                     .setParameter("dataInicial", dataInicial)
                     .setParameter("dataFinal", dataFinal)
-                    .setParameter("statusAtivo", statusAtivo)
+                    .setParameter("statusAgendado", statusAgendado)
                     .setParameter("statusEmUso", statusEmUso);
 
             return query.getResultList();
 
         } catch (Exception e) {
-            System.out.println(e);
             GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + e.getMessage());
             return Collections.emptyList();
         } finally {

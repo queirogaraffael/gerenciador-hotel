@@ -36,7 +36,7 @@ public class MenuHospedesController {
 
 
     public void menuGerenciadorHospedes() {
-        String opcaoMenuGerenciadoHospedes;
+        int opcaoMenuGerenciadoHospedes;
 
         do {
             opcaoMenuGerenciadoHospedes = MenuHospedesControllerView.exibirMenuTarefasView();
@@ -69,7 +69,7 @@ public class MenuHospedesController {
             }
 
 
-        } while (!opcaoMenuGerenciadoHospedes.equals(ConstantesMenuHospedesController.VOLTAR));
+        } while (opcaoMenuGerenciadoHospedes != ConstantesMenuHospedesController.VOLTAR);
     }
 
 
@@ -188,7 +188,7 @@ public class MenuHospedesController {
             return;
         }
 
-        List<ReservaDTO> reservasMarcadas = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.ATIVO, hospede.getCpf());
+        List<ReservaDTO> reservasMarcadas = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.AGENDADO, hospede.getCpf());
 
         List<ReservaDTO> reservasEmUso = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.EM_USO, hospede.getCpf());
 

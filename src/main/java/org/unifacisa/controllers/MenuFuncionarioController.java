@@ -32,7 +32,7 @@ public class MenuFuncionarioController {
 
 
     public void menuGerenciadorFuncionario() {
-        String opcaoMenuGerenciadoFuncionario;
+        int opcaoMenuGerenciadoFuncionario;
 
         do {
             opcaoMenuGerenciadoFuncionario = MenuFuncionarioControllerView.exibirMenuTarefasView();
@@ -65,7 +65,7 @@ public class MenuFuncionarioController {
             }
 
 
-        } while (!opcaoMenuGerenciadoFuncionario.equals(ConstantesMenuFuncionarioController.VOLTAR));
+        } while ( opcaoMenuGerenciadoFuncionario != ConstantesMenuFuncionarioController.VOLTAR);
     }
 
 

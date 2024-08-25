@@ -2,7 +2,7 @@ package org.unifacisa.enums;
 
 public enum StatusReserva {
 
-    ATIVO(0, "Ativo"),
+    AGENDADO(0, "Agendado"),
     CANCELADO(1, "Cancelado"),
     EM_USO(2, "Em uso"),
     FINALIZADO(3, "Finalizado");

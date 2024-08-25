@@ -2,7 +2,6 @@ package org.unifacisa.controllers;
 
 import org.unifacisa.constantes.controllers.ConstantesMenuPrincipalController;
 import org.unifacisa.hibernate_connection.EntityManagerFactoryService;
-import org.unifacisa.views.CheckInOut.MenuCheckInOutControllerView;
 import org.unifacisa.views.menuPrincipal.MenuPrincipalControllerView;
 
 public class MenuPrincipalController {
@@ -49,7 +48,7 @@ public class MenuPrincipalController {
                         break;
 
                     case ConstantesMenuPrincipalController.CHECK_IN_OUT:
-                        menuCheckInOutController.exibirMenuCheckInOut();
+                        menuCheckInOutController.validaCpfParaEntrarNoMenuCheckInOut();
                         break;
 
                     case ConstantesMenuPrincipalController.GERENCIADOR_FUNCIONARIOS:

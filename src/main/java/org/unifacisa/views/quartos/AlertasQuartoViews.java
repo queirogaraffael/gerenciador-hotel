@@ -25,7 +25,7 @@ public class AlertasQuartoViews {
     }
 
     public static void exibirAlertaSemQuartoDesseTipoDisponiveisParaEssaData() {
-        JOptionPane.showMessageDialog(null, "Sem quartos desse tipo disponiveis para essa data.");
+        JOptionPane.showMessageDialog(null, "Nao ha quartos disponiveis desse tipo para a data selecionada.");
 
     }
 }

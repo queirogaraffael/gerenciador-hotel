@@ -29,7 +29,7 @@ public class DataViews {
             String dataEntrada = JOptionPane.showInputDialog("Digite a data de entrada no formato: " + ManipulaData.FORMATO_DATA);
             return LocalDate.parse(dataEntrada, ManipulaData.formato);
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Data invalida. Por favor, use o formato " + ManipulaData.FORMATO_DATA);
+            JOptionPane.showMessageDialog(null, "Data invalida. Por favor, use o formato: " + ManipulaData.FORMATO_DATA);
             return null;
         }
     }
@@ -40,7 +40,7 @@ public class DataViews {
             String dataSaida = JOptionPane.showInputDialog("Digite a data de saida no formato: " + ManipulaData.FORMATO_DATA);
             return LocalDate.parse(dataSaida, ManipulaData.formato);
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Data invalida. Por favor, use o formato " + ManipulaData.FORMATO_DATA);
+            JOptionPane.showMessageDialog(null, "Data invalida. Por favor, use o formato: " + ManipulaData.FORMATO_DATA);
             return null;
         }
     }

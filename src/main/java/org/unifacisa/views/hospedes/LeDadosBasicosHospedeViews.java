@@ -11,11 +11,11 @@ public class LeDadosBasicosHospedeViews {
     }
 
     public static String leNomeHospede() {
-        return JOptionPane.showInputDialog("Digite o nome do hospede: ");
+        return JOptionPane.showInputDialog("Nome do hospede: ");
     }
 
     public static String leCPFHospede() {
-        return JOptionPane.showInputDialog("Digite o CPF do hospede no formato:" + VerificaCPF.padraoCPF);
+        return JOptionPane.showInputDialog("Digite o CPF no formato: " + VerificaCPF.PADRAO_CPF);
     }
 
 
@@ -24,12 +24,12 @@ public class LeDadosBasicosHospedeViews {
     }
 
     public static String leNumeroTelefoneHospede() {
-        return JOptionPane.showInputDialog("Digite o numero de telefone do hospede: ");
+        return JOptionPane.showInputDialog("Telefone: ");
     }
 
 
     public static int leNumeroHospedesQuarto() {
-        return  Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de hospedes: "));
+        return  Integer.parseInt(JOptionPane.showInputDialog("Numero de hospedes: "));
 
 
     }

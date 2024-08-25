@@ -11,7 +11,7 @@ public class ExibirDTOsViews {
         Object opcaoSelecionada = JOptionPane.showInputDialog(
                 null,
                 "Escolha um quarto: ",
-                "Menu escolha",
+                "Quartos",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 opcoes,
@@ -25,7 +25,7 @@ public class ExibirDTOsViews {
         Object opcaoSelecionada = JOptionPane.showInputDialog(
                 null,
                 "Escolha um funcionario: ",
-                "Menu escolha",
+                "Funcionarios",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 opcoes,

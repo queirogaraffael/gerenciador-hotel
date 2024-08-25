@@ -35,4 +35,16 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "hospede_id")
     private Hospede hospede;
+
+
+    @Override
+    public String toString() {
+        return "Reserva: \n\n" +
+                "Data entrada: " + getDataEntrada().toString() + "\n" +
+                "Data saida: " +getDataSaida().toString() + "\n" +
+                "Status da Reserva: \n\n" + getStatusReserva() + "\n";
+
+    }
+
+
 }

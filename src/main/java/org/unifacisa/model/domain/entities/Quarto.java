@@ -37,9 +37,9 @@ public class Quarto {
 
     @Override
     public String toString() {
-        return "Quarto " + getNumeroQuarto() + "\n" +
-                "Tipo Quarto: " + getTipoQuarto() + "\n" +
+        return "Quarto: " + getNumeroQuarto() + "\n" +
+                "Tipo: " + getTipoQuarto() + "\n" +
                 "Capacidade: " + getCapacidade() + "\n" +
-                "Diaria : " + getPrecoDiaria();
+                "Preco Diaria: " + getPrecoDiaria();
     }
 }

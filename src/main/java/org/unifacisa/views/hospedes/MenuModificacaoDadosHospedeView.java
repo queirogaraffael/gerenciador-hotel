@@ -4,6 +4,8 @@ import javax.swing.*;
 
 public class MenuModificacaoDadosHospedeView {
 
+    private static final String MENU_TITLE = "Modificar Hospede";
+    private static final String MENU_MESSAGE = "Escolha uma opcao: ";
 
     private static final Object[] opcoesModificar = {"Nome", "Numero telefone", "Endereco", "Voltar"};
 
@@ -13,8 +15,8 @@ public class MenuModificacaoDadosHospedeView {
     public static int exibeOpcoesModificarDadosView() {
         return JOptionPane.showOptionDialog(
                 null,
-                "Escolha uma opcao: ",
-                "Modificar dados do hospede",
+                MENU_MESSAGE,
+                MENU_TITLE,
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,

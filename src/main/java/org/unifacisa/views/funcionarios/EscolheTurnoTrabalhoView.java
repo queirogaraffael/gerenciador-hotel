@@ -6,6 +6,10 @@ import javax.swing.*;
 
 public class EscolheTurnoTrabalhoView {
 
+    private static final String MENU_TITLE = "Turno";
+    private static final String MENU_MESSAGE = "Escolha o turno:";
+
+
     private static final Object[] opcoes = {"Diurno", "Noturno"};
 
     private EscolheTurnoTrabalhoView() {
@@ -14,8 +18,8 @@ public class EscolheTurnoTrabalhoView {
     public static Turno exibeEEscolheTurnoView() {
         int escolha = JOptionPane.showOptionDialog(
                 null,
-                "Escolha o turno:",
-                "Menu escolha",
+                MENU_MESSAGE,
+                MENU_TITLE,
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,

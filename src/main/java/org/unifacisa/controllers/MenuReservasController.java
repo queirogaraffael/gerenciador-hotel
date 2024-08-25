@@ -3,6 +3,8 @@ package org.unifacisa.controllers;
 import org.unifacisa.constantes.controllers.ConstantesMenuReservasController;
 import org.unifacisa.dtos.QuartoDTO;
 import org.unifacisa.dtos.ReservaDTO;
+import org.unifacisa.dtos.utils.SelecionaQuartoDTO;
+import org.unifacisa.dtos.utils.SelecionaReservaDTO;
 import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.model.domain.entities.Hospede;
@@ -11,8 +13,6 @@ import org.unifacisa.model.domain.entities.Reserva;
 import org.unifacisa.services.HospedeService;
 import org.unifacisa.services.QuartoService;
 import org.unifacisa.services.ReservaService;
-import org.unifacisa.dtos.utils.SelecionaQuartoDTO;
-import org.unifacisa.dtos.utils.SelecionaReservaDTO;
 import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.views.commons.DataViews;
 import org.unifacisa.views.hospedes.AlertasHospedesViews;
@@ -42,7 +42,7 @@ public class MenuReservasController {
 
 
     public void menuGerenciadorReservas() {
-        String opcaoMenuGerenciadoReservas;
+        int opcaoMenuGerenciadoReservas;
 
         do {
             opcaoMenuGerenciadoReservas = MenuReservasControllerView.exibirMenuGerenciadorReservasView();
@@ -63,7 +63,7 @@ public class MenuReservasController {
             }
 
 
-        } while (!opcaoMenuGerenciadoReservas.equals(ConstantesMenuReservasController.VOLTAR));
+        } while (opcaoMenuGerenciadoReservas != ConstantesMenuReservasController.VOLTAR);
     }
 
     private void criaReserva() {
@@ -130,7 +130,7 @@ public class MenuReservasController {
         reserva.setNumeroHospedes(numeroHospedes);
         reserva.setHospede(hospede);
         reserva.setQuarto(quarto);
-        reserva.setStatusReserva(StatusReserva.ATIVO);
+        reserva.setStatusReserva(StatusReserva.AGENDADO);
 
         reservaService.criaReserva(reserva);
 
@@ -148,7 +148,7 @@ public class MenuReservasController {
         }
 
 
-        List<ReservaDTO> reservasDoHospede = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.ATIVO, hospede.getCpf());
+        List<ReservaDTO> reservasDoHospede = reservaService.getReservasDTOByStatusReservaEByCPFHospede(StatusReserva.AGENDADO, hospede.getCpf());
 
         if (reservasDoHospede == null || reservasDoHospede.isEmpty()) {
             AlertasReservasViews.exibirAlertaSemReservaAssociadaAHospede();

@@ -26,7 +26,7 @@ public class MenuQuartosController {
 
 
     public void menuGerenciadorQuartos() {
-        String opcaoMenuGerenciadoQuartos;
+        int opcaoMenuGerenciadoQuartos;
 
         do {
             opcaoMenuGerenciadoQuartos = MenuQuartosControllerView.exibirMenuGerenciadorQuartosView();
@@ -55,7 +55,7 @@ public class MenuQuartosController {
             }
 
 
-        } while (!opcaoMenuGerenciadoQuartos.equals(ConstantesMenuQuartoController.VOLTAR));
+        } while (opcaoMenuGerenciadoQuartos != ConstantesMenuQuartoController.VOLTAR);
     }
 
 

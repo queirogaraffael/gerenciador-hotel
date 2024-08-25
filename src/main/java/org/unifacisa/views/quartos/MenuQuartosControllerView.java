@@ -3,8 +3,9 @@ package org.unifacisa.views.quartos;
 import javax.swing.*;
 
 public class MenuQuartosControllerView {
+
     private static final String MENU_TITLE = "Gerenciador de Quartos";
-    private static final String MENU_PROMPT = "Escolha uma opcao: ";
+    private static final String MENU_MESSAGE = "Escolha uma opcao: ";
 
 
     private MenuQuartosControllerView() {
@@ -12,29 +13,24 @@ public class MenuQuartosControllerView {
 
     private static final Object[] menuOptions = {
             "Cadastrar",
-            "Visualizar Quarto(s) Por Tipo",
-            "Visualizar Quarto(s) Por Tipo Disponiveis Por Data",
-            "Atualizar Dados do Quarto",
+            "Ver por Tipo",
+            "Ver Disp. por Data",
+            "Atualizar Dados",
             "Voltar"
     };
 
 
-    public static String exibirMenuGerenciadorQuartosView() {
-        Object opcao = JOptionPane.showInputDialog(
+    public static int exibirMenuGerenciadorQuartosView() {
+        return JOptionPane.showOptionDialog(
                 null,
-                MENU_PROMPT,
+                MENU_MESSAGE,
                 MENU_TITLE,
-                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
                 null,
                 menuOptions,
                 menuOptions[0]
         );
-
-        if (opcao != null) {
-            return opcao.toString();
-        }
-
-        return menuOptions[menuOptions.length-1].toString();
 
     }
 }

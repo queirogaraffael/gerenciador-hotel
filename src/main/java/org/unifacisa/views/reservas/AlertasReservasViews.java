@@ -17,12 +17,22 @@ public class AlertasReservasViews {
     }
 
     public static void exibirAlertaSemReservasCadastradasOuEmUso() {
-        JOptionPane.showMessageDialog(null, "No momento o hospede nao tem nanhum agendamento ou reserva em utilizacao.");
+        JOptionPane.showMessageDialog(null, "No momento, o hospede nao possui nenhum agendamento ou reserva em uso.");
 
     }
 
     public static void exibirAlertaSemReservasCanceladasOuFinalizadas() {
         JOptionPane.showMessageDialog(null, "No momento o hospede nao tem dados no sistemas.");
+
+    }
+
+    public static void exibirAlertaReservaCheckOutRealizadoComSucesso() {
+        JOptionPane.showMessageDialog(null, "Check-Out realizado com sucesso.");
+
+    }
+
+    public static void exibirAlertaReservaCheckInRealizadoComSucesso() {
+        JOptionPane.showMessageDialog(null, "Check-In realizado com sucesso.");
 
     }
 }

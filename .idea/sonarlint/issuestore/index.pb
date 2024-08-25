@@ -141,3 +141,11 @@ Psrc/main/java/org/unifacisa/constantes/controllers/ConstantesMenuCheckInOut.jav
 Zsrc/main/java/org/unifacisa/constantes/controllers/ConstantesMenuCheckInOutController.java,b\6\b61180aaf6a0e22aa49d1a436632daff062bc29f
 m
 =src/main/java/org/unifacisa/views/reservas/PrintaReserva.java,1\c\1ccff13ab456e60e41cd827c5ee19b7986d650e8
+b
+2src/main/java/org/unifacisa/utils/VerificaCPF.java,d\3\d390c9c6cf386769d23d6366493d3041fecdb075
+†
+Vsrc/main/java/org/unifacisa/constantes/controllers/ConstantesMenuQuartoController.java,a\1\a1650408f54f92c2ed0b6b1c1f3cf857e6fc2f50
+‹
+[src/main/java/org/unifacisa/constantes/controllers/ConstantesMenuFuncionarioController.java,9\d\9d23616d765f62ba60da60ebafbcc3480d6901e2
+l
+<src/main/java/org/unifacisa/views/commons/EnderecoViews.java,1\5\15f11a13d38535cd8bf6a35366770af665a1e04b

@@ -13,38 +13,37 @@ public class LeDadosBasicosFuncionarioViews {
     }
 
     public static String leNomeFuncionario() {
-        return JOptionPane.showInputDialog("Digite o nome do funcionario: ");
+        return JOptionPane.showInputDialog("Nome do funcionario: ");
     }
 
     public static String leCPFFuncionario() {
-        return JOptionPane.showInputDialog("Digite o CPF do funcionario no formato:" + VerificaCPF.padraoCPF);
+        return JOptionPane.showInputDialog("Digite o CPF no formato: " + VerificaCPF.PADRAO_CPF);
     }
 
     public static String leDataNascimentoFuncionario() {
-        return JOptionPane.showInputDialog("Digite a data de nascimento do funcionario no formato: " + ManipulaData.FORMATO_DATA);
+        return JOptionPane.showInputDialog("Digite a data de nascimento no formato: " + ManipulaData.FORMATO_DATA);
     }
 
     public static String leNumeroTelefoneFuncionario() {
-        return JOptionPane.showInputDialog("Digite o numero de telefone do funcionario: ");
+        return JOptionPane.showInputDialog("Numero de telefone: ");
     }
 
     public static String leCargoFuncionario() {
-        return JOptionPane.showInputDialog("Escreva o cargo do funcionario: ");
+        return JOptionPane.showInputDialog("Cargo do funcionario: ");
     }
 
     public static YearMonth leData() {
-
         String data = JOptionPane.showInputDialog("Digite a data no formato: " + ExtratoFuncionario.FORMATO_DATA);
         return YearMonth.parse(data, ExtratoFuncionario.formato);
     }
 
 
     public static double leHorasTrabalhadas() {
-        return Double.parseDouble(JOptionPane.showInputDialog("Digite o numero de horas trabalhadas: "));
+        return Double.parseDouble(JOptionPane.showInputDialog("Numero de horas trabalhadas: "));
     }
 
     public static double leValorHora() {
-        return Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da hora: "));
+        return Double.parseDouble(JOptionPane.showInputDialog("Valor da hora: "));
     }
 
 }

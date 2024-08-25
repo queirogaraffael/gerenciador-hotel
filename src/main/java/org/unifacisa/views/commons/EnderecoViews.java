@@ -8,27 +8,27 @@ public class EnderecoViews {
     }
 
     public static String leNumeroCasa() {
-        return JOptionPane.showInputDialog("Digite o numero da casa: ");
+        return JOptionPane.showInputDialog("Numero: ");
     }
 
     public static String leCidade() {
-        return JOptionPane.showInputDialog("Digite o nome da cidade: ");
+        return JOptionPane.showInputDialog("Cidade: ");
     }
 
     public static String leRua() {
-        return JOptionPane.showInputDialog("Digite o nome da rua: ");
+        return JOptionPane.showInputDialog("Rua: ");
     }
 
     public static String leBairro() {
-        return JOptionPane.showInputDialog("Digite o nome do bairro: ");
+        return JOptionPane.showInputDialog("Bairro: ");
     }
 
     public static String leEstado() {
-        return JOptionPane.showInputDialog("Digite o nome do estado: ");
+        return JOptionPane.showInputDialog("Estado: ");
     }
 
     public static int desejaAdicionarEndereco() {
-        return JOptionPane.showConfirmDialog(null, "Deseja adicionar endereco:", "Escolha um", JOptionPane.YES_NO_OPTION);
+        return JOptionPane.showConfirmDialog(null, "Deseja adicionar endereco ?", "Adicionar Endereco", JOptionPane.YES_NO_OPTION);
 
     }
 }

@@ -20,24 +20,24 @@ public class AlertasHospedesViews {
     }
 
     public static void exibirAlertaCPFNaoSeguePadrao() {
-        JOptionPane.showMessageDialog(null, "CPF do hospede nao segue padrao: " + VerificaCPF.padraoCPF, ALERTA
+        JOptionPane.showMessageDialog(null, "CPF nao segue padrao: " + VerificaCPF.PADRAO_CPF, ALERTA
                 , JOptionPane.ERROR_MESSAGE);
     }
 
     public static void exibirAlertaCPFJaExiste() {
-        JOptionPane.showMessageDialog(null, "CPF de hospede ja cadastrado.", ALERTA
+        JOptionPane.showMessageDialog(null, "Hospede ja cadastrado.", ALERTA
                 , JOptionPane.ERROR_MESSAGE);
     }
 
 
     public static void exibirAlertaNumeroTelefoneVazio() {
-        JOptionPane.showMessageDialog(null, "Numero de telefone do hospede nao pode ser vazio.", ALERTA
+        JOptionPane.showMessageDialog(null, "Telefone do hospede nao pode ser vazio.", ALERTA
                 , JOptionPane.ERROR_MESSAGE);
 
     }
 
     public static void exibirAlertaSemHospedesCorrespondentes() {
-        JOptionPane.showMessageDialog(null, "Sem hospedes correspondentes para esse nome.", ALERTA
+        JOptionPane.showMessageDialog(null, "Sem hospede(s) correspondente(s)", ALERTA
                 , JOptionPane.ERROR_MESSAGE);
 
     }
@@ -59,7 +59,7 @@ public class AlertasHospedesViews {
     }
 
     public static void exibirAlertaNaoPodeMenorDeIdade() {
-            JOptionPane.showMessageDialog(null, "Nao pode cadastrar hospede responsavel menor de idade.", ALERTA
+            JOptionPane.showMessageDialog(null, "Não é permitido cadastrar um hospede responsavel menor de idade.", ALERTA
                     , JOptionPane.ERROR_MESSAGE);
     }
 }
