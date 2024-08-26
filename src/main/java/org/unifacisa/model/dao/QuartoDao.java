@@ -18,6 +18,6 @@ public interface QuartoDao {
 
     void atualizaDadosQuarto(Quarto quartoModificado);
 
-    boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto);
+    boolean haQuartoComMesmoNumero(String numeroQuarto);
 
 }

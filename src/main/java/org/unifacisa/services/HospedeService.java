@@ -1,12 +1,10 @@
 package org.unifacisa.services;
 
-import org.unifacisa.dtos.HospedeDTO;
 import org.unifacisa.model.dao.HospedeDao;
 import org.unifacisa.model.dao.imp.HospedeDaoHibernate;
 import org.unifacisa.model.domain.entities.Hospede;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.List;
 
 public class HospedeService {
     private final HospedeDao hospedeDao;
@@ -28,7 +26,7 @@ public class HospedeService {
         return hospedeDao.getHospedeByCPF(cpf);
     }
 
-    public boolean verificaSeHaHospedeComMesmoCPF(String cpf) {
-        return hospedeDao.verificaSeHaHospedeComMesmoCPF(cpf);
+    public boolean haHospedeComMesmoCPF(String cpf) {
+        return hospedeDao.haHospedeComMesmoCPF(cpf);
     }
 }

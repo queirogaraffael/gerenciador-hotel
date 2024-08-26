@@ -6,10 +6,7 @@ import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.ReservaDao;
 import org.unifacisa.model.domain.entities.Reserva;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,7 +60,14 @@ public class ReservaDaoHibernate implements ReservaDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.find(Reserva.class, idReserva);
+            String consulta = "SELECT r " +
+                    "FROM Reserva r " +
+                    "WHERE r.id = :idReserva";
+
+            return entityManager.createQuery(consulta, Reserva.class).setParameter("idReserva", idReserva).getSingleResult();
+
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException(e);
             return null;
@@ -74,15 +78,15 @@ public class ReservaDaoHibernate implements ReservaDao {
 
     @Override
     public List<ReservaDTO> getReservasDTOByStatusReservaEByCPFHospede(StatusReserva statusReserva, String cpf) {
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
+            String consulta = "SELECT new org.unifacisa.dtos.ReservaDTO(r.id, r.dataEntrada, r.dataSaida, r.quarto.tipoQuarto) " +
+                    "FROM Reserva r " +
+                    "JOIN r.hospede h " +
+                    "WHERE h.cpf = :cpf AND r.statusReserva = :statusReserva";
 
-            return entityManager.createQuery("SELECT new org.unifacisa.dtos.ReservaDTO(reserva.id, reserva.dataEntrada, reserva.dataSaida, reserva.quarto.tipoQuarto) " +
-                            "FROM Reserva reserva " +
-                            "JOIN reserva.hospede hospede " +
-                            "WHERE hospede.cpf = :cpf AND reserva.statusReserva = :statusReserva", ReservaDTO.class)
+            return entityManager.createQuery(consulta, ReservaDTO.class)
                     .setParameter("cpf", cpf)
                     .setParameter("statusReserva", statusReserva)
                     .getResultList();

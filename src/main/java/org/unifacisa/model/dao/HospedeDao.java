@@ -1,10 +1,6 @@
 package org.unifacisa.model.dao;
 
-import org.unifacisa.dtos.ReservaDTO;
 import org.unifacisa.model.domain.entities.Hospede;
-import org.unifacisa.model.domain.entities.Reserva;
-
-import java.util.List;
 
 public interface HospedeDao {
 
@@ -14,6 +10,6 @@ public interface HospedeDao {
 
     Hospede getHospedeByCPF(String cpf);
 
-    boolean verificaSeHaHospedeComMesmoCPF(String cpf);
+    boolean haHospedeComMesmoCPF(String cpf);
 
 }

@@ -87,7 +87,7 @@ public class MenuFuncionarioController {
         }
 
 
-        if (funcionarioService.verificaSeHaFuncionarioComMesmoCPF(cpf)) {
+        if (funcionarioService.haFuncionarioComMesmoCPF(cpf)) {
             AlertasFuncionarioViews.exibirAlertaCPFJaExiste();
             return;
         }

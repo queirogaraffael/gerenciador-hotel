@@ -38,8 +38,8 @@ public class QuartoService {
     }
 
 
-    public boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto) {
-        return quartoDao.verificaSeHaQuartoComMesmoNumero(numeroQuarto);
+    public boolean haQuartoComMesmoNumero(String numeroQuarto) {
+        return quartoDao.haQuartoComMesmoNumero(numeroQuarto);
     }
 
 

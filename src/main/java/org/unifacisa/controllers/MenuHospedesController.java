@@ -92,7 +92,7 @@ public class MenuHospedesController {
         }
 
 
-        if (hospedeService.verificaSeHaHospedeComMesmoCPF(cpf)) {
+        if (hospedeService.haHospedeComMesmoCPF(cpf)) {
             AlertasHospedesViews.exibirAlertaCPFJaExiste();
             return;
         }

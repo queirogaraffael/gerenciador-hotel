@@ -52,10 +52,13 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT quarto FROM Quarto quarto WHERE quarto.numeroQuarto =: numeroQuarto", Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
+            String consulta = "SELECT q " +
+                    "FROM Quarto q " +
+                    "WHERE q.numeroQuarto =: numeroQuarto";
+
+            return entityManager.createQuery(consulta, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
 
         } catch (NoResultException error) {
-            GlobalExceptionHandler.handleNoResultException(error);
             return null;
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException(e);
@@ -68,20 +71,21 @@ public class QuartoDaoHibernate implements QuartoDao {
 
     @Override
     public List<QuartoDTO> getQuartosDTOByTipo(TipoQuarto tipoQuarto) {
-
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) FROM Quarto quarto WHERE quarto.tipoQuarto = :tipoQuarto ", QuartoDTO.class).setParameter("tipoQuarto", tipoQuarto).getResultList();
+            String consulta = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto, q.tipoQuarto) " +
+                    "FROM Quarto q " +
+                    "WHERE q.tipoQuarto = :tipoQuarto ";
+
+            return entityManager.createQuery(consulta, QuartoDTO.class).setParameter("tipoQuarto", tipoQuarto).getResultList();
 
         } catch (Exception e) {
-            GlobalExceptionHandler.handleGeneralException("Sem Quarto(s) desse tipo.");
+            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos desse tipo: " + e.getMessage());
             return Collections.emptyList();
         } finally {
             entityManager.close();
         }
-
 
     }
 
@@ -91,25 +95,23 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-
             StatusReserva statusAgendado = StatusReserva.AGENDADO;
             StatusReserva statusEmUso = StatusReserva.EM_USO;
 
-            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(quarto.numeroQuarto, quarto.tipoQuarto) " +
-                    "FROM Reserva reserva JOIN reserva.quarto quarto " +
-                    "WHERE quarto.tipoQuarto = :tipoQuarto " +
-                    "AND reserva.dataEntrada <= :dataFinal " +
-                    "AND reserva.dataSaida >= :dataInicial " +
-                    "AND (reserva.statusReserva = :statusAgendado OR reserva.statusReserva = :statusEmUso)";
+            String consulta = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto, q.tipoQuarto) " +
+                    "FROM Reserva r JOIN r.quarto q " +
+                    "WHERE q.tipoQuarto = :tipoQuarto " +
+                    "AND r.dataEntrada <= :dataFinal " +
+                    "AND r.dataSaida >= :dataInicial " +
+                    "AND (r.statusReserva = :statusAgendado OR r.statusReserva = :statusEmUso)";
 
-            TypedQuery<QuartoDTO> query = entityManager.createQuery(jpql, QuartoDTO.class)
+            return entityManager.createQuery(consulta, QuartoDTO.class)
                     .setParameter("tipoQuarto", tipoQuarto)
                     .setParameter("dataInicial", dataInicial)
                     .setParameter("dataFinal", dataFinal)
                     .setParameter("statusAgendado", statusAgendado)
-                    .setParameter("statusEmUso", statusEmUso);
-
-            return query.getResultList();
+                    .setParameter("statusEmUso", statusEmUso)
+                    .getResultList();
 
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos ocupados: " + e.getMessage());
@@ -126,12 +128,6 @@ public class QuartoDaoHibernate implements QuartoDao {
 
     @Override
     public void atualizaDadosQuarto(Quarto quartoModificado) {
-
-        if (quartoModificado == null || quartoModificado.getId() == null) {
-            GlobalExceptionHandler.handleIllegalArgumentException("Quarto invalido.");
-            return;
-        }
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -140,18 +136,18 @@ public class QuartoDaoHibernate implements QuartoDao {
 
             Quarto quartoExistente = entityManager.find(Quarto.class, quartoModificado.getId());
 
-
             if (quartoExistente != null) {
 
                 quartoExistente.setTipoQuarto(quartoModificado.getTipoQuarto());
                 quartoExistente.setPrecoDiaria(quartoModificado.getPrecoDiaria());
                 quartoExistente.setCapacidade(quartoModificado.getCapacidade());
 
-
                 entityManager.merge(quartoExistente);
 
-
                 transaction.commit();
+
+                GlobalExceptionHandler.handleRuntimeException("Quarto atualizacao com sucesso.");
+
             } else {
                 GlobalExceptionHandler.handleRuntimeException("Quarto nao encontrado para atualizacao.");
             }
@@ -176,16 +172,21 @@ public class QuartoDaoHibernate implements QuartoDao {
     }
 
     @Override
-    public boolean verificaSeHaQuartoComMesmoNumero(String numeroQuarto) {
-
+    public boolean haQuartoComMesmoNumero(String numeroQuarto) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            entityManager.createQuery("SELECT quarto FROM Quarto quarto WHERE quarto.numeroQuarto = :numeroQuarto", Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
+            String consulta = "SELECT q " +
+                    "FROM Quarto q " +
+                    "WHERE q.numeroQuarto = :numeroQuarto";
 
+            entityManager.createQuery(consulta, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
             return true;
 
-        } catch (Exception error) {
+        } catch (NoResultException e) {
+            return false;
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e.getMessage());
             return false;
         } finally {
             entityManager.close();

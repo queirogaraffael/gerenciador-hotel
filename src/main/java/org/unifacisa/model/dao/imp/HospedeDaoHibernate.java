@@ -1,16 +1,11 @@
 package org.unifacisa.model.dao.imp;
 
-import org.unifacisa.dtos.HospedeDTO;
-import org.unifacisa.dtos.ReservaDTO;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
 import org.unifacisa.model.dao.HospedeDao;
 import org.unifacisa.model.domain.entities.Endereco;
 import org.unifacisa.model.domain.entities.Hospede;
-import org.unifacisa.model.domain.entities.Reserva;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.List;
 
 public class HospedeDaoHibernate implements HospedeDao {
 
@@ -103,15 +98,16 @@ public class HospedeDaoHibernate implements HospedeDao {
 
     @Override
     public Hospede getHospedeByCPF(String cpf) {
-
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT hospede FROM Hospede hospede WHERE hospede.cpf =: cpf", Hospede.class).setParameter("cpf", cpf).getSingleResult();
+            String consulta = "SELECT h " +
+                    "FROM Hospede h " +
+                    "WHERE h.cpf =: cpf";
+
+            return entityManager.createQuery(consulta, Hospede.class).setParameter("cpf", cpf).getSingleResult();
 
         } catch (NoResultException e) {
-            GlobalExceptionHandler.handleNoResultException(e);
             return null;
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException(e);
@@ -124,23 +120,26 @@ public class HospedeDaoHibernate implements HospedeDao {
     }
 
     @Override
-    public boolean verificaSeHaHospedeComMesmoCPF(String cpf) {
-
-
+    public boolean haHospedeComMesmoCPF(String cpf) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            entityManager.createQuery("SELECT hospede FROM Hospede hospede WHERE hospede.cpf = :cpf", Hospede.class).setParameter("cpf", cpf).getSingleResult();
+            String consulta = "SELECT h " +
+                    "FROM Hospede h " +
+                    "WHERE h.cpf = :cpf";
+
+            entityManager.createQuery(consulta, Hospede.class).setParameter("cpf", cpf).getSingleResult();
 
             return true;
 
+        } catch (NoResultException e) {
+            return false;
         } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e.getMessage());
             return false;
         } finally {
             entityManager.close();
         }
-
-
 
 
     }

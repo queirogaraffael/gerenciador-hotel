@@ -63,7 +63,7 @@ public class MenuQuartosController {
 
         String numeroQuarto = LeDadosBasicosQuartoView.leNumeroQuarto();
 
-        if (quartoService.verificaSeHaQuartoComMesmoNumero(numeroQuarto)) {
+        if (quartoService.haQuartoComMesmoNumero(numeroQuarto)) {
             AlertasQuartoViews.exibirAlertaQuartoJaCadastrado();
             return;
         }
@@ -206,7 +206,6 @@ public class MenuQuartosController {
 
             if (opcao != ConstantesMenuModificacaoQuarto.VOLTAR) {
                 quartoService.atualizaDadosQuarto(quarto);
-                AlertasQuartoViews.exibirAlertaQuartoModificadoComSucesso();
 
             }
 

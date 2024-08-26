@@ -40,8 +40,8 @@ public class FuncionarioService {
     }
 
 
-    public boolean verificaSeHaFuncionarioComMesmoCPF(String cpf) {
-        return funcionarioDao.verificaSeHaFuncionarioComMesmoCPF(cpf);
+    public boolean haFuncionarioComMesmoCPF(String cpf) {
+        return funcionarioDao.haFuncionarioComMesmoCPF(cpf);
     }
 
     public List<ExtratoFuncionarioDTO> getExtratosFuncionarioDTOByCPF(String cpf) {

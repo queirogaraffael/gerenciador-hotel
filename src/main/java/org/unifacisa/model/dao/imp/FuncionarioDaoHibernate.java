@@ -111,10 +111,12 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT funcionario FROM Funcionario funcionario WHERE funcionario.cpf =: cpf", Funcionario.class).setParameter("cpf", cpf).getSingleResult();
+            String consulta = "SELECT f FROM Funcionario f " +
+                    "WHERE f.cpf =: cpf";
+
+            return entityManager.createQuery(consulta, Funcionario.class).setParameter("cpf", cpf).getSingleResult();
 
         } catch (NoResultException e) {
-            GlobalExceptionHandler.handleNoResultException(e);
             return null;
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException(e);
@@ -131,10 +133,14 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT new org.unifacisa.dtos.FuncionarioDTO(funcionario.id, funcionario.cpf, funcionario.nome) FROM Funcionario funcionario WHERE LOWER(funcionario.nome) LIKE LOWER(CONCAT('%', :nome, '%'))", FuncionarioDTO.class).setParameter("nome", nome).getResultList();
+            String consulta = "SELECT new org.unifacisa.dtos.FuncionarioDTO(f.id, f.cpf, f.nome) " +
+                    "FROM Funcionario f " +
+                    "WHERE LOWER(f.nome) LIKE LOWER(CONCAT('%', :nome, '%'))";
+
+            return entityManager.createQuery(consulta, FuncionarioDTO.class).setParameter("nome", nome).getResultList();
 
         } catch (Exception e) {
-            GlobalExceptionHandler.handleGeneralException("Sem Funcionario(s) com esse nome.");
+            GlobalExceptionHandler.handleGeneralException(e.getMessage());
             return Collections.emptyList();
         } finally {
             entityManager.close();
@@ -144,16 +150,20 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
     }
 
     @Override
-    public boolean verificaSeHaFuncionarioComMesmoCPF(String cpf) {
-
+    public boolean haFuncionarioComMesmoCPF(String cpf) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            entityManager.createQuery("SELECT funcionario FROM Funcionario funcionario WHERE funcionario.cpf = :cpf", Funcionario.class).setParameter("cpf", cpf).getSingleResult();
+            String consulta = "SELECT f " +
+                    "FROM Funcionario f " +
+                    "WHERE f.cpf = :cpf";
 
+            entityManager.createQuery(consulta, Funcionario.class).setParameter("cpf", cpf).getSingleResult();
             return true;
-
+        } catch (NoResultException e) {
+            return false;
         } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException(e.getMessage());
             return false;
         } finally {
             entityManager.close();
@@ -168,7 +178,13 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT new org.unifacisa.dtos.ExtratoFuncionarioDTO(e.id, e.mesReferente) " + "FROM ExtratoFuncionario e " + "JOIN e.funcionario f " + "WHERE f.cpf = :cpf " + "ORDER BY e.mesReferente DESC", ExtratoFuncionarioDTO.class).setParameter("cpf", cpf).getResultList();
+            String consulta = "SELECT new org.unifacisa.dtos.ExtratoFuncionarioDTO(e.id, e.mesReferente) " +
+                    "FROM ExtratoFuncionario e " +
+                    "JOIN e.funcionario f " +
+                    "WHERE f.cpf = :cpf " +
+                    "ORDER BY e.mesReferente DESC";
+
+            return entityManager.createQuery(consulta, ExtratoFuncionarioDTO.class).setParameter("cpf", cpf).getResultList();
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Sem Extrato(s) para esse funcionario.");
             return Collections.emptyList();
@@ -182,22 +198,23 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
     @Override
     public boolean existeExtratoFuncionarioPorMesAno(String cpf, YearMonth data) {
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         try {
+
+            String consulta = "SELECT COUNT(ex) " +
+                    "FROM ExtratoFuncionario ex " +
+                    "WHERE ex.funcionario.cpf = :cpf " +
+                    "AND ex.mesReferente = :data";
+
             Long numeroExtratos = entityManager.createQuery(
-                            "SELECT COUNT(extrato) " +
-                                    "FROM ExtratoFuncionario extrato " +
-                                    "WHERE extrato.funcionario.cpf = :cpf " +
-                                    "AND extrato.mesReferente = :data", Long.class)
+                            consulta, Long.class)
                     .setParameter("cpf", cpf)
                     .setParameter("data", data)
                     .getSingleResult();
 
             return numeroExtratos > 0;
 
-        } catch (Exception e) {
+        }catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Erro ao verificar existencia do extrato.");
             return false;
         } finally {
@@ -210,10 +227,13 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            return entityManager.createQuery("SELECT extrato FROM ExtratoFuncionario extrato WHERE extrato.id =: id", ExtratoFuncionario.class).setParameter("id", id).getSingleResult();
+            String consulta = "SELECT ex " +
+                    "FROM ExtratoFuncionario ex " +
+                    "WHERE ex.id =: id";
+
+            return entityManager.createQuery(consulta, ExtratoFuncionario.class).setParameter("id", id).getSingleResult();
 
         } catch (NoResultException error) {
-            GlobalExceptionHandler.handleNoResultException(error);
             return null;
         } catch (Exception error) {
             GlobalExceptionHandler.handleGeneralException(error);
@@ -221,7 +241,6 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         } finally {
             entityManager.close();
         }
-
 
     }
 
