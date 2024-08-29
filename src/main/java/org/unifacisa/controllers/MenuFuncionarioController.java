@@ -75,12 +75,6 @@ public class MenuFuncionarioController {
 
         String cpf = LeDadosBasicosFuncionarioViews.leCPFFuncionario();
 
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaCPFNaoPodeSerVazio();
-            return;
-        }
-
-
         if (!VerificaCPF.isCpfValido(cpf)) {
             AlertasFuncionarioViews.exibirAlertaCPFNaoSeguePadrao();
             return;
@@ -95,11 +89,6 @@ public class MenuFuncionarioController {
         funcionario.setCpf(cpf);
 
         String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
-
-        if (nome == null || nome.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaNomeNaoPodeSerVazio();
-            return;
-        }
 
         funcionario.setNome(nome);
 
@@ -121,20 +110,9 @@ public class MenuFuncionarioController {
 
         String numeroTelefone = LeDadosBasicosFuncionarioViews.leNumeroTelefoneFuncionario();
 
-        if (numeroTelefone == null || numeroTelefone.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaNumeroTelefoneVazio();
-            return;
-        }
-
         funcionario.setNumeroTelefone(numeroTelefone);
 
-
         String cargo = LeDadosBasicosFuncionarioViews.leCargoFuncionario();
-
-        if (cargo == null || cargo.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaCargoVazio();
-            return;
-        }
 
         funcionario.setCargo(cargo);
 
@@ -190,11 +168,6 @@ public class MenuFuncionarioController {
 
     private void buscaFuncionarioPorNome() {
         String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
-
-        if (nome == null || nome.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaNomeNaoPodeSerVazio();
-            return;
-        }
 
         List<FuncionarioDTO> funcionarioDTOList = funcionarioService.getFuncionariosDTOByNome(nome);
 
@@ -294,7 +267,7 @@ public class MenuFuncionarioController {
 
             if (opcao != ConstantesMenuModificacaoDadosFuncionario.VOLTAR) {
                 funcionarioService.atualizaFuncionario(funcionario);
-                AlertasFuncionarioViews.exibirAlertaDdosFuncionarioModificadoComSucesso();
+                AlertasFuncionarioViews.exibirAlertaDadosFuncionarioModificadoComSucesso();
             }
 
 
@@ -352,11 +325,6 @@ public class MenuFuncionarioController {
 
     public Funcionario validaCPFDoFuncionarioERetornaFuncionario() {
         String cpf = LeDadosBasicosFuncionarioViews.leCPFFuncionario();
-
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasFuncionarioViews.exibirAlertaCPFNaoPodeSerVazio();
-            return null;
-        }
 
         if (!VerificaCPF.isCpfValido(cpf)) {
             AlertasFuncionarioViews.exibirAlertaCPFNaoSeguePadrao();

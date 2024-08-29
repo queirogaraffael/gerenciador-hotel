@@ -80,12 +80,6 @@ public class MenuHospedesController {
         String cpf = LeDadosBasicosHospedeViews.leCPFHospede();
 
 
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasHospedesViews.exibirAlertaCPFNaoPodeSerVazio();
-            return;
-        }
-
-
         if (!VerificaCPF.isCpfValido(cpf)) {
             AlertasHospedesViews.exibirAlertaCPFNaoSeguePadrao();
             return;
@@ -103,12 +97,6 @@ public class MenuHospedesController {
 
         String nome = LeDadosBasicosHospedeViews.leNomeHospede();
 
-
-        if (nome == null || nome.trim().isEmpty()) {
-            AlertasHospedesViews.exibirAlertaNomeNaoPodeSerVazio();
-            return;
-        }
-
         hospede.setNome(nome);
 
         String dataNascimento = LeDadosBasicosHospedeViews.leDataNascimentoHospede();
@@ -119,7 +107,7 @@ public class MenuHospedesController {
             return;
         }
 
-        if(!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))){
+        if (!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))) {
             AlertasHospedesViews.exibirAlertaNaoPodeMenorDeIdade();
             return;
         }
@@ -127,15 +115,6 @@ public class MenuHospedesController {
         hospede.setDataNascimento(ManipulaData.retornaLocalDate(dataNascimento));
 
         String numeroTelefone = LeDadosBasicosHospedeViews.leNumeroTelefoneHospede();
-
-        if (numeroTelefone == null || numeroTelefone.trim().isEmpty()) {
-
-
-            AlertasHospedesViews.exibirAlertaNumeroTelefoneVazio();
-
-
-            return;
-        }
 
         hospede.setNumeroTelefone(numeroTelefone);
 
@@ -145,9 +124,7 @@ public class MenuHospedesController {
         Endereco endereco = new Endereco();
 
         if (desejaAdicionarEndereco == JOptionPane.YES_OPTION) {
-
             endereco = adicionarEndereco(endereco);
-
         } else if (desejaAdicionarEndereco == JOptionPane.CLOSED_OPTION) {
             return;
         }
@@ -182,9 +159,9 @@ public class MenuHospedesController {
     }
 
     private void visualizaReservasHospede() {
-        Hospede hospede =  validaCPFDoHospedeERetornaHospede();
+        Hospede hospede = validaCPFDoHospedeERetornaHospede();
 
-        if(hospede == null){
+        if (hospede == null) {
             return;
         }
 
@@ -199,7 +176,7 @@ public class MenuHospedesController {
 
         Collections.sort(listasUnida);
 
-        if(listasUnida.isEmpty()){
+        if (listasUnida.isEmpty()) {
             AlertasReservasViews.exibirAlertaSemReservasCadastradasOuEmUso();
             return;
         }
@@ -213,9 +190,9 @@ public class MenuHospedesController {
     }
 
     private void visualizaReservasFinalizadasHospede() {
-        Hospede hospede =  validaCPFDoHospedeERetornaHospede();
+        Hospede hospede = validaCPFDoHospedeERetornaHospede();
 
-        if(hospede == null){
+        if (hospede == null) {
             return;
         }
 
@@ -230,7 +207,7 @@ public class MenuHospedesController {
 
         Collections.sort(listasUnida);
 
-        if(listasUnida.isEmpty()){
+        if (listasUnida.isEmpty()) {
             AlertasReservasViews.exibirAlertaSemReservasCanceladasOuFinalizadas();
             return;
         }
@@ -244,16 +221,9 @@ public class MenuHospedesController {
     }
 
 
-
-
     public Hospede validaCPFDoHospedeERetornaHospede() {
 
         String cpf = LeDadosBasicosHospedeViews.leCPFHospede();
-
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasHospedesViews.exibirAlertaCPFNaoPodeSerVazio();
-            return null;
-        }
 
 
         if (!VerificaCPF.isCpfValido(cpf)) {

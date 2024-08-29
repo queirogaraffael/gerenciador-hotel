@@ -60,11 +60,11 @@ public class ReservaDaoHibernate implements ReservaDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT r " +
+            String jpql = "SELECT r " +
                     "FROM Reserva r " +
                     "WHERE r.id = :idReserva";
 
-            return entityManager.createQuery(consulta, Reserva.class).setParameter("idReserva", idReserva).getSingleResult();
+            return entityManager.createQuery(jpql, Reserva.class).setParameter("idReserva", idReserva).getSingleResult();
 
         } catch (NoResultException e) {
             return null;
@@ -81,12 +81,12 @@ public class ReservaDaoHibernate implements ReservaDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT new org.unifacisa.dtos.ReservaDTO(r.id, r.dataEntrada, r.dataSaida, r.quarto.tipoQuarto) " +
+            String jpql = "SELECT new org.unifacisa.dtos.ReservaDTO(r.id, r.dataEntrada, r.dataSaida, r.quarto.tipoQuarto) " +
                     "FROM Reserva r " +
                     "JOIN r.hospede h " +
                     "WHERE h.cpf = :cpf AND r.statusReserva = :statusReserva";
 
-            return entityManager.createQuery(consulta, ReservaDTO.class)
+            return entityManager.createQuery(jpql, ReservaDTO.class)
                     .setParameter("cpf", cpf)
                     .setParameter("statusReserva", statusReserva)
                     .getResultList();
@@ -123,6 +123,49 @@ public class ReservaDaoHibernate implements ReservaDao {
                 transaction.rollback();
             }
             GlobalExceptionHandler.handleGeneralException(e);
+        } finally {
+            entityManager.close();
+        }
+
+
+    }
+
+    @Override
+    public void atualizaReserva(Reserva reservaModifica) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Reserva reservaExistente = entityManager.find(Reserva.class, reservaModifica.getId());
+
+            if (reservaExistente != null) {
+
+                reservaExistente.setDataEntrada(reservaModifica.getDataEntrada());
+                reservaExistente.setDataSaida(reservaModifica.getDataSaida());
+                reservaExistente.setStatusReserva(reservaModifica.getStatusReserva());
+                reservaExistente.setValorTotal(reservaModifica.getValorTotal());
+
+                entityManager.merge(reservaExistente);
+
+                transaction.commit();
+            } else {
+                GlobalExceptionHandler.handleRuntimeException("Reserva nao encontrada para atualizacao.");
+            }
+
+        } catch (PersistenceException e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            GlobalExceptionHandler.handlePersistenceException(e);
+
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            GlobalExceptionHandler.handleGeneralException(e);
+
         } finally {
             entityManager.close();
         }

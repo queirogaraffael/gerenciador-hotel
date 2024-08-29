@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.unifacisa.enums.Turno;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -18,6 +19,9 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Funcionario extends Pessoa {
+
+    @Column(unique = true)
+    private String cpf;
 
     private String cargo;
     private Turno turno;

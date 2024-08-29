@@ -5,7 +5,8 @@ public enum StatusReserva {
     AGENDADO(0, "Agendado"),
     CANCELADO(1, "Cancelado"),
     EM_USO(2, "Em uso"),
-    FINALIZADO(3, "Finalizado");
+    FINALIZADO(3, "Finalizado"),
+    MANUTENCAO(3, "Manutencao");
 
 
     private final int codigo;

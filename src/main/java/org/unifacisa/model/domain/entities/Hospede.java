@@ -16,6 +16,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = false)
 public class Hospede extends Pessoa {
 
+    @Column(unique = true)
+    private String cpf;
 
     @OneToMany(mappedBy = "hospede", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reserva> reservas = new HashSet<>();

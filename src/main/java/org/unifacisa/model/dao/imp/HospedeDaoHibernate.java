@@ -45,12 +45,6 @@ public class HospedeDaoHibernate implements HospedeDao {
 
     @Override
     public void atualizaHospede(Hospede hospedeModificado) {
-
-        if (hospedeModificado == null || hospedeModificado.getId() == null) {
-            GlobalExceptionHandler.handleIllegalArgumentException("Hospede invalido.");
-            return;
-        }
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -101,11 +95,11 @@ public class HospedeDaoHibernate implements HospedeDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT h " +
+            String jpql = "SELECT h " +
                     "FROM Hospede h " +
                     "WHERE h.cpf =: cpf";
 
-            return entityManager.createQuery(consulta, Hospede.class).setParameter("cpf", cpf).getSingleResult();
+            return entityManager.createQuery(jpql, Hospede.class).setParameter("cpf", cpf).getSingleResult();
 
         } catch (NoResultException e) {
             return null;
@@ -124,11 +118,11 @@ public class HospedeDaoHibernate implements HospedeDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT h " +
+            String jpql = "SELECT h " +
                     "FROM Hospede h " +
                     "WHERE h.cpf = :cpf";
 
-            entityManager.createQuery(consulta, Hospede.class).setParameter("cpf", cpf).getSingleResult();
+            entityManager.createQuery(jpql, Hospede.class).setParameter("cpf", cpf).getSingleResult();
 
             return true;
 

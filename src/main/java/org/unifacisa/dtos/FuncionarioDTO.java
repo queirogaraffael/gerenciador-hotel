@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FuncionarioDTO {
+
     private Long id;
     private String cpf;
     private String nome;

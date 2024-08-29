@@ -74,7 +74,6 @@ public class MenuReservasController {
             return;
         }
 
-
         TipoQuarto tipoQuarto = EscolheTipoQuartoView.exibeEEscolheTipoQuartoView();
 
 
@@ -118,11 +117,20 @@ public class MenuReservasController {
         }
 
 
-        String numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
-
-        int numeroHospedes = LeDadosBasicosHospedeViews.leNumeroHospedesQuarto();
-
+        int numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
         Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
+
+        int capacidadeMaximaHospedePorQuarto = quarto.getCapacidade();
+
+        int numeroHospedes = LeDadosBasicosHospedeViews.leNumeroHospedesQuarto(capacidadeMaximaHospedePorQuarto);
+
+
+        if(numeroHospedes > capacidadeMaximaHospedePorQuarto){
+            AlertasQuartoViews.capacidadeMaximaDeHospedeUltrapassada();
+            return;
+        }
+
+
         Reserva reserva = new Reserva();
 
         reserva.setDataEntrada(dataEntrada);
@@ -168,11 +176,6 @@ public class MenuReservasController {
     public Hospede validaCPFDoHospedeERetornaHospede() {
 
         String cpf = LeDadosBasicosHospedeViews.leCPFHospede();
-
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasHospedesViews.exibirAlertaCPFNaoPodeSerVazio();
-            return null;
-        }
 
 
         if (!VerificaCPF.isCpfValido(cpf)) {

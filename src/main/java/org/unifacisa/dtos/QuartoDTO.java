@@ -10,11 +10,11 @@ import org.unifacisa.enums.TipoQuarto;
 @AllArgsConstructor
 public class QuartoDTO {
 
-    private String numeroQuarto;
-    private TipoQuarto tipoQuarto;
+    private int numeroQuarto;
 
     @Override
     public String toString() {
-        return numeroQuarto + " - " + tipoQuarto;
+        return String.valueOf(getNumeroQuarto());
     }
 }
+

@@ -8,8 +8,10 @@ import java.util.List;
 
 public class SelecionaQuartoDTO {
 
-    public static String selecionaNumeroQuarto(List<QuartoDTO> quartosDTO) {
+    private SelecionaQuartoDTO() {
+    }
 
+    public static int selecionaNumeroQuarto(List<QuartoDTO> quartosDTO) {
 
         Object[] opcoes = converterQuartosParaArray(quartosDTO);
 
@@ -21,7 +23,7 @@ public class SelecionaQuartoDTO {
             return quarto.getNumeroQuarto();
         } else {
             GlobalExceptionHandler.handleNoResultException("Quarto nao encontrado.");
-            return null;
+            return 0;
         }
     }
 
@@ -39,11 +41,10 @@ public class SelecionaQuartoDTO {
             return null;
         }
 
-        String numeroQuarto = quartoSelecionado.split(" - ")[0].trim();
-
+        int numeroQuarto = Integer.parseInt(quartoSelecionado);
 
         for (QuartoDTO quartoDTO : quartosDTO) {
-            if (quartoDTO != null && quartoDTO.getNumeroQuarto().equals(numeroQuarto)) {
+            if (quartoDTO != null && quartoDTO.getNumeroQuarto() == numeroQuarto) {
                 return quartoDTO;
             }
         }

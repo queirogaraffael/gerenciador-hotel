@@ -24,13 +24,16 @@ public class Reserva {
     private LocalDate dataEntrada;
     private LocalDate dataSaida;
 
-    private int numeroHospedes;
+    private Integer numeroHospedes;
 
     private StatusReserva statusReserva;
 
-    @ManyToOne
+    private Double valorTotal;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "quarto_id")
     private Quarto quarto;
+
 
     @ManyToOne
     @JoinColumn(name = "hospede_id")
@@ -42,7 +45,7 @@ public class Reserva {
         return "Reserva: \n\n" +
                 "Data entrada: " + getDataEntrada().toString() + "\n" +
                 "Data saida: " +getDataSaida().toString() + "\n" +
-                "Status da Reserva: \n\n" + getStatusReserva() + "\n";
+                "Status da Reserva: " + getStatusReserva() + "\n";
 
     }
 

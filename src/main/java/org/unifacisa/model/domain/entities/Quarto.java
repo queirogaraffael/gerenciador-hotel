@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.unifacisa.enums.StatusQuarto;
 import org.unifacisa.enums.TipoQuarto;
 
 import javax.persistence.*;
@@ -24,11 +25,12 @@ public class Quarto {
     private Long id;
 
     @Column(unique = true)
-    private String numeroQuarto;
+    private int numeroQuarto;
 
     private TipoQuarto tipoQuarto;
     private int capacidade;
     private double precoDiaria;
+    private StatusQuarto statusQuarto;
 
 
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,6 +42,7 @@ public class Quarto {
         return "Quarto: " + getNumeroQuarto() + "\n" +
                 "Tipo: " + getTipoQuarto() + "\n" +
                 "Capacidade: " + getCapacidade() + "\n" +
+                "Status Atual: " + getStatusQuarto() + "\n" +
                 "Preco Diaria: " + getPrecoDiaria();
     }
 }

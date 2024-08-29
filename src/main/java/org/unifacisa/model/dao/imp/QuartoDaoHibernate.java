@@ -1,6 +1,8 @@
 package org.unifacisa.model.dao.imp;
 
 import org.unifacisa.dtos.QuartoDTO;
+import org.unifacisa.dtos.QuartoReservaDTO;
+import org.unifacisa.enums.StatusQuarto;
 import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.exceptions.GlobalExceptionHandler;
@@ -48,15 +50,15 @@ public class QuartoDaoHibernate implements QuartoDao {
     }
 
     @Override
-    public Quarto getQuartoByNumero(String numeroQuarto) {
+    public Quarto getQuartoByNumero(int numeroQuarto) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT q " +
+            String jpql = "SELECT q " +
                     "FROM Quarto q " +
                     "WHERE q.numeroQuarto =: numeroQuarto";
 
-            return entityManager.createQuery(consulta, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
+            return entityManager.createQuery(jpql, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
 
         } catch (NoResultException error) {
             return null;
@@ -74,14 +76,60 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto, q.tipoQuarto) " +
+            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
                     "FROM Quarto q " +
                     "WHERE q.tipoQuarto = :tipoQuarto ";
 
-            return entityManager.createQuery(consulta, QuartoDTO.class).setParameter("tipoQuarto", tipoQuarto).getResultList();
+            return entityManager.createQuery(jpql, QuartoDTO.class).setParameter("tipoQuarto", tipoQuarto).getResultList();
 
         } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos desse tipo: " + e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            entityManager.close();
+        }
+
+    }
+
+    @Override
+    public List<QuartoReservaDTO> getQuartosReservasEmManutencao() {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            String jpql = "SELECT new org.unifacisa.dtos.QuartoReservaDTO(r.id, r.quarto.numeroQuarto) " +
+                    "FROM Reserva r " +
+                    "WHERE r.statusReserva = :statusReserva";
+
+
+            return entityManager.createQuery(jpql, QuartoReservaDTO.class)
+                    .setParameter("statusReserva", StatusReserva.MANUTENCAO)
+                    .getResultList();
+
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos e manutencao: " + e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            entityManager.close();
+        }
+
+
+
+    }
+
+    @Override
+    public List<QuartoDTO> getQuartosEmManutencao() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
+                    "FROM Quarto q " +
+                    "WHERE q.statusQuarto = :statusQuarto ";
+
+            return entityManager.createQuery(jpql, QuartoDTO.class).setParameter("statusQuarto", StatusQuarto.MANUTENCAO).getResultList();
+
+        } catch (Exception e) {
+            GlobalExceptionHandler.handleGeneralException("Erro ao buscar quartos e manutencao: " + e.getMessage());
             return Collections.emptyList();
         } finally {
             entityManager.close();
@@ -95,22 +143,25 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
+
             StatusReserva statusAgendado = StatusReserva.AGENDADO;
             StatusReserva statusEmUso = StatusReserva.EM_USO;
+            StatusReserva statusManutencao = StatusReserva.MANUTENCAO;
 
-            String consulta = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto, q.tipoQuarto) " +
+            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
                     "FROM Reserva r JOIN r.quarto q " +
                     "WHERE q.tipoQuarto = :tipoQuarto " +
                     "AND r.dataEntrada <= :dataFinal " +
                     "AND r.dataSaida >= :dataInicial " +
-                    "AND (r.statusReserva = :statusAgendado OR r.statusReserva = :statusEmUso)";
+                    "AND (r.statusReserva = :statusAgendado OR r.statusReserva = :statusEmUso or r.statusReserva = :statusManutencao)";
 
-            return entityManager.createQuery(consulta, QuartoDTO.class)
+            return entityManager.createQuery(jpql, QuartoDTO.class)
                     .setParameter("tipoQuarto", tipoQuarto)
                     .setParameter("dataInicial", dataInicial)
                     .setParameter("dataFinal", dataFinal)
                     .setParameter("statusAgendado", statusAgendado)
                     .setParameter("statusEmUso", statusEmUso)
+                    .setParameter("statusManutencao", statusManutencao)
                     .getResultList();
 
         } catch (Exception e) {
@@ -141,12 +192,11 @@ public class QuartoDaoHibernate implements QuartoDao {
                 quartoExistente.setTipoQuarto(quartoModificado.getTipoQuarto());
                 quartoExistente.setPrecoDiaria(quartoModificado.getPrecoDiaria());
                 quartoExistente.setCapacidade(quartoModificado.getCapacidade());
+                quartoExistente.setStatusQuarto(quartoModificado.getStatusQuarto());
 
                 entityManager.merge(quartoExistente);
 
                 transaction.commit();
-
-                GlobalExceptionHandler.handleRuntimeException("Quarto atualizacao com sucesso.");
 
             } else {
                 GlobalExceptionHandler.handleRuntimeException("Quarto nao encontrado para atualizacao.");
@@ -172,15 +222,15 @@ public class QuartoDaoHibernate implements QuartoDao {
     }
 
     @Override
-    public boolean haQuartoComMesmoNumero(String numeroQuarto) {
+    public boolean haQuartoComMesmoNumero(int numeroQuarto) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String consulta = "SELECT q " +
+            String jpql = "SELECT q " +
                     "FROM Quarto q " +
                     "WHERE q.numeroQuarto = :numeroQuarto";
 
-            entityManager.createQuery(consulta, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
+            entityManager.createQuery(jpql, Quarto.class).setParameter("numeroQuarto", numeroQuarto).getSingleResult();
             return true;
 
         } catch (NoResultException e) {
@@ -193,4 +243,5 @@ public class QuartoDaoHibernate implements QuartoDao {
         }
 
     }
+
 }

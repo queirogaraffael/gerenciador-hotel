@@ -1,6 +1,7 @@
 package org.unifacisa.model.dao;
 
 import org.unifacisa.dtos.QuartoDTO;
+import org.unifacisa.dtos.QuartoReservaDTO;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.model.domain.entities.Quarto;
 
@@ -10,14 +11,18 @@ import java.util.List;
 public interface QuartoDao {
     void cadastrarQuarto(Quarto quarto);
 
-    Quarto getQuartoByNumero(String numeroQuarto);
+    Quarto getQuartoByNumero(int numeroQuarto);
 
     List<QuartoDTO> getQuartosDTOByTipo(TipoQuarto tipoQuarto);
+
+    List<QuartoReservaDTO> getQuartosReservasEmManutencao();
+
+    List<QuartoDTO> getQuartosEmManutencao();
 
     List<QuartoDTO> getQuartosOcupadosPorTipo(TipoQuarto tipo, LocalDate dataInicial, LocalDate dataFinal);
 
     void atualizaDadosQuarto(Quarto quartoModificado);
 
-    boolean haQuartoComMesmoNumero(String numeroQuarto);
+    boolean haQuartoComMesmoNumero(int numeroQuarto);
 
 }

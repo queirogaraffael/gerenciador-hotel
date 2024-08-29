@@ -3,10 +3,15 @@ package org.unifacisa.controllers;
 import org.unifacisa.constantes.controllers.ConstantesMenuCheckInOutController;
 import org.unifacisa.dtos.ReservaDTO;
 import org.unifacisa.dtos.utils.SelecionaReservaDTO;
+import org.unifacisa.enums.StatusQuarto;
 import org.unifacisa.enums.StatusReserva;
 import org.unifacisa.model.domain.entities.Hospede;
+import org.unifacisa.model.domain.entities.Quarto;
+import org.unifacisa.model.domain.entities.Reserva;
 import org.unifacisa.services.HospedeService;
+import org.unifacisa.services.QuartoService;
 import org.unifacisa.services.ReservaService;
+import org.unifacisa.utils.ManipulaData;
 import org.unifacisa.utils.VerificaCPF;
 import org.unifacisa.views.CheckInOut.MenuCheckInOutControllerView;
 import org.unifacisa.views.hospedes.AlertasHospedesViews;
@@ -20,14 +25,16 @@ public class MenuCheckInOutController {
 
     private final ReservaService reservaService;
     private final HospedeService hospedeService;
+    private final QuartoService quartoService;
 
     public MenuCheckInOutController(EntityManagerFactory entityManagerFactory) {
         this.reservaService = new ReservaService(entityManagerFactory);
         this.hospedeService = new HospedeService(entityManagerFactory);
+        this.quartoService = new QuartoService(entityManagerFactory);
     }
 
 
-    public void validaCpfParaEntrarNoMenuCheckInOut(){
+    public void validaCpfParaEntrarNoMenuCheckInOut() {
 
         Hospede hospede = validaCPFDoHospedeERetornaHospede();
 
@@ -79,8 +86,15 @@ public class MenuCheckInOutController {
 
         Long idReserva = SelecionaReservaDTO.selecionaReserva(reservasAgendadas);
 
+        Reserva reserva = reservaService.getReservaById(idReserva);
+        reserva.setStatusReserva(StatusReserva.EM_USO);
 
-        reservaService.mudaStatusReservaById(StatusReserva.EM_USO, idReserva);
+        Quarto quarto = reserva.getQuarto();
+        quarto.setStatusQuarto(StatusQuarto.OCUPADO);
+
+        quartoService.atualizaDadosQuarto(quarto);
+
+        reservaService.atualizaReserva(reserva);
 
         AlertasReservasViews.exibirAlertaReservaCheckInRealizadoComSucesso();
 
@@ -95,11 +109,21 @@ public class MenuCheckInOutController {
             return;
         }
 
-
         Long idReserva = SelecionaReservaDTO.selecionaReserva(reservasAgendadas);
 
+        Reserva reserva = reservaService.getReservaById(idReserva);
 
-        reservaService.mudaStatusReservaById(StatusReserva.FINALIZADO, idReserva);
+        double valorTotal = ManipulaData.calculaDuracao(reserva.getDataEntrada(), reserva.getDataSaida()) * reserva.getQuarto().getPrecoDiaria();
+
+        reserva.setValorTotal(valorTotal);
+        reserva.setStatusReserva(StatusReserva.FINALIZADO);
+
+        Quarto quarto = reserva.getQuarto();
+        quarto.setStatusQuarto(StatusQuarto.DISPONIVEL);
+
+        quartoService.atualizaDadosQuarto(quarto);
+
+        reservaService.atualizaReserva(reserva);
 
         AlertasReservasViews.exibirAlertaReservaCheckOutRealizadoComSucesso();
 
@@ -109,12 +133,6 @@ public class MenuCheckInOutController {
     public Hospede validaCPFDoHospedeERetornaHospede() {
 
         String cpf = LeDadosBasicosHospedeViews.leCPFHospede();
-
-        if (cpf == null || cpf.trim().isEmpty()) {
-            AlertasHospedesViews.exibirAlertaCPFNaoPodeSerVazio();
-            return null;
-        }
-
 
         if (!VerificaCPF.isCpfValido(cpf)) {
             AlertasHospedesViews.exibirAlertaCPFNaoSeguePadrao();

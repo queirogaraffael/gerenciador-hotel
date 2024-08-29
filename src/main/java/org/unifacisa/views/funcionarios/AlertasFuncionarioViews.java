@@ -11,16 +11,6 @@ public class AlertasFuncionarioViews {
     private AlertasFuncionarioViews() {
     }
 
-    public static void exibirAlertaNomeNaoPodeSerVazio() {
-        JOptionPane.showMessageDialog(null, "Nome nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    public static void exibirAlertaCPFNaoPodeSerVazio() {
-        JOptionPane.showMessageDialog(null, "CPF nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-    }
 
     public static void exibirAlertaCPFNaoSeguePadrao() {
         JOptionPane.showMessageDialog(null, "CPF nao segue padrao: " + VerificaCPF.PADRAO_CPF, ALERTA
@@ -32,19 +22,6 @@ public class AlertasFuncionarioViews {
                 , JOptionPane.ERROR_MESSAGE);
     }
 
-
-    public static void exibirAlertaCargoVazio() {
-
-        JOptionPane.showMessageDialog(null, "Cargo nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-
-    }
-
-    public static void exibirAlertaNumeroTelefoneVazio() {
-        JOptionPane.showMessageDialog(null, "Numero de telefone nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-
-    }
 
     public static void exibirAlertaSemFuncionariosCorrespondentes() {
         JOptionPane.showMessageDialog(null, "Sem funcionario(s) correspondente(s) para esse nome.", ALERTA
@@ -71,7 +48,7 @@ public class AlertasFuncionarioViews {
     }
 
 
-    public static void exibirAlertaDdosFuncionarioModificadoComSucesso() {
+    public static void exibirAlertaDadosFuncionarioModificadoComSucesso() {
         JOptionPane.showMessageDialog(null, "Dados do funcionario modificado com sucesso.");
     }
 
@@ -84,8 +61,6 @@ public class AlertasFuncionarioViews {
     }
 
     public static void exibirAlertaNaoPodeMenorDeIdade() {
-
-
         JOptionPane.showMessageDialog(null, "Nao pode cadastrar funcionario menor de idade.", ALERTA
                 , JOptionPane.ERROR_MESSAGE);
     }

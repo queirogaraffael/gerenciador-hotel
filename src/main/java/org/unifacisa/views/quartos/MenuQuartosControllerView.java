@@ -16,6 +16,7 @@ public class MenuQuartosControllerView {
             "Ver por Tipo",
             "Ver Disp. por Data",
             "Atualizar Dados",
+            "Manutencao",
             "Voltar"
     };
 

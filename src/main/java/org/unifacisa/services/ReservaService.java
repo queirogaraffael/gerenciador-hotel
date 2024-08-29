@@ -36,5 +36,9 @@ public class ReservaService {
 
     }
 
+    public void atualizaReserva(Reserva reservaModifica) {
+        reservaDao.atualizaReserva(reservaModifica);
+    }
+
 
 }

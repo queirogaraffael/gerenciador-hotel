@@ -16,4 +16,6 @@ public interface ReservaDao {
 
     void mudaStatusReservaById(StatusReserva statusReserva, Long idReserva);
 
+    void atualizaReserva(Reserva reservaModifica);
+
 }

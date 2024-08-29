@@ -24,4 +24,34 @@ public class AlertasQuartoViews {
         JOptionPane.showMessageDialog(null, "Nao ha quartos disponiveis desse tipo para a data selecionada.");
 
     }
+
+    public static void capacidadeMaximaDeHospedeUltrapassada(){
+        JOptionPane.showMessageDialog(null, "Capacidade maxima de hospedes ultrapassada.");
+    }
+
+    public static void exibirAlertaSemQuartosDisponiveisParaManutencao() {
+        JOptionPane.showMessageDialog(null, "Sem quartos disponiveis no momento para manutencao.");
+
+    }
+
+    public static void exibirAlertaManutencaoCriadaComSucesso() {
+        JOptionPane.showMessageDialog(null, "Manutencao criada com sucesso.");
+
+    }
+
+    public static void exibirAlertaSemQuartoEmManutencao() {
+        JOptionPane.showMessageDialog(null, "Sem quarto em manutencao.");
+
+    }
+
+    public static void exibirAlertaQuartoRetiradoDeManutencaoComSucesso() {
+        JOptionPane.showMessageDialog(null, "Quarto retirado da manutencao com sucesso.");
+
+
+    }
+
+    public static void exibirAlertaQuartoAtualizadoComSucesso() {
+        JOptionPane.showMessageDialog(null, "Quarto atualizado com sucesso.");
+
+    }
 }

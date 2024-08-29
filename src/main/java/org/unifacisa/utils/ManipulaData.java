@@ -37,7 +37,17 @@ public class ManipulaData {
 
         int idade = periodo.getYears();
 
-        return idade >=18;
+        return idade >= 18;
+
+    }
+
+
+    public static int calculaDuracao(LocalDate dataInicial, LocalDate dataFinal) {
+        if (dataInicial.isEqual(dataFinal)) {
+            return 1;
+        }
+
+        return Period.between(dataInicial, dataFinal).getDays();
 
     }
 

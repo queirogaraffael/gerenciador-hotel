@@ -1,14 +1,23 @@
 package org.unifacisa.controllers;
 
-import org.unifacisa.constantes.modificacoes.ConstantesMenuModificacaoQuarto;
+import org.unifacisa.constantes.controllers.ConstantesManutencaoQuarto;
 import org.unifacisa.constantes.controllers.ConstantesMenuQuartoController;
+import org.unifacisa.constantes.modificacoes.ConstantesMenuModificacaoQuarto;
 import org.unifacisa.dtos.QuartoDTO;
-import org.unifacisa.enums.TipoQuarto;
-import org.unifacisa.model.domain.entities.Quarto;
-import org.unifacisa.services.QuartoService;
+import org.unifacisa.dtos.QuartoReservaDTO;
 import org.unifacisa.dtos.utils.SelecionaQuartoDTO;
+import org.unifacisa.dtos.utils.SelecionaQuartoReservaDTO;
+import org.unifacisa.enums.StatusQuarto;
+import org.unifacisa.enums.StatusReserva;
+import org.unifacisa.enums.TipoQuarto;
+import org.unifacisa.exceptions.GlobalExceptionHandler;
+import org.unifacisa.model.domain.entities.Quarto;
+import org.unifacisa.model.domain.entities.Reserva;
+import org.unifacisa.services.QuartoService;
+import org.unifacisa.services.ReservaService;
 import org.unifacisa.views.commons.DataViews;
 import org.unifacisa.views.quartos.*;
+import org.unifacisa.views.reservas.AlertasReservasViews;
 
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
@@ -19,9 +28,11 @@ import static org.unifacisa.utils.ManipulaData.dataInicialEPosteriorDataFinal;
 public class MenuQuartosController {
 
     public final QuartoService quartoService;
+    public final ReservaService reservaService;
 
     public MenuQuartosController(EntityManagerFactory entityManagerFactory) {
         this.quartoService = new QuartoService(entityManagerFactory);
+        this.reservaService = new ReservaService(entityManagerFactory);
     }
 
 
@@ -48,6 +59,9 @@ public class MenuQuartosController {
                 case (ConstantesMenuQuartoController.ATUALIZAR_DADOS_QUARTO):
                     atualizarDadosQuarto();
                     break;
+                case (ConstantesMenuQuartoController.MANUTENCAO_QUARTO):
+                    manutencaoQuarto();
+                    break;
 
                 default:
                     break;
@@ -58,10 +72,9 @@ public class MenuQuartosController {
         } while (opcaoMenuGerenciadoQuartos != ConstantesMenuQuartoController.VOLTAR);
     }
 
-
     private void cadastrarQuarto() {
 
-        String numeroQuarto = LeDadosBasicosQuartoView.leNumeroQuarto();
+        int numeroQuarto = LeDadosBasicosQuartoView.leNumeroQuarto();
 
         if (quartoService.haQuartoComMesmoNumero(numeroQuarto)) {
             AlertasQuartoViews.exibirAlertaQuartoJaCadastrado();
@@ -80,6 +93,7 @@ public class MenuQuartosController {
         quarto.setTipoQuarto(tipoQuarto);
         quarto.setCapacidade(capacidadeQuarto);
         quarto.setPrecoDiaria(precoDiariaQuarto);
+        quarto.setStatusQuarto(StatusQuarto.DISPONIVEL);
 
         quartoService.cadastrarQuarto(quarto);
 
@@ -98,7 +112,7 @@ public class MenuQuartosController {
         }
 
 
-        String numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
+        int numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
 
         Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
 
@@ -154,7 +168,7 @@ public class MenuQuartosController {
         }
 
 
-        String numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
+        int numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartos);
 
         Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
 
@@ -164,7 +178,7 @@ public class MenuQuartosController {
 
     private void atualizarDadosQuarto() {
 
-        String numeroQuarto = LeDadosBasicosQuartoView.leNumeroQuarto();
+        int numeroQuarto = LeDadosBasicosQuartoView.leNumeroQuarto();
 
         Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
 
@@ -173,6 +187,111 @@ public class MenuQuartosController {
         }
 
         exibiOpcoesDeModificacaoDoQuartoEModifica(quarto);
+
+    }
+
+
+    private void manutencaoQuarto() {
+
+        int opcao;
+
+        do {
+            opcao = MenuManutencaoQuartoView.exibirMenuManutencaoQuartosView();
+
+            switch (opcao) {
+                case (ConstantesManutencaoQuarto
+                        .QUARTOS_EM_MANUTENCAO):
+                    quartosEmManutencao();
+                    break;
+
+                case (ConstantesManutencaoQuarto.COLOCAR_EM_MANUTENCAO):
+                    colocarEmManutencao();
+                    break;
+
+                case (ConstantesManutencaoQuarto.RETIRAR_MANUTENCAO):
+                    retirarManutencao();
+                    break;
+
+                default:
+                    break;
+            }
+
+        } while (opcao != ConstantesManutencaoQuarto.VOLTAR);
+
+
+    }
+
+    private void quartosEmManutencao() {
+
+        List<QuartoDTO> quartosEmManutencao = quartoService.getQuartosEmManutencao();
+
+        if (quartosEmManutencao == null || quartosEmManutencao.isEmpty()) {
+            AlertasQuartoViews.exibirAlertaSemQuartoEmManutencao();
+            return;
+        }
+
+        int numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartosEmManutencao);
+
+        Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
+
+        MostraQuarto.printaQuarto(quarto);
+
+    }
+
+    private void colocarEmManutencao() {
+
+        LocalDate dataAtual = LocalDate.now();
+
+        TipoQuarto tipoQuarto = EscolheTipoQuartoView.exibeEEscolheTipoQuartoView();
+        List<QuartoDTO> quartosDisponiveisHojeParaManutencao = quartoService.getQuartosDisponiveisPorTipo(tipoQuarto, dataAtual, dataAtual);
+
+        if (quartosDisponiveisHojeParaManutencao == null || quartosDisponiveisHojeParaManutencao.isEmpty()) {
+            AlertasQuartoViews.exibirAlertaSemQuartosDisponiveisParaManutencao();
+            return;
+        }
+
+        int numeroQuarto = SelecionaQuartoDTO.selecionaNumeroQuarto(quartosDisponiveisHojeParaManutencao);
+
+        Quarto quarto = quartoService.getQuartoByNumero(numeroQuarto);
+
+        quarto.setStatusQuarto(StatusQuarto.MANUTENCAO);
+
+        quartoService.atualizaDadosQuarto(quarto);
+
+        Reserva reservaManutencao = new Reserva();
+
+        reservaManutencao.setQuarto(quarto);
+        reservaManutencao.setDataEntrada(dataAtual);
+        reservaManutencao.setDataSaida(dataAtual);
+        reservaManutencao.setStatusReserva(StatusReserva.MANUTENCAO);
+
+        reservaService.criaReserva(reservaManutencao);
+
+        AlertasQuartoViews.exibirAlertaManutencaoCriadaComSucesso();
+
+    }
+
+    private void retirarManutencao() {
+
+        List<QuartoReservaDTO> quartosReservasManutencao = quartoService.getQuartosReservasEmManutencao();
+
+        if (quartosReservasManutencao == null || quartosReservasManutencao.isEmpty()) {
+            AlertasQuartoViews.exibirAlertaSemQuartoEmManutencao();
+            return;
+        }
+
+        Long idReserva = SelecionaQuartoReservaDTO.selecionaIdReservaQuartoReserva(quartosReservasManutencao);
+
+        Reserva reserva = reservaService.getReservaById(idReserva);
+        reserva.setStatusReserva(StatusReserva.FINALIZADO);
+
+        Quarto quarto = reserva.getQuarto();
+        quarto.setStatusQuarto(StatusQuarto.DISPONIVEL);
+
+        quartoService.atualizaDadosQuarto(quarto);
+        reservaService.atualizaReserva(reserva);
+
+        AlertasQuartoViews.exibirAlertaQuartoRetiradoDeManutencaoComSucesso();
 
     }
 
@@ -206,6 +325,7 @@ public class MenuQuartosController {
 
             if (opcao != ConstantesMenuModificacaoQuarto.VOLTAR) {
                 quartoService.atualizaDadosQuarto(quarto);
+                AlertasQuartoViews.exibirAlertaQuartoAtualizadoComSucesso();
 
             }
 

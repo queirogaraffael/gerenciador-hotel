@@ -77,4 +77,18 @@ public class ExibirDTOsViews {
 
         return opcaoSelecionada.toString();
     }
+
+    public static String exibirQuartosReservasDTOsView(Object[] options) {
+        Object opcaoSelecionada = JOptionPane.showInputDialog(
+                null,
+                "Escolha um quarto em manutencao: ",
+                "Quartos em Manutencao",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        return opcaoSelecionada.toString();
+    }
 }

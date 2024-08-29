@@ -1,6 +1,7 @@
 package org.unifacisa.services;
 
 import org.unifacisa.dtos.QuartoDTO;
+import org.unifacisa.dtos.QuartoReservaDTO;
 import org.unifacisa.enums.TipoQuarto;
 import org.unifacisa.model.dao.QuartoDao;
 import org.unifacisa.model.dao.imp.QuartoDaoHibernate;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class QuartoService {
 
-    private QuartoDao quartoDao;
+    private final QuartoDao quartoDao;
 
     public QuartoService(EntityManagerFactory entityManagerFactory) {
         this.quartoDao = new QuartoDaoHibernate(entityManagerFactory);
@@ -22,7 +23,7 @@ public class QuartoService {
         quartoDao.cadastrarQuarto(quarto);
     }
 
-    public Quarto getQuartoByNumero(String numeroQuarto) {
+    public Quarto getQuartoByNumero(int numeroQuarto) {
         return quartoDao.getQuartoByNumero(numeroQuarto);
     }
 
@@ -38,7 +39,7 @@ public class QuartoService {
     }
 
 
-    public boolean haQuartoComMesmoNumero(String numeroQuarto) {
+    public boolean haQuartoComMesmoNumero(int numeroQuarto) {
         return quartoDao.haQuartoComMesmoNumero(numeroQuarto);
     }
 
@@ -60,5 +61,14 @@ public class QuartoService {
                 .filter(quarto -> !quartosOcupados.contains(quarto))
                 .toList();
 
+    }
+
+    public List<QuartoDTO> getQuartosEmManutencao(){
+        return quartoDao.getQuartosEmManutencao();
+
+    }
+
+    public List<QuartoReservaDTO> getQuartosReservasEmManutencao(){
+        return quartoDao.getQuartosReservasEmManutencao();
     }
 }

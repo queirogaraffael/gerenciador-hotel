@@ -8,17 +8,6 @@ public class AlertasHospedesViews {
 
     private static final String ALERTA = "Alerta";
 
-    public static void exibirAlertaNomeNaoPodeSerVazio() {
-        JOptionPane.showMessageDialog(null, "O nome do hospede nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    public static void exibirAlertaCPFNaoPodeSerVazio() {
-        JOptionPane.showMessageDialog(null, "CPF do hospede nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-    }
-
     public static void exibirAlertaCPFNaoSeguePadrao() {
         JOptionPane.showMessageDialog(null, "CPF nao segue padrao: " + VerificaCPF.PADRAO_CPF, ALERTA
                 , JOptionPane.ERROR_MESSAGE);
@@ -27,19 +16,6 @@ public class AlertasHospedesViews {
     public static void exibirAlertaCPFJaExiste() {
         JOptionPane.showMessageDialog(null, "Hospede ja cadastrado.", ALERTA
                 , JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    public static void exibirAlertaNumeroTelefoneVazio() {
-        JOptionPane.showMessageDialog(null, "Telefone do hospede nao pode ser vazio.", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-
-    }
-
-    public static void exibirAlertaSemHospedesCorrespondentes() {
-        JOptionPane.showMessageDialog(null, "Sem hospede(s) correspondente(s)", ALERTA
-                , JOptionPane.ERROR_MESSAGE);
-
     }
 
 

@@ -5,5 +5,6 @@ public class ConstantesMenuQuartoController {
     public static final int VISUALIZAR_QUARTOS_POR_TIPO = 1;
     public static final int VISUALIZAR_QUARTOS_POR_TIPOS_DISPONIVEIS_POR_DATA = 2;
     public static final int ATUALIZAR_DADOS_QUARTO = 3;
-    public static final int VOLTAR = 4;
+    public static final int MANUTENCAO_QUARTO = 4;
+    public static final int VOLTAR = 5;
 }
