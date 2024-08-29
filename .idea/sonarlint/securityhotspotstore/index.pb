@@ -163,3 +163,5 @@ f
 6src/main/java/org/unifacisa/dtos/QuartoReservaDTO.java,9\6\962217f0df2c37aa103c8cb36b75274ed59cbc7b
 u
 Esrc/main/java/org/unifacisa/dtos/utils/SelecionaQuartoReservaDTO.java,7\0\70a9ae1f2bc5c692cbf12c09bdfb88c6851d2318
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
