@@ -155,13 +155,12 @@ w
 Gsrc/main/java/org/unifacisa/views/quartos/MenuManutencaoQuartoView.java,0\9\094547205aa56ceab8ce486d0a72e7a7080f8fd2
 ‚
 Rsrc/main/java/org/unifacisa/constantes/controllers/ConstantesManutencaoQuarto.java,e\8\e85bfda01188f89e847a117a66641c1e8686757c
-j
-:src/main/java/org/unifacisa/dtos/ReservaManutencaoDTO.java,a\d\ad5fdf3f39236b7aa368fb658e55b38ee460d824
-i
-9src/main/java/org/unifacisa/dtos/QuartoManutencaoDTO.java,f\c\fca075d225c27dd943607b88700c6c089f71817d
 f
 6src/main/java/org/unifacisa/dtos/QuartoReservaDTO.java,9\6\962217f0df2c37aa103c8cb36b75274ed59cbc7b
 u
 Esrc/main/java/org/unifacisa/dtos/utils/SelecionaQuartoReservaDTO.java,7\0\70a9ae1f2bc5c692cbf12c09bdfb88c6851d2318
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
