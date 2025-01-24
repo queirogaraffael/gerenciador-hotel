@@ -1,8 +1,8 @@
 package org.gerenciador_hotel.controllers;
 
 import org.gerenciador_hotel.utils.ManipulaData;
-import org.gerenciador_hotel.dtos.utils.SelecionaExtratoFuncionarioDTO;
-import org.gerenciador_hotel.dtos.utils.SelecionaFuncionarioDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaExtratoFuncionarioDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaFuncionarioDTO;
 import org.gerenciador_hotel.utils.VerificaCPF;
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuFuncionarioController;
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoDadosFuncionario;

@@ -3,7 +3,7 @@ package org.gerenciador_hotel.controllers;
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuHospedesController;
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoHospede;
 import org.gerenciador_hotel.dtos.ReservaDTO;
-import org.gerenciador_hotel.dtos.utils.SelecionaReservaDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaReservaDTO;
 import org.gerenciador_hotel.enums.StatusReserva;
 import org.gerenciador_hotel.model.domain.entities.Endereco;
 import org.gerenciador_hotel.model.domain.entities.Hospede;

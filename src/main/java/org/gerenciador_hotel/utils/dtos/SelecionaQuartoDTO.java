@@ -1,4 +1,4 @@
-package org.gerenciador_hotel.dtos.utils;
+package org.gerenciador_hotel.utils.dtos;
 
 import org.gerenciador_hotel.dtos.QuartoDTO;
 import org.gerenciador_hotel.exceptions.GlobalExceptionHandler;

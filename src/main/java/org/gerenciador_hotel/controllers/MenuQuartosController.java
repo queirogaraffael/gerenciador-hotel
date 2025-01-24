@@ -5,8 +5,8 @@ import org.gerenciador_hotel.constantes.controllers.ConstantesMenuQuartoControll
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoQuarto;
 import org.gerenciador_hotel.dtos.QuartoDTO;
 import org.gerenciador_hotel.dtos.QuartoReservaDTO;
-import org.gerenciador_hotel.dtos.utils.SelecionaQuartoDTO;
-import org.gerenciador_hotel.dtos.utils.SelecionaQuartoReservaDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaQuartoDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaQuartoReservaDTO;
 import org.gerenciador_hotel.enums.StatusQuarto;
 import org.gerenciador_hotel.enums.StatusReserva;
 import org.gerenciador_hotel.enums.TipoQuarto;
