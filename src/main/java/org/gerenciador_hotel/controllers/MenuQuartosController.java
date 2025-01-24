@@ -5,8 +5,6 @@ import org.gerenciador_hotel.constantes.controllers.ConstantesMenuQuartoControll
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoQuarto;
 import org.gerenciador_hotel.dtos.QuartoDTO;
 import org.gerenciador_hotel.dtos.QuartoReservaDTO;
-import org.gerenciador_hotel.utils.dtos.SelecionaQuartoDTO;
-import org.gerenciador_hotel.utils.dtos.SelecionaQuartoReservaDTO;
 import org.gerenciador_hotel.enums.StatusQuarto;
 import org.gerenciador_hotel.enums.StatusReserva;
 import org.gerenciador_hotel.enums.TipoQuarto;
@@ -14,10 +12,11 @@ import org.gerenciador_hotel.model.domain.entities.Quarto;
 import org.gerenciador_hotel.model.domain.entities.Reserva;
 import org.gerenciador_hotel.services.QuartoService;
 import org.gerenciador_hotel.services.ReservaService;
+import org.gerenciador_hotel.utils.dtos.SelecionaQuartoDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaQuartoReservaDTO;
 import org.gerenciador_hotel.views.commons.DataViews;
 import org.gerenciador_hotel.views.quartos.*;
 
-import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,9 +27,9 @@ public class MenuQuartosController {
     public final QuartoService quartoService;
     public final ReservaService reservaService;
 
-    public MenuQuartosController(EntityManagerFactory entityManagerFactory) {
-        this.quartoService = new QuartoService(entityManagerFactory);
-        this.reservaService = new ReservaService(entityManagerFactory);
+    public MenuQuartosController(QuartoService quartoService, ReservaService reservaService) {
+        this.quartoService = quartoService;
+        this.reservaService = reservaService;
     }
 
 

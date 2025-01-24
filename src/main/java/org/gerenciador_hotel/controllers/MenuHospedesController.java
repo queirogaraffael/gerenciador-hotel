@@ -29,9 +29,9 @@ public class MenuHospedesController {
     private final HospedeService hospedeService;
     private final ReservaService reservaService;
 
-    public MenuHospedesController(EntityManagerFactory entityManagerFactory) {
-        this.hospedeService = new HospedeService(entityManagerFactory);
-        this.reservaService = new ReservaService(entityManagerFactory);
+    public MenuHospedesController(HospedeService hospedeService, ReservaService reservaService) {
+        this.hospedeService = hospedeService;
+        this.reservaService = reservaService;
     }
 
 

@@ -34,12 +34,11 @@ public class MenuReservasController {
     private final QuartoService quartoService;
     private final HospedeService hospedeService;
 
-    public MenuReservasController(EntityManagerFactory entityManagerFactory) {
-        this.reservaService = new ReservaService(entityManagerFactory);
-        this.quartoService = new QuartoService(entityManagerFactory);
-        this.hospedeService = new HospedeService(entityManagerFactory);
+    public MenuReservasController(ReservaService reservaService, QuartoService quartoService, HospedeService hospedeService) {
+        this.reservaService = reservaService;
+        this.quartoService = quartoService;
+        this.hospedeService = hospedeService;
     }
-
 
     public void menuGerenciadorReservas() {
         int opcaoMenuGerenciadoReservas;

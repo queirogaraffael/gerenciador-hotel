@@ -8,22 +8,24 @@ public class MenuPrincipalController {
 
     private final EntityManagerFactoryService entityManagerFactoryService;
 
-    private final MenuQuartosController menuQuartosController;
-    private final MenuHospedesController menuHospedesController;
-    private final MenuReservasController menuReservasController;
-    private final MenuFuncionarioController menuFuncionarioController;
-    private final MenuCheckInOutController menuCheckInOutController;
+    private MenuQuartosController menuQuartosController;
+    private MenuHospedesController menuHospedesController;
+    private MenuReservasController menuReservasController;
+    private MenuFuncionarioController menuFuncionarioController;
+    private MenuCheckInOutController menuCheckInOutController;
 
-    public MenuPrincipalController(EntityManagerFactoryService entityManagerFactoryService) {
+    public MenuPrincipalController(EntityManagerFactoryService entityManagerFactoryService, MenuCheckInOutController menuCheckInOutController,
+                                   MenuFuncionarioController menuFuncionarioController, MenuHospedesController menuHospedesController,
+                                   MenuQuartosController menuQuartosController,
+                                   MenuReservasController menuReservasController
+    ) {
+
         this.entityManagerFactoryService = entityManagerFactoryService;
-        this.entityManagerFactoryService.inicializarEntityManagerFactory();
-
-        var entityManagerFactory = this.entityManagerFactoryService.entityManagerFactory();
-        this.menuQuartosController = new MenuQuartosController(entityManagerFactory);
-        this.menuHospedesController = new MenuHospedesController(entityManagerFactory);
-        this.menuReservasController = new MenuReservasController(entityManagerFactory);
-        this.menuFuncionarioController = new MenuFuncionarioController(entityManagerFactory);
-        this.menuCheckInOutController = new MenuCheckInOutController(entityManagerFactory);
+        this.menuQuartosController = menuQuartosController;
+        this.menuHospedesController = menuHospedesController;
+        this.menuReservasController = menuReservasController;
+        this.menuFuncionarioController = menuFuncionarioController;
+        this.menuCheckInOutController = menuCheckInOutController;
     }
 
 

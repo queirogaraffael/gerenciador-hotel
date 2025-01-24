@@ -2,7 +2,6 @@ package org.gerenciador_hotel.controllers;
 
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuCheckInOutController;
 import org.gerenciador_hotel.dtos.ReservaDTO;
-import org.gerenciador_hotel.utils.dtos.SelecionaReservaDTO;
 import org.gerenciador_hotel.enums.StatusQuarto;
 import org.gerenciador_hotel.enums.StatusReserva;
 import org.gerenciador_hotel.model.domain.entities.Hospede;
@@ -13,12 +12,12 @@ import org.gerenciador_hotel.services.QuartoService;
 import org.gerenciador_hotel.services.ReservaService;
 import org.gerenciador_hotel.utils.ManipulaData;
 import org.gerenciador_hotel.utils.VerificaCPF;
+import org.gerenciador_hotel.utils.dtos.SelecionaReservaDTO;
 import org.gerenciador_hotel.views.CheckInOut.MenuCheckInOutControllerView;
 import org.gerenciador_hotel.views.hospedes.AlertasHospedesViews;
 import org.gerenciador_hotel.views.hospedes.LeDadosBasicosHospedeViews;
 import org.gerenciador_hotel.views.reservas.AlertasReservasViews;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class MenuCheckInOutController {
@@ -27,12 +26,11 @@ public class MenuCheckInOutController {
     private final HospedeService hospedeService;
     private final QuartoService quartoService;
 
-    public MenuCheckInOutController(EntityManagerFactory entityManagerFactory) {
-        this.reservaService = new ReservaService(entityManagerFactory);
-        this.hospedeService = new HospedeService(entityManagerFactory);
-        this.quartoService = new QuartoService(entityManagerFactory);
+    public MenuCheckInOutController(ReservaService reservaService, HospedeService hospedeService, QuartoService quartoService) {
+        this.reservaService = reservaService;
+        this.hospedeService = hospedeService;
+        this.quartoService = quartoService;
     }
-
 
     public void validaCpfParaEntrarNoMenuCheckInOut() {
 

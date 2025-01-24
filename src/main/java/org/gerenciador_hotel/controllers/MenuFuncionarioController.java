@@ -1,9 +1,5 @@
 package org.gerenciador_hotel.controllers;
 
-import org.gerenciador_hotel.utils.ManipulaData;
-import org.gerenciador_hotel.utils.dtos.SelecionaExtratoFuncionarioDTO;
-import org.gerenciador_hotel.utils.dtos.SelecionaFuncionarioDTO;
-import org.gerenciador_hotel.utils.VerificaCPF;
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuFuncionarioController;
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoDadosFuncionario;
 import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
@@ -13,11 +9,14 @@ import org.gerenciador_hotel.model.domain.entities.Endereco;
 import org.gerenciador_hotel.model.domain.entities.ExtratoFuncionario;
 import org.gerenciador_hotel.model.domain.entities.Funcionario;
 import org.gerenciador_hotel.services.FuncionarioService;
+import org.gerenciador_hotel.utils.ManipulaData;
+import org.gerenciador_hotel.utils.VerificaCPF;
+import org.gerenciador_hotel.utils.dtos.SelecionaExtratoFuncionarioDTO;
+import org.gerenciador_hotel.utils.dtos.SelecionaFuncionarioDTO;
 import org.gerenciador_hotel.views.commons.DataViews;
 import org.gerenciador_hotel.views.commons.EnderecoViews;
 import org.gerenciador_hotel.views.funcionarios.*;
 
-import javax.persistence.EntityManagerFactory;
 import javax.swing.*;
 import java.time.YearMonth;
 import java.util.List;
@@ -26,8 +25,8 @@ public class MenuFuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
-    public MenuFuncionarioController(EntityManagerFactory entityManagerFactory) {
-        this.funcionarioService = new FuncionarioService(entityManagerFactory);
+    public MenuFuncionarioController(FuncionarioService funcionarioService) {
+        this.funcionarioService = funcionarioService;
     }
 
 
