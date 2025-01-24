@@ -1,0 +1,48 @@
+package org.gerenciador_hotel.model.domain.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.gerenciador_hotel.enums.StatusQuarto;
+import org.gerenciador_hotel.enums.TipoQuarto;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Quarto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
+
+    @Column(unique = true)
+    private int numeroQuarto;
+
+    private TipoQuarto tipoQuarto;
+    private int capacidade;
+    private double precoDiaria;
+    private StatusQuarto statusQuarto;
+
+
+    @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reserva> reservas = new HashSet<>();
+
+
+    @Override
+    public String toString() {
+        return "Quarto: " + getNumeroQuarto() + "\n" +
+                "Tipo: " + getTipoQuarto() + "\n" +
+                "Capacidade: " + getCapacidade() + "\n" +
+                "Status Atual: " + getStatusQuarto() + "\n" +
+                "Preco Diaria: " + getPrecoDiaria();
+    }
+}
