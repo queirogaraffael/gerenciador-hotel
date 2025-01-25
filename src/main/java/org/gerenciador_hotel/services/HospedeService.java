@@ -9,10 +9,9 @@ import javax.persistence.EntityManagerFactory;
 public class HospedeService {
     private final HospedeDao hospedeDao;
 
-    public HospedeService(EntityManagerFactory entityManagerFactory) {
-        this.hospedeDao = new HospedeDaoHibernate(entityManagerFactory);
+    public HospedeService(HospedeDao hospedeDao) {
+        this.hospedeDao = hospedeDao;
     }
-
 
     public void cadastraHospede(Hospede hospede) {
         hospedeDao.cadastraHospede(hospede);

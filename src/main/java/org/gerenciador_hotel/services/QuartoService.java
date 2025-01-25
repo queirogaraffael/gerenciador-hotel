@@ -15,8 +15,8 @@ public class QuartoService {
 
     private final QuartoDao quartoDao;
 
-    public QuartoService(EntityManagerFactory entityManagerFactory) {
-        this.quartoDao = new QuartoDaoHibernate(entityManagerFactory);
+    public QuartoService(QuartoDao quartoDao) {
+        this.quartoDao = quartoDao;
     }
 
     public void cadastrarQuarto(Quarto quarto) {

@@ -15,8 +15,8 @@ public class FuncionarioService {
 
     private final FuncionarioDao funcionarioDao;
 
-    public FuncionarioService(EntityManagerFactory entityManagerFactory) {
-        this.funcionarioDao = new FuncionarioDaoHibernate(entityManagerFactory);
+    public FuncionarioService(FuncionarioDao funcionarioDao) {
+        this.funcionarioDao = funcionarioDao;
     }
 
 

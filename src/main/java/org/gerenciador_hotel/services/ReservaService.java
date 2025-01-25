@@ -13,10 +13,9 @@ public class ReservaService {
 
     private final ReservaDao reservaDao;
 
-    public ReservaService(EntityManagerFactory entityManagerFactory) {
-        this.reservaDao = new ReservaDaoHibernate(entityManagerFactory);
+    public ReservaService(ReservaDao reservaDao) {
+        this.reservaDao = reservaDao;
     }
-
 
     public void criaReserva(Reserva reserva) {
         reservaDao.criaReserva(reserva);
