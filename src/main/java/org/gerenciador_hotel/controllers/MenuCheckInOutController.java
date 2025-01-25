@@ -13,10 +13,10 @@ import org.gerenciador_hotel.services.ReservaService;
 import org.gerenciador_hotel.utils.ManipulaData;
 import org.gerenciador_hotel.utils.VerificaCPF;
 import org.gerenciador_hotel.utils.dtos.SelecionaReservaDTO;
-import org.gerenciador_hotel.views.CheckInOut.MenuCheckInOutControllerView;
-import org.gerenciador_hotel.views.hospedes.AlertasHospedesViews;
-import org.gerenciador_hotel.views.hospedes.LeDadosBasicosHospedeViews;
-import org.gerenciador_hotel.views.reservas.AlertasReservasViews;
+import org.gerenciador_hotel.ui.CheckInOut.MenuCheckInOutControllerView;
+import org.gerenciador_hotel.ui.hospedes.AlertasHospedesViews;
+import org.gerenciador_hotel.ui.hospedes.LeDadosBasicosHospedeViews;
+import org.gerenciador_hotel.ui.reservas.AlertasReservasViews;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package org.gerenciador_hotel.controllers;
 
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuPrincipalController;
 import org.gerenciador_hotel.hibernate_connection.EntityManagerFactoryService;
-import org.gerenciador_hotel.views.menuPrincipal.MenuPrincipalControllerView;
+import org.gerenciador_hotel.ui.menuPrincipal.MenuPrincipalControllerView;
 
 public class MenuPrincipalController {
 

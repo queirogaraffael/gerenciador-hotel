@@ -13,9 +13,9 @@ import org.gerenciador_hotel.utils.ManipulaData;
 import org.gerenciador_hotel.utils.VerificaCPF;
 import org.gerenciador_hotel.utils.dtos.SelecionaExtratoFuncionarioDTO;
 import org.gerenciador_hotel.utils.dtos.SelecionaFuncionarioDTO;
-import org.gerenciador_hotel.views.commons.DataViews;
-import org.gerenciador_hotel.views.commons.EnderecoViews;
-import org.gerenciador_hotel.views.funcionarios.*;
+import org.gerenciador_hotel.ui.commons.DataViews;
+import org.gerenciador_hotel.ui.commons.EnderecoViews;
+import org.gerenciador_hotel.ui.funcionarios.*;
 
 import javax.swing.*;
 import java.time.YearMonth;

@@ -12,13 +12,12 @@ import org.gerenciador_hotel.services.HospedeService;
 import org.gerenciador_hotel.services.ReservaService;
 import org.gerenciador_hotel.utils.ManipulaData;
 import org.gerenciador_hotel.utils.VerificaCPF;
-import org.gerenciador_hotel.views.commons.DataViews;
-import org.gerenciador_hotel.views.commons.EnderecoViews;
-import org.gerenciador_hotel.views.hospedes.*;
-import org.gerenciador_hotel.views.reservas.AlertasReservasViews;
-import org.gerenciador_hotel.views.reservas.PrintaReserva;
+import org.gerenciador_hotel.ui.commons.DataViews;
+import org.gerenciador_hotel.ui.commons.EnderecoViews;
+import org.gerenciador_hotel.ui.hospedes.*;
+import org.gerenciador_hotel.ui.reservas.AlertasReservasViews;
+import org.gerenciador_hotel.ui.reservas.PrintaReserva;
 
-import javax.persistence.EntityManagerFactory;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;

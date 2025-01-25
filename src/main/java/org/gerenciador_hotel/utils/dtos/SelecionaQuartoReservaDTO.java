@@ -2,7 +2,7 @@ package org.gerenciador_hotel.utils.dtos;
 
 import org.gerenciador_hotel.dtos.QuartoReservaDTO;
 import org.gerenciador_hotel.exceptions.GlobalExceptionHandler;
-import org.gerenciador_hotel.views.commons.ExibirDTOsViews;
+import org.gerenciador_hotel.ui.commons.ExibirDTOsViews;
 
 import java.util.List;
 

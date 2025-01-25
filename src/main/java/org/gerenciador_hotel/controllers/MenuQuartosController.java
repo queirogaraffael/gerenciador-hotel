@@ -14,8 +14,8 @@ import org.gerenciador_hotel.services.QuartoService;
 import org.gerenciador_hotel.services.ReservaService;
 import org.gerenciador_hotel.utils.dtos.SelecionaQuartoDTO;
 import org.gerenciador_hotel.utils.dtos.SelecionaQuartoReservaDTO;
-import org.gerenciador_hotel.views.commons.DataViews;
-import org.gerenciador_hotel.views.quartos.*;
+import org.gerenciador_hotel.ui.commons.DataViews;
+import org.gerenciador_hotel.ui.quartos.*;
 
 import java.time.LocalDate;
 import java.util.List;

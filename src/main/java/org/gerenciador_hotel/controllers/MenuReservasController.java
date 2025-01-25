@@ -14,15 +14,14 @@ import org.gerenciador_hotel.services.HospedeService;
 import org.gerenciador_hotel.services.QuartoService;
 import org.gerenciador_hotel.services.ReservaService;
 import org.gerenciador_hotel.utils.VerificaCPF;
-import org.gerenciador_hotel.views.commons.DataViews;
-import org.gerenciador_hotel.views.hospedes.AlertasHospedesViews;
-import org.gerenciador_hotel.views.hospedes.LeDadosBasicosHospedeViews;
-import org.gerenciador_hotel.views.quartos.AlertasQuartoViews;
-import org.gerenciador_hotel.views.quartos.EscolheTipoQuartoView;
-import org.gerenciador_hotel.views.reservas.AlertasReservasViews;
-import org.gerenciador_hotel.views.reservas.MenuReservasControllerView;
+import org.gerenciador_hotel.ui.commons.DataViews;
+import org.gerenciador_hotel.ui.hospedes.AlertasHospedesViews;
+import org.gerenciador_hotel.ui.hospedes.LeDadosBasicosHospedeViews;
+import org.gerenciador_hotel.ui.quartos.AlertasQuartoViews;
+import org.gerenciador_hotel.ui.quartos.EscolheTipoQuartoView;
+import org.gerenciador_hotel.ui.reservas.AlertasReservasViews;
+import org.gerenciador_hotel.ui.reservas.MenuReservasControllerView;
 
-import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 import java.util.List;
 
