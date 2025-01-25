@@ -3,19 +3,20 @@ package org.gerenciador_hotel.controllers;
 import org.gerenciador_hotel.constantes.controllers.ConstantesMenuFuncionarioController;
 import org.gerenciador_hotel.constantes.modificacoes.ConstantesMenuModificacaoDadosFuncionario;
 import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
-import org.gerenciador_hotel.dtos.FuncionarioDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioCreateDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.enums.Turno;
 import org.gerenciador_hotel.model.domain.entities.Endereco;
 import org.gerenciador_hotel.model.domain.entities.ExtratoFuncionario;
 import org.gerenciador_hotel.model.domain.entities.Funcionario;
 import org.gerenciador_hotel.services.FuncionarioService;
+import org.gerenciador_hotel.ui.commons.DataViews;
+import org.gerenciador_hotel.ui.commons.EnderecoViews;
+import org.gerenciador_hotel.ui.funcionarios.*;
 import org.gerenciador_hotel.utils.ManipulaData;
 import org.gerenciador_hotel.utils.VerificaCPF;
 import org.gerenciador_hotel.utils.dtos.SelecionaExtratoFuncionarioDTO;
 import org.gerenciador_hotel.utils.dtos.SelecionaFuncionarioDTO;
-import org.gerenciador_hotel.ui.commons.DataViews;
-import org.gerenciador_hotel.ui.commons.EnderecoViews;
-import org.gerenciador_hotel.ui.funcionarios.*;
 
 import javax.swing.*;
 import java.time.YearMonth;
@@ -64,13 +65,11 @@ public class MenuFuncionarioController {
             }
 
 
-        } while ( opcaoMenuGerenciadoFuncionario != ConstantesMenuFuncionarioController.VOLTAR);
+        } while (opcaoMenuGerenciadoFuncionario != ConstantesMenuFuncionarioController.VOLTAR);
     }
 
 
     private void cadastraFuncionario() {
-
-        Funcionario funcionario = new Funcionario();
 
         String cpf = LeDadosBasicosFuncionarioViews.leCPFFuncionario();
 
@@ -79,17 +78,12 @@ public class MenuFuncionarioController {
             return;
         }
 
-
         if (funcionarioService.haFuncionarioComMesmoCPF(cpf)) {
             AlertasFuncionarioViews.exibirAlertaCPFJaExiste();
             return;
         }
 
-        funcionario.setCpf(cpf);
-
         String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
-
-        funcionario.setNome(nome);
 
         String dataNascimento = LeDadosBasicosFuncionarioViews.leDataNascimentoFuncionario();
 
@@ -98,26 +92,18 @@ public class MenuFuncionarioController {
             return;
         }
 
-
-        if(!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))){
+        if (!ManipulaData.eMaiorDeIdade(ManipulaData.retornaLocalDate(dataNascimento))) {
             AlertasFuncionarioViews.exibirAlertaNaoPodeMenorDeIdade();
             return;
         }
 
-
-        funcionario.setDataNascimento(ManipulaData.retornaLocalDate(dataNascimento));
-
         String numeroTelefone = LeDadosBasicosFuncionarioViews.leNumeroTelefoneFuncionario();
-
-        funcionario.setNumeroTelefone(numeroTelefone);
 
         String cargo = LeDadosBasicosFuncionarioViews.leCargoFuncionario();
 
-        funcionario.setCargo(cargo);
-
         Turno turno = EscolheTurnoTrabalhoView.exibeEEscolheTurnoView();
-        funcionario.setTurno(turno);
 
+        Double salario = LeDadosBasicosFuncionarioViews.leSalarioFuncionario();
 
         int desejaAdicionarEndereco = EnderecoViews.desejaAdicionarEndereco();
 
@@ -129,16 +115,13 @@ public class MenuFuncionarioController {
             return;
         }
 
+        FuncionarioCreateDTO funcionario = new FuncionarioCreateDTO(cpf, nome, ManipulaData.retornaLocalDate(dataNascimento), numeroTelefone, cargo, turno, salario, endereco);
 
-        funcionario.setEndereco(endereco);
+        FuncionarioCreateDTO funcionarioCreateDTO = funcionarioService.adicionarFuncionario(funcionario);
 
-        funcionarioService.adicionarFuncionario(funcionario);
-
-        AlertasFuncionarioViews.exibirAlertaFuncionarioAdicionadoComSucesso();
-
+        PrintaFuncionarioView.exibeFuncionario(funcionarioCreateDTO);
 
     }
-
 
     private void editarDadosFuncionario() {
 
@@ -148,7 +131,6 @@ public class MenuFuncionarioController {
 
             exibiOpcoesDeModificacaoDoFuncionarioEModifica(funcionario);
         }
-
 
     }
 

@@ -1,13 +1,12 @@
 package org.gerenciador_hotel.services;
 
 import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
-import org.gerenciador_hotel.dtos.FuncionarioDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioCreateDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.model.dao.FuncionarioDao;
-import org.gerenciador_hotel.model.dao.imp.FuncionarioDaoHibernate;
 import org.gerenciador_hotel.model.domain.entities.ExtratoFuncionario;
 import org.gerenciador_hotel.model.domain.entities.Funcionario;
 
-import javax.persistence.EntityManagerFactory;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -19,11 +18,24 @@ public class FuncionarioService {
         this.funcionarioDao = funcionarioDao;
     }
 
-
-    public void adicionarFuncionario(Funcionario funcionario) {
+    public FuncionarioCreateDTO adicionarFuncionario(FuncionarioCreateDTO funcionarioCreateDTO) {
+        Funcionario funcionario = toEntity(funcionarioCreateDTO);
         funcionarioDao.criaFuncionario(funcionario);
+        return funcionarioCreateDTO;
     }
 
+    private Funcionario toEntity(FuncionarioCreateDTO dto) {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setCpf(dto.cpf());
+        funcionario.setNome(dto.nome());
+        funcionario.setDataNascimento(dto.dataNascimento());
+        funcionario.setNumeroTelefone(dto.numeroTelefone());
+        funcionario.setCargo(dto.cargo());
+        funcionario.setTurno(dto.turno());
+        funcionario.setSalario(dto.salario());
+        funcionario.setEndereco(dto.endereco());
+        return funcionario;
+    }
 
     public void atualizaFuncionario(Funcionario funcionarioModificado) {
         funcionarioDao.atualizaFuncionario(funcionarioModificado);

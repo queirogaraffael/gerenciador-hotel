@@ -116,4 +116,16 @@ public class LeDadosBasicosFuncionarioViews {
         }
     }
 
+    public static Double leSalarioFuncionario() {
+        String salario;
+        while (true) {
+            salario = JOptionPane.showInputDialog("Salario do funcionario (obrigatorio):");
+
+            try {
+                return Double.parseDouble(salario);
+            }catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Salario invalido. Por favor, insira um salario valido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }

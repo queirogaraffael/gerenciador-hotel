@@ -1,4 +1,4 @@
-package org.gerenciador_hotel.dtos;
+package org.gerenciador_hotel.dtos.funcionario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

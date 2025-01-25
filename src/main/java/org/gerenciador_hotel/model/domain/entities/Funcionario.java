@@ -26,6 +26,7 @@ public class Funcionario extends Pessoa {
     private String cargo;
     private Turno turno;
 
+    private Double salario;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ExtratoFuncionario> extratoFuncionario = new HashSet<>();

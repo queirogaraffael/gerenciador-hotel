@@ -1,6 +1,6 @@
 package org.gerenciador_hotel.utils.dtos;
 
-import org.gerenciador_hotel.dtos.FuncionarioDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.exceptions.GlobalExceptionHandler;
 import org.gerenciador_hotel.ui.commons.ExibirDTOsViews;
 

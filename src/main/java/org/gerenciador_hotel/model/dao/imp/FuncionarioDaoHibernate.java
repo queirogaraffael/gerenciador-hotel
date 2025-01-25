@@ -1,7 +1,7 @@
 package org.gerenciador_hotel.model.dao.imp;
 
 import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
-import org.gerenciador_hotel.dtos.FuncionarioDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.exceptions.GlobalExceptionHandler;
 import org.gerenciador_hotel.model.dao.FuncionarioDao;
 import org.gerenciador_hotel.model.domain.entities.Endereco;
@@ -30,23 +30,18 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
             transaction.begin();
             entityManager.persist(funcionario);
             transaction.commit();
-
         } catch (PersistenceException e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
+            handleRollback(transaction);
             GlobalExceptionHandler.handlePersistenceException(e);
-
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            GlobalExceptionHandler.handleGeneralException(e);
-
         } finally {
             entityManager.close();
         }
+    }
 
+    private void handleRollback(EntityTransaction transaction) {
+        if (transaction.isActive()) {
+            transaction.rollback();
+        }
     }
 
     @Override

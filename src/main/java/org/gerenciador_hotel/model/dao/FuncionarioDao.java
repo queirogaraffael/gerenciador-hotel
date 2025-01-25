@@ -1,7 +1,7 @@
 package org.gerenciador_hotel.model.dao;
 
 import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
-import org.gerenciador_hotel.dtos.FuncionarioDTO;
+import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.model.domain.entities.ExtratoFuncionario;
 import org.gerenciador_hotel.model.domain.entities.Funcionario;
 
