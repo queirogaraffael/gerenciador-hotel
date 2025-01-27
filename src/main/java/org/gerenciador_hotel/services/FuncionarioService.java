@@ -37,18 +37,17 @@ public class FuncionarioService {
         return funcionario;
     }
 
-    public void atualizaFuncionario(Funcionario funcionarioModificado) {
-        funcionarioDao.atualizaFuncionario(funcionarioModificado);
+    public void atualizaFuncionario(Long idFuncionario, Funcionario funcionarioModificado) {
+        funcionarioDao.atualizaFuncionario(idFuncionario, funcionarioModificado);
     }
-
 
     public Funcionario getFuncionarioByCPF(String cpf) {
         return funcionarioDao.getFuncionarioByCPF(cpf);
     }
 
 
-    public List<FuncionarioDTO> getFuncionariosDTOByNome(String nome) {
-        return funcionarioDao.getFuncionariosDTOByNome(nome);
+    public List<FuncionarioDTO> getFuncionariosByNome(String nome) {
+        return funcionarioDao.getFuncionariosByNome(nome);
     }
 
 
@@ -56,19 +55,20 @@ public class FuncionarioService {
         return funcionarioDao.haFuncionarioComMesmoCPF(cpf);
     }
 
-    public List<ExtratoFuncionarioDTO> getExtratosFuncionarioDTOByCPF(String cpf) {
-        return funcionarioDao.getExtratosFuncionarioDTOByCPF(cpf);
+    public List<ExtratoFuncionarioDTO> getExtratosFuncionarioByCPF(String cpf) {
+        return funcionarioDao.getExtratosFuncionarioByCPF(cpf);
     }
 
-    public boolean existeExtratoFuncionarioPorMesAno(String cpf, YearMonth data){
+    public boolean existeExtratoFuncionarioPorMesAno(String cpf, YearMonth data) {
         return funcionarioDao.existeExtratoFuncionarioPorMesAno(cpf, data);
     }
 
-    public ExtratoFuncionario getExtratoFuncionarioById(Long id){
+
+    public ExtratoFuncionario getExtratoFuncionarioById(Long id) {
         return funcionarioDao.getExtratoFuncionarioById(id);
     }
 
-    public void criaExtratoFuncionario(Funcionario funcionario, ExtratoFuncionario extratoFuncionario){
+    public void criaExtratoFuncionario(Funcionario funcionario, ExtratoFuncionario extratoFuncionario) {
         funcionarioDao.criaExtratoFuncionario(funcionario, extratoFuncionario);
     }
 }

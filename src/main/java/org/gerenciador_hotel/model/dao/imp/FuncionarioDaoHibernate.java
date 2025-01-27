@@ -4,7 +4,6 @@ import org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO;
 import org.gerenciador_hotel.dtos.funcionario.FuncionarioDTO;
 import org.gerenciador_hotel.exceptions.GlobalExceptionHandler;
 import org.gerenciador_hotel.model.dao.FuncionarioDao;
-import org.gerenciador_hotel.model.domain.entities.Endereco;
 import org.gerenciador_hotel.model.domain.entities.ExtratoFuncionario;
 import org.gerenciador_hotel.model.domain.entities.Funcionario;
 
@@ -33,43 +32,28 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         } catch (PersistenceException e) {
             handleRollback(transaction);
             GlobalExceptionHandler.handlePersistenceException(e);
+        } catch (Exception error) {
+            handleRollback(transaction);
+            GlobalExceptionHandler.handleGeneralException(error);
         } finally {
             entityManager.close();
         }
     }
 
-    private void handleRollback(EntityTransaction transaction) {
-        if (transaction.isActive()) {
-            transaction.rollback();
-        }
-    }
-
     @Override
-    public void atualizaFuncionario(Funcionario funcionarioModificado) {
+    public void atualizaFuncionario(Long idFuncionario, Funcionario funcionarioModificado) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Funcionario funcionarioExistente = entityManager.find(Funcionario.class, funcionarioModificado.getId());
+            Funcionario funcionarioExistente = entityManager.find(Funcionario.class, idFuncionario);
 
             if (funcionarioExistente != null) {
 
-                funcionarioExistente.setNome(funcionarioModificado.getNome());
-                funcionarioExistente.setDataNascimento(funcionarioModificado.getDataNascimento());
-                funcionarioExistente.setNumeroTelefone(funcionarioModificado.getNumeroTelefone());
-                funcionarioExistente.setCargo(funcionarioModificado.getCargo());
-                funcionarioExistente.setTurno(funcionarioModificado.getTurno());
-
-
-                Endereco endereco = funcionarioModificado.getEndereco();
-                endereco.setPessoa(funcionarioExistente);
-                funcionarioExistente.setEndereco(endereco);
-
-
-                entityManager.merge(funcionarioExistente);
-
+                funcionarioModificado.setId(idFuncionario);
+                entityManager.merge(funcionarioModificado);
 
                 transaction.commit();
             } else {
@@ -83,9 +67,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
             GlobalExceptionHandler.handlePersistenceException(e);
 
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
+            handleRollback(transaction);
             GlobalExceptionHandler.handleGeneralException(e);
 
         } finally {
@@ -117,7 +99,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
     }
 
     @Override
-    public List<FuncionarioDTO> getFuncionariosDTOByNome(String nome) {
+    public List<FuncionarioDTO> getFuncionariosByNome(String nome) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
@@ -142,26 +124,27 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT f " +
-                    "FROM Funcionario f " +
-                    "WHERE f.cpf = :cpf";
+            String jpql = "SELECT f FROM Funcionario f WHERE f.cpf = :cpf";
 
-            entityManager.createQuery(jpql, Funcionario.class).setParameter("cpf", cpf).getSingleResult();
-            return true;
-        } catch (NoResultException e) {
+            List<Funcionario> resultado = entityManager.createQuery(jpql, Funcionario.class)
+                    .setParameter("cpf", cpf)
+                    .getResultList();
+
+            return !resultado.isEmpty();
+        } catch (PersistenceException e) {
+            GlobalExceptionHandler.handleGeneralException(e);
             return false;
         } catch (Exception e) {
-            GlobalExceptionHandler.handleGeneralException(e.getMessage());
+            GlobalExceptionHandler.handleGeneralException(e);
             return false;
         } finally {
             entityManager.close();
         }
-
-
     }
 
+
     @Override
-    public List<ExtratoFuncionarioDTO> getExtratosFuncionarioDTOByCPF(String cpf) {
+    public List<ExtratoFuncionarioDTO> getExtratosFuncionarioByCPF(String cpf) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -179,7 +162,6 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         } finally {
             entityManager.close();
         }
-
 
     }
 
@@ -202,7 +184,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
             return numeroExtratos > 0;
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             GlobalExceptionHandler.handleGeneralException("Erro ao verificar existencia do extrato.");
             return false;
         } finally {
@@ -256,9 +238,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
             GlobalExceptionHandler.handlePersistenceException(error);
 
         } catch (Exception error) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
+            handleRollback(transaction);
             GlobalExceptionHandler.handleGeneralException(error);
 
         } finally {
@@ -268,5 +248,10 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
 
     }
 
+    private void handleRollback(EntityTransaction transaction) {
+        if (transaction.isActive()) {
+            transaction.rollback();
+        }
+    }
 
 }

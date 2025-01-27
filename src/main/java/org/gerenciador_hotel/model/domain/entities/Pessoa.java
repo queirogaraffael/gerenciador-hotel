@@ -25,7 +25,6 @@ public abstract class Pessoa {
     private LocalDate dataNascimento;
     private String numeroTelefone;
 
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;

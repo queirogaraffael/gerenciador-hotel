@@ -12,15 +12,15 @@ public interface FuncionarioDao {
 
     void criaFuncionario(Funcionario funcionario);
 
-    void atualizaFuncionario(Funcionario funcionarioModificado);
+    void atualizaFuncionario(Long idFuncionario, Funcionario funcionarioModificado);
 
     Funcionario getFuncionarioByCPF(String cpf);
 
-    List<FuncionarioDTO> getFuncionariosDTOByNome(String nome);
+    List<FuncionarioDTO> getFuncionariosByNome(String nome);
 
     boolean haFuncionarioComMesmoCPF(String cpf);
 
-    List<ExtratoFuncionarioDTO> getExtratosFuncionarioDTOByCPF(String cpf);
+    List<ExtratoFuncionarioDTO> getExtratosFuncionarioByCPF(String cpf);
 
     boolean existeExtratoFuncionarioPorMesAno(String cpf, YearMonth data);
 

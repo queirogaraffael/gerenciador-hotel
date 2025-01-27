@@ -14,7 +14,6 @@ public class ExtratoFuncionarioDTO {
     private Long id;
     private YearMonth mesReferente;
 
-
     @Override
     public String toString() {
         return mesReferente.toString();

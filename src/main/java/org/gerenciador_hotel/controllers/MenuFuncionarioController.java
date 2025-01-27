@@ -150,8 +150,7 @@ public class MenuFuncionarioController {
     private void buscaFuncionarioPorNome() {
         String nome = LeDadosBasicosFuncionarioViews.leNomeFuncionario();
 
-        List<FuncionarioDTO> funcionarioDTOList = funcionarioService.getFuncionariosDTOByNome(nome);
-
+        List<FuncionarioDTO> funcionarioDTOList = funcionarioService.getFuncionariosByNome(nome);
 
         if (funcionarioDTOList.isEmpty()) {
             AlertasFuncionarioViews.exibirAlertaSemFuncionariosCorrespondentes();
@@ -211,7 +210,6 @@ public class MenuFuncionarioController {
 
     }
 
-
     public void exibiOpcoesDeModificacaoDoFuncionarioEModifica(Funcionario funcionario) {
         int opcao;
 
@@ -239,6 +237,7 @@ public class MenuFuncionarioController {
                 case (ConstantesMenuModificacaoDadosFuncionario.MODIFICA_ENDERECO):
                     Endereco endereco = new Endereco();
                     adicionarEndereco(endereco);
+                    endereco.setPessoa(funcionario);
                     funcionario.setEndereco(endereco);
                     break;
 
@@ -247,7 +246,7 @@ public class MenuFuncionarioController {
             }
 
             if (opcao != ConstantesMenuModificacaoDadosFuncionario.VOLTAR) {
-                funcionarioService.atualizaFuncionario(funcionario);
+                funcionarioService.atualizaFuncionario(funcionario.getId(), funcionario);
                 AlertasFuncionarioViews.exibirAlertaDadosFuncionarioModificadoComSucesso();
             }
 
@@ -287,7 +286,7 @@ public class MenuFuncionarioController {
 
     private void visualizaExtrato(String cpf) {
 
-        List<ExtratoFuncionarioDTO> extratoFuncionarioDTOS = funcionarioService.getExtratosFuncionarioDTOByCPF(cpf);
+        List<ExtratoFuncionarioDTO> extratoFuncionarioDTOS = funcionarioService.getExtratosFuncionarioByCPF(cpf);
 
 
         if (extratoFuncionarioDTOS == null || extratoFuncionarioDTOS.isEmpty()) {
