@@ -103,7 +103,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.FuncionarioDTO(f.id, f.cpf, f.nome) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.FuncionarioDTO(f.id, f.cpf, f.nome) " +
                     "FROM Funcionario f " +
                     "WHERE LOWER(f.nome) LIKE LOWER(CONCAT('%', :nome, '%'))";
 
@@ -149,7 +149,7 @@ public class FuncionarioDaoHibernate implements FuncionarioDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.ExtratoFuncionarioDTO(e.id, e.mesReferente) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.ExtratoFuncionarioDTO(e.id, e.mesReferente) " +
                     "FROM ExtratoFuncionario e " +
                     "JOIN e.funcionario f " +
                     "WHERE f.cpf = :cpf " +

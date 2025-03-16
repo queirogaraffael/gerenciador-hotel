@@ -81,7 +81,7 @@ public class ReservaDaoHibernate implements ReservaDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.ReservaDTO(r.id, r.dataEntrada, r.dataSaida, r.quarto.tipoQuarto) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.ReservaDTO(r.id, r.dataEntrada, r.dataSaida, r.quarto.tipoQuarto) " +
                     "FROM Reserva r " +
                     "JOIN r.hospede h " +
                     "WHERE h.cpf = :cpf AND r.statusReserva = :statusReserva";

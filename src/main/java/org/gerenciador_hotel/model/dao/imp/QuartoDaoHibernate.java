@@ -76,7 +76,7 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.QuartoDTO(q.numeroQuarto) " +
                     "FROM Quarto q " +
                     "WHERE q.tipoQuarto = :tipoQuarto ";
 
@@ -97,7 +97,7 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.QuartoReservaDTO(r.id, r.quarto.numeroQuarto) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.QuartoReservaDTO(r.id, r.quarto.numeroQuarto) " +
                     "FROM Reserva r " +
                     "WHERE r.statusReserva = :statusReserva";
 
@@ -122,7 +122,7 @@ public class QuartoDaoHibernate implements QuartoDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.QuartoDTO(q.numeroQuarto) " +
                     "FROM Quarto q " +
                     "WHERE q.statusQuarto = :statusQuarto ";
 
@@ -148,7 +148,7 @@ public class QuartoDaoHibernate implements QuartoDao {
             StatusReserva statusEmUso = StatusReserva.EM_USO;
             StatusReserva statusManutencao = StatusReserva.MANUTENCAO;
 
-            String jpql = "SELECT new org.unifacisa.dtos.QuartoDTO(q.numeroQuarto) " +
+            String jpql = "SELECT new org.gerenciador_hotel.dtos.QuartoDTO(q.numeroQuarto) " +
                     "FROM Reserva r JOIN r.quarto q " +
                     "WHERE q.tipoQuarto = :tipoQuarto " +
                     "AND r.dataEntrada <= :dataFinal " +
