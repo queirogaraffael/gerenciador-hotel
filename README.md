@@ -81,6 +81,16 @@ O sistema oferece as seguintes funcionalidades:
 4. Gerenciamento de Funcionários: Cadastro, edição e busca.
 5. Check-in/Check-out: Processos de check-in e check-out.
 
+## Estrutura do Projeto
+
+O projeto segue a arquitetura **MVC (Model-View-Controller)** para garantir organização e separação de responsabilidades:
+
+- **Model:** Representado pelas classes **Quarto, Hóspede, Reserva e Funcionário**, que definem a estrutura dos dados e implementam as regras de negócio associadas.
+- **View:** Composta pelas telas e menus de interação com o usuário, permitindo a navegação entre os módulos do sistema.
+- **Controller:** Inclui classes como **MenuPrincipalController, QuartosController, HospedesController, ReservasController e FuncionariosController**, responsáveis por gerenciar as interações entre a View e o Model, além de executar as operações necessárias.
+
+Além disso, o projeto faz uso do **padrão de projeto Factory** para a criação de instâncias dos controllers e serviços, garantindo a centralização da lógica de instância e promovendo a reutilização de objetos.
+
 ## Como Executar
 
 Para executar o sistema, siga os passos abaixo:
@@ -97,15 +107,26 @@ Para executar o sistema, siga os passos abaixo:
 
 ## Dependências
 
-O sistema requer as seguintes dependências para execução:
+O sistema requer as seguintes dependências para sua execução:
 
-- **Java 17**.
-- **Maven** para gerenciamento de dependências.
-- **PostgreSQL** como banco de dados relacional.
-- **Hibernate Core**.
-- **Hibernate EntityManager**.
-- **Lombok**.
+- **Java 17**: Versão da linguagem utilizada no desenvolvimento.
+- **Maven**: Gerenciador de dependências para facilitar a configuração do projeto.
+- **PostgreSQL**: Banco de dados relacional utilizado para persistência dos dados.
+- **Hibernate Core**: Framework ORM usado para o mapeamento objeto-relacional.
+- **Hibernate EntityManager**: Implementação da JPA (Java Persistence API) para gerenciar a persistência de dados.
+- **Swing**: Biblioteca gráfica empregada na criação da interface do usuário.
+- **Lombok**: Biblioteca para redução de código boilerplate, fornecendo anotações como `@Getter`, `@Setter` e `@AllArgsConstructor`.
 
+## Pré-Requisitos
+* Java Development Kit (JDK) instalado na máquina.
+* Banco de dados PostgreSQL configurado e acessível.
+* IDE compatível com projetos Java para compilação e execução do código.
+
+## Como Executar
+* Clone o repositório para sua máquina local.
+* Abra o projeto em sua IDE Java.
+* Certifique-se de ter configurado corretamente o banco de dados PostgreSQL e as credenciais de acesso no arquivo persistence.xml.
+* Compile e execute o projeto a partir da classe Main.
 
 ## Contribuições
 
