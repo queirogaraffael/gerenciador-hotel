@@ -1,4 +1,3 @@
-
 # Gerenciador de Hotel
 
 Este é um sistema simples para gerenciamento de um hotel, permitindo a administração de **quartos**, **hóspedes**, **reservas**, **funcionários**, além de controlar o **check-in** e **check-out**.
@@ -16,7 +15,7 @@ Este é um sistema simples para gerenciamento de um hotel, permitindo a administ
 O sistema é dividido em diferentes módulos para facilitar o gerenciamento. A seguir estão as telas principais do sistema:
 
 ### Menu Principal
-![Menu Principal](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/menuPrincipal.png)
+![Menu Principal](imagens/menuPrincipal.png)
 
 No menu principal, você pode escolher entre gerenciar:
 - **Quartos**
@@ -27,7 +26,7 @@ No menu principal, você pode escolher entre gerenciar:
 - Além de poder encerrar o programa.
 
 ### Gerenciador de Quartos
-![Gerenciador de Quartos](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/gerenciadorQuartos.png)
+![Gerenciador de Quartos](imagens/gerenciadorQuartos.png)
 
 Este módulo permite:
 - **Cadastrar** um novo quarto.
@@ -38,7 +37,7 @@ Este módulo permite:
 - Voltar ao menu principal.
 
 ### Gerenciador de Hóspedes
-![Gerenciador de Hóspedes](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/gerenciadorHospedes.png)
+![Gerenciador de Hóspedes](imagens/gerenciadorHospedes.png)
 
 Este módulo oferece opções para:
 - **Cadastrar** um novo hóspede.
@@ -48,7 +47,7 @@ Este módulo oferece opções para:
 - **Atualizar** os dados do hóspede.
 
 ### Gerenciador de Reservas
-![Gerenciador de Reservas](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/gerenciadorReservas.png)
+![Gerenciador de Reservas](imagens/gerenciadorReservas.png)
 
 Aqui você pode:
 - **Criar uma nova reserva**.
@@ -56,7 +55,7 @@ Aqui você pode:
 - Voltar ao menu principal.
 
 ### Gerenciador de Funcionários
-![Gerenciador de Funcionários](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/gerenciadorFuncionarios.png)
+![Gerenciador de Funcionários](imagens/gerenciadorFuncionarios.png)
 
 Permite gerenciar os funcionários com as opções:
 - **Cadastrar** um novo funcionário.
@@ -65,7 +64,7 @@ Permite gerenciar os funcionários com as opções:
 - Ver **Extratos** de um funcionário.
 
 ### Check-in/Check-out
-![Check-in/Check-out](https://raw.githubusercontent.com/queirogaraffael/gerenciador-hotel/main/imagens/gerenciadorCheckInOut.png)
+![Check-in/Check-out](imagens/gerenciadorCheckInOut.png)
 
 Este módulo permite realizar o:
 - **Check-in** de hóspedes.
